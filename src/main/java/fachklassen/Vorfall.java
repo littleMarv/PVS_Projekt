@@ -8,5 +8,5 @@ public class Vorfall {
     private Mitarbeiter zeuge2;
     private int vorfall_id;
     private String grund;
-    private Date date
+    private Timestamp zeitpunkt;
 }
