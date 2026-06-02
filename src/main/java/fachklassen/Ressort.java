@@ -1,11 +1,11 @@
 package fachklassen;
 
 public class Ressort {
-    private int Id;
+    private int ressortId;
     private String bezeichnung;
 
-    public Ressort(int Id, String bezeichnung) {
-        this.Id = Id;
+    public Ressort(int ressortId, String bezeichnung) {
+        this.ressortId = ressortId;
         this.bezeichnung = bezeichnung;
     }
 
@@ -13,12 +13,12 @@ public class Ressort {
         this.bezeichnung = bezeichnung;
     }
 
-    public int getId() {
-        return Id;
+    public int getRessortId() {
+        return ressortId;
     }
 
-    public void setId(int resortId) {
-        this.Id = resortId;
+    public void setRessortId(int resortId) {
+        this.ressortId = resortId;
     }
 
     public String getBezeichnung() {

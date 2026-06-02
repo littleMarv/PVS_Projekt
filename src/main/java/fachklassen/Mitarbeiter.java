@@ -3,7 +3,7 @@ package fachklassen;
 import java.sql.Date;
 
 public class Mitarbeiter {
-    private int id;
+    private int mitarbeiterId;
     private String persNr;
     private String vorname;
     private String nachname;
@@ -13,8 +13,8 @@ public class Mitarbeiter {
     private Ressort ressort;
     private Date gebDatum;
 
-    public Mitarbeiter(int id, String persNr, String vorname, String nachname, String strasse, String hausNr, Ort ort, Ressort ressort, Date gebDatum) {
-        this.id = id;
+    public Mitarbeiter(int mitarbeiterId, String persNr, String vorname, String nachname, String strasse, String hausNr, Ort ort, Ressort ressort, Date gebDatum) {
+        this.mitarbeiterId = mitarbeiterId;
         this.persNr = persNr;
         this.vorname = vorname;
         this.nachname = nachname;
@@ -36,8 +36,8 @@ public class Mitarbeiter {
         this.gebDatum = gebDatum;
     }
 
-    public int getId() {
-        return id;
+    public int getMitarbeiterId() {
+        return mitarbeiterId;
     }
 
     public String getPersNr() {

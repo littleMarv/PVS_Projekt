@@ -2,10 +2,10 @@ package fachklassen;
 
 import java.sql.Timestamp;
 
-public class Vorfall {
+public class Ticket {
     private Mitarbeiter betroffen;
-    private Mitarbeiter[] zeugen;
-    private int vorfall_id;
-    private String grund;
+    private Mitarbeiter[] austeller;
+    private int ticketId;
+    private String vorfall;
     private Timestamp zeitpunkt;
 }
