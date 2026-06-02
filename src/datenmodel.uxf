@@ -111,8 +111,7 @@ bis_datum : date
 PK id : int
 --
 FK verursacher_id : int
-FK aussteller1_id : int
-FK aussteller2_id : int
+
 --
 datum : date
 uhrzeit : time
@@ -313,5 +312,49 @@ m2=1</panel_attributes>
 m1=n
 m2=1</panel_attributes>
     <additional_attributes>180.0;10.0;10.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>60</x>
+      <y>138</y>
+      <w>126</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>TICKETS_AUSTELLER
+--
+
+--
+PK, FK ticket_id : int
+PK, FK aussteller_id : int
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>180</x>
+      <y>222</y>
+      <w>246</w>
+      <h>78</h>
+    </coordinates>
+    <panel_attributes>
+m1=n
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;390.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>180</x>
+      <y>156</y>
+      <w>78</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>
+m1=n
+m2=1</panel_attributes>
+    <additional_attributes>10.0;30.0;110.0;10.0</additional_attributes>
   </element>
 </diagram>
