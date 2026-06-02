@@ -1,12 +1,12 @@
 package fachklassen;
 
 public class Ort {
-    private int Id;
+    private int ortId;
     private String ortsname;
     private String plz;
 
     public Ort(int ortId, String ortsname, String plz) {
-        this.Id = ortId;
+        this.ortId = ortId;
         this.ortsname = ortsname;
         this.plz = plz;
     }
@@ -16,12 +16,12 @@ public class Ort {
         this.plz = plz;
     }
 
-    public int getId() {
-        return Id;
+    public int getOrtId() {
+        return ortId;
     }
 
-    public void setId(int id) {
-        Id = id;
+    public void setOrtId(int ortId) {
+        this.ortId = ortId;
     }
 
     public String getOrtsname() {

@@ -11,118 +11,138 @@ import java.util.Map;
 
 public class MitarbeiterDao {
 
-    public static Mitarbeiter[] readAll(){
-        String sql = "SELECT m.*, o.plz, o.name AS ortsname, r.name AS ressortname " +
+    public Mitarbeiter[] readAll() {
+        String sql = "SELECT m.*, o.plz, o.ortsname, r.bezeichnung " +
                 "FROM mitarbeiter m " +
                 "LEFT JOIN ort o ON m.ort_id = o.id " +
                 "LEFT JOIN ressort r ON m.ressort_id = r.id;";
+
         List<Map<String, Object>> daten = SqlMacher.such(sql);
         List<Mitarbeiter> rueckgabe = new ArrayList<>();
-        for (Map<String, Object> zeile : daten) {
-            Ort ort = new Ort((Integer)zeile.get("ort_id"),(String)zeile.get("ortsname"),(String)zeile.get("plz"));
-            Ressort ressort = new Ressort((Integer)zeile.get("ressort_id"),(String)zeile.get("bezeichnung"));
-            Mitarbeiter m = new Mitarbeiter((Integer)zeile.get("id"),
-                    (String)zeile.get("personalnummer"),(String)zeile.get("vorname"),
-                    (String) zeile.get("nachname"), (String) zeile.get("strasse"),
-                    (String) zeile.get("hausnummer"), ort, ressort,
-                    (Date) zeile.get("geburtsdatum"));
-            rueckgabe.add(m);
 
-            }
+        for (Map<String, Object> zeile : daten) {
+            rueckgabe.add(mapToMitarbeiter(zeile));
+        }
         return rueckgabe.toArray(new Mitarbeiter[0]);
     }
 
-    public static Mitarbeiter readOne(String persnr){
-        String sql = "SELECT m.*, o.plz, o.name AS ortsname, r.name AS ressortname " +
+    public Mitarbeiter readOne(String persnr) {
+        String sql = "SELECT m.*, o.plz, o.ortsname, r.bezeichnung " +
                 "FROM mitarbeiter m " +
                 "LEFT JOIN ort o ON m.ort_id = o.id " +
-                "LEFT JOIN ressort r ON m.ressort_id = r.id where personalnummer = ?;";
-        List<Map<String, Object>> daten = SqlMacher.such(sql,persnr);
-        Mitarbeiter rueckgabe = null;
-        for (Map<String, Object> zeile : daten) {
-            Ort ort = new Ort((Integer)zeile.get("ort_id"),(String)zeile.get("ortsname"),(String)zeile.get("plz"));
-            Ressort ressort = new Ressort((Integer)zeile.get("ressort_id"),(String)zeile.get("bezeichnung"));
-            rueckgabe = new Mitarbeiter((Integer)zeile.get("id"),
-                    (String)zeile.get("personalnummer"),(String)zeile.get("vorname"),
-                    (String) zeile.get("nachname"), (String) zeile.get("strasse"),
-                    (String) zeile.get("hausnummer"), ort, ressort,
-                    (Date) zeile.get("geburtsdatum"));
+                "LEFT JOIN ressort r ON m.ressort_id = r.id WHERE m.personalnummer = ?;";
 
+        List<Map<String, Object>> daten = SqlMacher.such(sql, persnr);
+        if (daten.isEmpty()) {
+            return null;
         }
-        return rueckgabe;
-
+        return mapToMitarbeiter(daten.get(0));
     }
 
-    public static Mitarbeiter[] fuzzyRead(String fuzz){
+    public Mitarbeiter readOneById(int id) {
+        String sql = "SELECT m.*, o.plz, o.ortsname, r.bezeichnung" +
+                "FROM mitarbeiter m " +
+                "LEFT JOIN ort o ON m.ort_id = o.id " +
+                "LEFT JOIN ressort r ON m.ressort_id = r.id WHERE m.id = ?;";
+
+        List<Map<String, Object>> daten = SqlMacher.such(sql, id);
+        if (daten.isEmpty()) {
+            return null;
+        }
+        return mapToMitarbeiter(daten.get(0));
+    }
+
+    public Mitarbeiter[] fuzzyRead(String fuzz) {
         String f = "%" + fuzz + "%";
-        String sql = "SELECT m.*, o.plz, o.name AS ortsname, r.name AS ressortname " +
+        String sql = "SELECT m.*, o.plz, o.ortsname, r.bezeichnung" +
                 "FROM mitarbeiter m " +
                 "LEFT JOIN ort o ON m.ort_id = o.id " +
-                "LEFT JOIN ressort r ON m.ressort_id = r.id WHERE personalnummer = ? OR" +
-                "vorname LIKE ? OR " +
-                "nachname LIKE ? OR " +
-                "strasse LIKE ? OR " +
-                "hausnummer LIKE ? OR" +
-                "ortsname LIKE ? OR" +
-                "plz LIKE ? OR" +
-                "bezeichnung LIKE ?;";
+                "LEFT JOIN ressort r ON m.ressort_id = r.id " +
+                "WHERE m.personalnummer LIKE ? OR " +
+                "m.vorname LIKE ? OR " +
+                "m.nachname LIKE ? OR " +
+                "m.strasse LIKE ? OR " +
+                "m.hausnummer LIKE ? OR " +
+                "o.name LIKE ? OR " +
+                "o.plz LIKE ? OR " +
+                "r.bezeichnung LIKE ?;";
 
-        List<Map<String, Object>> daten = SqlMacher.such(sql,f,f,f,f,f,f,f,f);
+        List<Map<String, Object>> daten = SqlMacher.such(sql, f, f, f, f, f, f, f, f);
         List<Mitarbeiter> rueckgabe = new ArrayList<>();
-        for (Map<String, Object> zeile : daten) {
-            Ort ort = new Ort((Integer)zeile.get("ort_id"),(String)zeile.get("ortsname"),(String)zeile.get("plz"));
-            Ressort ressort = new Ressort((Integer)zeile.get("ressort_id"),(String)zeile.get("bezeichnung"));
-            Mitarbeiter m = new Mitarbeiter((Integer)zeile.get("id"),
-                    (String)zeile.get("personalnummer"),(String)zeile.get("vorname"),
-                    (String) zeile.get("nachname"), (String) zeile.get("strasse"),
-                    (String) zeile.get("hausnummer"), ort, ressort,
-                    (Date) zeile.get("geburtsdatum"));
-            rueckgabe.add(m);
 
+        for (Map<String, Object> zeile : daten) {
+            rueckgabe.add(mapToMitarbeiter(zeile));
         }
         return rueckgabe.toArray(new Mitarbeiter[0]);
     }
 
-    public static void deleteOne(String persnr){
-        String sql = "DELETE * FROM mitarbeit where Pers_nr = ?";
-        SqlMacher.mach(sql,persnr);
+    public boolean deleteOne(String persnr) {
+        String sql = "DELETE FROM mitarbeiter WHERE personalnummer = ?";
+        int zeilen = SqlMacher.mach(sql, persnr);
+        return zeilen > 0;
     }
 
-    public static void updateOne(Mitarbeiter mitarbeiter){
+    public boolean updateOne(Mitarbeiter mitarbeiter) {
         String sql = "UPDATE mitarbeiter SET vorname = ?, nachname = ?, strasse = ?, hausnummer = ?, ort_id = ?, ressort_id = ?, geburtsdatum = ? WHERE personalnummer = ?";
-        SqlMacher.mach(sql,
+        int zeilen = SqlMacher.mach(sql,
                 mitarbeiter.getVorname(),
                 mitarbeiter.getNachname(),
                 mitarbeiter.getStrasse(),
                 mitarbeiter.getHausNr(),
-                mitarbeiter.getOrt().getId(), // Falls Ort ein ID-Getter hat
-                mitarbeiter.getRessort().getId(), // Falls Ressort ein ID-Getter hat
+                mitarbeiter.getOrt().getOrtId(),
+                mitarbeiter.getRessort().getRessortId(),
                 mitarbeiter.getGebDatum(),
                 mitarbeiter.getPersNr());
+        return zeilen > 0;
     }
 
-    public static void create(Mitarbeiter mitarbeiter){
+    public boolean create(Mitarbeiter mitarbeiter) {
         String sql = "INSERT INTO mitarbeiter (personalnummer, vorname, nachname, strasse, hausnummer, ort_id, ressort_id, geburtsdatum) VALUES (?,?,?,?,?,?,?,?)";
-        SqlMacher.mach(sql,
+        int zeilen = SqlMacher.mach(sql,
                 mitarbeiter.getPersNr(),
                 mitarbeiter.getVorname(),
                 mitarbeiter.getNachname(),
                 mitarbeiter.getStrasse(),
                 mitarbeiter.getHausNr(),
-                mitarbeiter.getOrt().getId(),
-                mitarbeiter.getRessort().getId(),
+                mitarbeiter.getOrt().getOrtId(),
+                mitarbeiter.getRessort().getRessortId(),
                 mitarbeiter.getGebDatum());
+        return zeilen > 0;
     }
 
-    public static void saveOne(Mitarbeiter m) {
-        // 1. Prüfen, ob die Personalnummer schon in der DB existiert
+    public boolean saveOne(Mitarbeiter m) {
         Mitarbeiter existiertBereits = readOne(m.getPersNr());
-
         if (existiertBereits == null) {
-            // Nix gefunden -> Neuer Mitarbeiter!
-            create(m);
+            return create(m);
         } else {
-            updateOne(m);
+            return updateOne(m);
         }
     }
+
+    private Mitarbeiter mapToMitarbeiter(Map<String, Object> zeile) {
+        Ort ort = new Ort(
+                (Integer) zeile.get("ort_id"),
+                (String) zeile.get("ortsname"),
+                (String) zeile.get("plz")
+        );
+
+        // Greift nun korrekt auf "ressortbezeichnung" aus dem SQL-Alias zu
+        Ressort ressort = new Ressort(
+                (Integer) zeile.get("ressort_id"),
+                (String) zeile.get("ressortbezeichnung")
+        );
+
+        return new Mitarbeiter(
+                (Integer) zeile.get("id"),
+                (String) zeile.get("personalnummer"),
+                (String) zeile.get("vorname"),
+                (String) zeile.get("nachname"),
+                (String) zeile.get("strasse"),
+                (String) zeile.get("hausnummer"),
+                ort,
+                ressort,
+                (Date) zeile.get("geburtsdatum")
+        );
+    }
 }
+
