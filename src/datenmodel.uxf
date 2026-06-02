@@ -1,4 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="15.1">
-    <zoom_level>10</zoom_level>
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>30</x>
+      <y>20</y>
+      <w>210</w>
+      <h>210</h>
+    </coordinates>
+    <panel_attributes>MITARBEITER
+--
+PK id : int
+--
+FK ort_id : int
+FK ressort_id : int
+FK vertragstyp_id : int
+--
+personalnummer : varchar(10)
+nachname : varchar(100)
+vorname : varchar(100)
+strasse : varchar(100)
+hausnummer : varchar(10)
+geburtsdatum : date
+</panel_attributes>
+    <additional_attributes/>
+  </element>
 </diagram>
