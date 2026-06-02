@@ -58,8 +58,13 @@ public class User {
         this.mitarbeiter = mitarbeiter;
     }
 
-    public static User login(){
-        return user;
-    }
+    // Vorübergehend auskommentiert:
+// Die Methode verursacht einen Compilerfehler, da die Variable "user"
+// nicht existiert. Die eigentliche Login-Logik ist noch nicht implementiert.
+
+// public static User login() {
+//     return user;
+// }
+
 }
 

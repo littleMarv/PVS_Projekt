@@ -8,12 +8,29 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class HelloApplication extends Application {
+
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/pvs_projekt/main_view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
+
+        // Lädt die FXML-Datei der Benutzeroberfläche
+        FXMLLoader fxmlLoader = new FXMLLoader(
+                HelloApplication.class.getResource("/pvs_projekt/main_view.fxml")
+        );
+
+        // Erstellt die Szene mit Breite und Höhe
+        Scene scene = new Scene(fxmlLoader.load(), 1000, 600);
+
+        // Fenstertitel setzen
+        stage.setTitle("PVS Projektverwaltung");
+
+        // Szene dem Fenster zuweisen
         stage.setScene(scene);
+
+        // Fenster anzeigen
         stage.show();
+    }
+
+    public static void main(String[] args) {
+        launch();
     }
 }
