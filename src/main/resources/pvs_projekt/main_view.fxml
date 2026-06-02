@@ -25,7 +25,8 @@
 
     <!-- Navigationsbuttons -->
     <Button text="Mitarbeiter"
-            prefWidth="200"/>
+            prefWidth="200"
+            onAction="#mitarbeiterAnzeigen"/>
 
     <Button text="Projekte"
             prefWidth="200"/>

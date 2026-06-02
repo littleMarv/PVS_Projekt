@@ -8,4 +8,7 @@ module org.example.pvs_projekt {
     opens controller to javafx.fxml;
     exports launcher;
     opens launcher to javafx.fxml;
+    exports fachklassen;
+    opens fachklassen to javafx.base;
+    exports db_zeug;
 }
