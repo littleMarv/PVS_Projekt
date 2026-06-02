@@ -1,13 +1,49 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="15.1">
-  <zoom_level>10</zoom_level>
+  <zoom_level>5</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>30</x>
-      <y>20</y>
-      <w>210</w>
-      <h>210</h>
+      <x>195</x>
+      <y>410</y>
+      <w>105</w>
+      <h>65</h>
+    </coordinates>
+    <panel_attributes>BENUTZER
+--
+PK user_id : int
+--
+FK rollen_id : int
+FK mitarbeiter id : int
+--
+passwort : varchar(255)
+email_adresse : varchar(100)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>155</x>
+      <y>285</y>
+      <w>105</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>RESSORTS
+--
+PK id : int
+--
+bezeichnung : varchat(50)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>385</x>
+      <y>260</y>
+      <w>105</w>
+      <h>105</h>
     </coordinates>
     <panel_attributes>MITARBEITER
 --
@@ -25,5 +61,257 @@ hausnummer : varchar(10)
 geburtsdatum : date
 </panel_attributes>
     <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>385</x>
+      <y>460</y>
+      <w>105</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>ORTE
+--
+PK id : int
+--
+plz : varchar(15)
+ortsname : varchar(50)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>650</x>
+      <y>400</y>
+      <w>105</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>PROJEKTLEITUNG_HISTORIE
+--
+PK id : int
+--
+FK projekt_id : int
+FK mitarbeiter_id : int
+--
+von_datum : date
+bis_datum : date
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>245</x>
+      <y>130</y>
+      <w>105</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>TICKETS
+--
+PK id : int
+--
+FK verursacher_id : int
+FK aussteller1_id : int
+FK aussteller2_id : int
+--
+datum : date
+uhrzeit : time
+grund : varchar(255)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>650</x>
+      <y>280</y>
+      <w>105</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>PROJEKTE
+--
+PK id : int
+--
+bezeichnung : varchar(50)
+beginn : date
+abschluss : date
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>390</x>
+      <y>110</y>
+      <w>105</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>VERTRAGSTYPEN
+--
+PK id : int
+--
+bezeichnung : varchar(50)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>195</x>
+      <y>515</y>
+      <w>105</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>ROLLEN
+--
+PK id : int
+--
+bezeichnung : varchar(50)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>555</x>
+      <y>140</y>
+      <w>105</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>MITARBEITER_PROJEKTE
+--
+PK FK id_mitarbeiter : int
+PK FK id_projekt : int</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>430</x>
+      <y>360</y>
+      <w>20</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>
+m1=1
+m2=n</panel_attributes>
+    <additional_attributes>10.0;200.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>255</x>
+      <y>300</y>
+      <w>135</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>
+m1=1
+m2=n</panel_attributes>
+    <additional_attributes>10.0;20.0;250.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>435</x>
+      <y>150</y>
+      <w>20</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>
+m1=1
+m2=n</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;220.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>485</x>
+      <y>180</y>
+      <w>80</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>
+m1=n
+m2=1</panel_attributes>
+    <additional_attributes>140.0;10.0;10.0;160.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>240</x>
+      <y>470</y>
+      <w>20</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>
+m1=1
+m2=n</panel_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>695</x>
+      <y>335</y>
+      <w>20</w>
+      <h>75</h>
+    </coordinates>
+    <panel_attributes>
+m1=n
+m2=1</panel_attributes>
+    <additional_attributes>10.0;130.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>485</x>
+      <y>360</y>
+      <w>175</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>
+m1=n
+m2=1</panel_attributes>
+    <additional_attributes>330.0;220.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>485</x>
+      <y>300</y>
+      <w>175</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>
+m1=m
+m2=n</panel_attributes>
+    <additional_attributes>330.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>295</x>
+      <y>360</y>
+      <w>100</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;100.0;180.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>345</x>
+      <y>205</y>
+      <w>50</w>
+      <h>65</h>
+    </coordinates>
+    <panel_attributes>
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;80.0;110.0</additional_attributes>
   </element>
 </diagram>
