@@ -103,6 +103,10 @@ public class Mitarbeiter {
     public void setGebDatum(Date gebDatum) {
         this.gebDatum = gebDatum;
     }
+
+    public String getAuswahlString(){
+        return this.persNr +"-"+ this.nachname +"-"+ this.vorname;
+    }
 }
 
 

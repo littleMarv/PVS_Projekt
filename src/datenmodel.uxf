@@ -174,7 +174,7 @@ bezeichnung : varchar(50)
       <x>966</x>
       <y>96</y>
       <w>126</w>
-      <h>54</h>
+      <h>108</h>
     </coordinates>
     <panel_attributes>MITARBEITER_PROJEKTE
 --
@@ -231,14 +231,14 @@ m2=n</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1020</x>
-      <y>144</y>
+      <y>198</y>
       <w>24</w>
-      <h>108</h>
+      <h>54</h>
     </coordinates>
     <panel_attributes>
 m1=n
 m2=1</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;160.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -309,14 +309,14 @@ m2=1</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>858</x>
-      <y>144</y>
+      <y>198</y>
       <w>120</w>
-      <h>90</h>
+      <h>42</h>
     </coordinates>
     <panel_attributes>
 m1=n
 m2=1</panel_attributes>
-    <additional_attributes>180.0;10.0;10.0;130.0</additional_attributes>
+    <additional_attributes>180.0;10.0;10.0;40.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
