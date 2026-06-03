@@ -178,8 +178,14 @@ bezeichnung : varchar(50)
     </coordinates>
     <panel_attributes>MITARBEITER_PROJEKTE
 --
-PK FK id_mitarbeiter : int
-PK FK id_projekt : int</panel_attributes>
+PK id : int
+--
+FK projekt_id : int
+FK mitarbeiter_id : int
+--
+rolle_im_projekt: varchar(50)
+von_datum : date
+bis_datum : date</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
