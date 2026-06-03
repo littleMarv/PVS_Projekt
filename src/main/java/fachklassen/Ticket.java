@@ -2,6 +2,8 @@ package fachklassen;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.Objects;
 
 public class Ticket {
     private int ticketId;
@@ -71,5 +73,17 @@ public class Ticket {
 
     public String getTime(){
         return zeitpunkt.toLocalDateTime().getHour()+":"+zeitpunkt.toLocalDateTime().getMinute();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Ticket ticket = (Ticket) o;
+        return ticketId == ticket.ticketId && Objects.equals(betroffen, ticket.betroffen) && Objects.deepEquals(austeller, ticket.austeller) && Objects.equals(vorfall, ticket.vorfall) && Objects.equals(zeitpunkt, ticket.zeitpunkt);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ticketId, betroffen, Arrays.hashCode(austeller), vorfall, zeitpunkt);
     }
 }

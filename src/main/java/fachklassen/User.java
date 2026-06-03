@@ -1,5 +1,7 @@
 package fachklassen;
 
+import java.util.Objects;
+
 public class User {
     private int userId;
     private String eMail;
@@ -47,5 +49,16 @@ public class User {
         this.mitarbeiter = mitarbeiter;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return userId == user.userId && Objects.equals(eMail, user.eMail) && Objects.equals(userName, user.userName) && Objects.equals(mitarbeiter, user.mitarbeiter);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userId, eMail, userName, mitarbeiter);
+    }
 }
 

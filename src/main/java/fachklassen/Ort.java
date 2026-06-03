@@ -1,5 +1,7 @@
 package fachklassen;
 
+import java.util.Objects;
+
 public class Ort {
     private int ortId;
     private String ortsname;
@@ -38,5 +40,17 @@ public class Ort {
 
     public void setPlz(String plz) {
         this.plz = plz;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Ort ort = (Ort) o;
+        return ortId == ort.ortId && Objects.equals(ortsname, ort.ortsname) && Objects.equals(plz, ort.plz);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ortId, ortsname, plz);
     }
 }

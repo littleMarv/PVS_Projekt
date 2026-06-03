@@ -1,5 +1,7 @@
 package fachklassen;
 
+import java.util.Objects;
+
 public class Vertrag {
     private int vertragId;
     private String bezeichnung;
@@ -23,5 +25,17 @@ public class Vertrag {
 
     public void setBezeichnung(String bezeichnung) {
         this.bezeichnung = bezeichnung;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Vertrag vertrag = (Vertrag) o;
+        return vertragId == vertrag.vertragId && Objects.equals(bezeichnung, vertrag.bezeichnung);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(vertragId, bezeichnung);
     }
 }

@@ -1,6 +1,7 @@
 package fachklassen;
 
 import java.sql.Date;
+import java.util.Objects;
 
 public class Mitarbeiter {
     private int mitarbeiterId;
@@ -106,6 +107,18 @@ public class Mitarbeiter {
 
     public String getAuswahlString(){
         return this.persNr +"-"+ this.nachname +"-"+ this.vorname;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Mitarbeiter that = (Mitarbeiter) o;
+        return mitarbeiterId == that.mitarbeiterId && Objects.equals(persNr, that.persNr) && Objects.equals(vorname, that.vorname) && Objects.equals(nachname, that.nachname) && Objects.equals(strasse, that.strasse) && Objects.equals(hausNr, that.hausNr) && Objects.equals(ort, that.ort) && Objects.equals(ressort, that.ressort) && Objects.equals(gebDatum, that.gebDatum);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mitarbeiterId, persNr, vorname, nachname, strasse, hausNr, ort, ressort, gebDatum);
     }
 }
 

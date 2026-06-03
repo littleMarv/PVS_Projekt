@@ -63,27 +63,16 @@ public class TicketDao {
             return ticket;
         }
 
-        // Aktualisiert einen bestehenden Ort
+        // Aktualisiert ein Ticket und  löscht/erstellt entsprechende datensätze in ticket_aussteller (hoffentlich...)
         public boolean update(Ticket ticket) {
+            int ticketId = ticket.getTicketId();
             String sql = "UPDATE ticket SET verursacher_id = ?, grund = ?, zeitpunkt = ? WHERE id = ?";
             int ergebnis = SqlMacher.mach(sql, ticket.getBetroffen().getMitarbeiterId(), ticket.getVorfall(), ticket.getZeitpunkt(),ticket.getTicketId());
-            sql = "Select aussteller_id FROM ticket_aussteller WHERE ticket_id = ?";
-            List<Map<String, Object>> tmp = SqlMacher.such(sql,ticket.getTicketId());
-            List<Integer> indb = new ArrayList<>();
-            for (Map<String, Object> stringObjectMap : tmp) {
-                indb.add((int) stringObjectMap.get("aussteller_id"));
-            }
-            List<Integer> toIn = new ArrayList<>();
-            for (Mitarbeiter neu : ticket.getAusteller()){
-                if (indb.contains(neu.getMitarbeiterId())){
-                    indb.remove(neu.getMitarbeiterId());
-                }
-                else{
-                    toIn.add(ticket.getTicketId());
-                }
-            }
-            for (int a : toIn){
-
+            String sqlDeleteAll = "DELETE FROM ticket_aussteller WHERE ticket_id = ?";
+            SqlMacher.mach(sqlDeleteAll, ticketId);
+            String sqlInsert = "INSERT INTO ticket_aussteller (aussteller_id, ticket_id) VALUES (?, ?)";
+            for (Mitarbeiter neu : ticket.getAusteller()) {
+                SqlMacher.mach(sqlInsert, neu.getMitarbeiterId(), ticketId);
             }
 
             return ergebnis > 0;
@@ -97,11 +86,12 @@ public class TicketDao {
         }
 
         // Entscheidet anhand der Existenz in der DB, ob create oder update gerufen wird
-        public boolean save(Ticket ort) {
-            if (readOne(ort.getTicketId()) != null) {
-                return update(ort);
+        public boolean save(Ticket ticket) {
+            Ticket tucket = readOne(ticket.getTicketId());
+            if (ticket.equals(tucket)) {
+                return update(ticket);
             } else {
-                return create(ort);
+                return create(ticket);
             }
         }
 
