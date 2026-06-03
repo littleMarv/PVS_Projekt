@@ -10,7 +10,7 @@ public class OrtDao {
 
     // Erstellt einen neuen Ort in der Datenbank
     public boolean create(Ort ort) {
-        String sql = "INSERT INTO ort (ortName, plz) VALUES (?, ?)";
+        String sql = "INSERT INTO orte (ortName, plz) VALUES (?, ?)";
         // mach() liefert die Anzahl geänderter Zeilen oder -1 bei Fehlern
         int ergebnis = SqlMacher.mach(sql, ort.getOrtsname(), ort.getPlz());
         return ergebnis > 0;
@@ -18,7 +18,7 @@ public class OrtDao {
 
     // Liest einen einzelnen Ort anhand seiner ID aus
     public Ort readOne(int ortId) {
-        String sql = "SELECT ortId, ortName, plz FROM ort WHERE ortId = ?";
+        String sql = "SELECT ortId, ortName, plz FROM orte WHERE ortId = ?";
         List<Map<String, Object>> ergebnis = SqlMacher.such(sql, ortId);
 
         if (ergebnis.isEmpty()) {
@@ -30,7 +30,7 @@ public class OrtDao {
 
     // Gibt alle Orte aus der Datenbank zurück
     public List<Ort> readAll() {
-        String sql = "SELECT ortId, ortName, plz FROM ort";
+        String sql = "SELECT ortId, ortName, plz FROM orte";
         List<Map<String, Object>> ergebnis = SqlMacher.such(sql);
         List<Ort> orte = new ArrayList<>();
 
@@ -42,14 +42,14 @@ public class OrtDao {
 
     // Aktualisiert einen bestehenden Ort
     public boolean update(Ort ort) {
-        String sql = "UPDATE ort SET ortName = ?, plz = ? WHERE ortId = ?";
+        String sql = "UPDATE orte SET ortName = ?, plz = ? WHERE ortId = ?";
         int ergebnis = SqlMacher.mach(sql, ort.getOrtsname(), ort.getPlz(), ort.getOrtId());
         return ergebnis > 0;
     }
 
     // Löscht einen Ort anhand seiner ID
     public boolean delete(int ortId) {
-        String sql = "DELETE FROM ort WHERE ortId = ?";
+        String sql = "DELETE FROM orte WHERE ortId = ?";
         int ergebnis = SqlMacher.mach(sql, ortId);
         return ergebnis > 0;
     }
