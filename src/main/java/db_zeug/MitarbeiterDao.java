@@ -29,7 +29,7 @@ public class MitarbeiterDao {
     public Mitarbeiter readOne(String persnr) {
         String sql = "SELECT m.*, o.plz, o.ortsname, r.bezeichnung " +
                 "FROM mitarbeiter m " +
-                "LEFT JOIN ort o ON m.ort_id = o.id " +
+                "LEFT JOIN orte o ON m.ort_id = o.id " +
                 "LEFT JOIN ressort r ON m.ressort_id = r.id WHERE m.personalnummer = ?;";
 
         List<Map<String, Object>> daten = SqlMacher.such(sql, persnr);
@@ -42,7 +42,7 @@ public class MitarbeiterDao {
     public Mitarbeiter readOneById(int id) {
         String sql = "SELECT m.*, o.plz, o.ortsname, r.bezeichnung" +
                 "FROM mitarbeiter m " +
-                "LEFT JOIN ort o ON m.ort_id = o.id " +
+                "LEFT JOIN orte o ON m.ort_id = o.id " +
                 "LEFT JOIN ressort r ON m.ressort_id = r.id WHERE m.id = ?;";
 
         List<Map<String, Object>> daten = SqlMacher.such(sql, id);
@@ -56,7 +56,7 @@ public class MitarbeiterDao {
         String f = "%" + fuzz + "%";
         String sql = "SELECT m.*, o.plz, o.ortsname, r.bezeichnung" +
                 "FROM mitarbeiter m " +
-                "LEFT JOIN ort o ON m.ort_id = o.id " +
+                "LEFT JOIN orte o ON m.ort_id = o.id " +
                 "LEFT JOIN ressort r ON m.ressort_id = r.id " +
                 "WHERE m.personalnummer LIKE ? OR " +
                 "m.vorname LIKE ? OR " +
