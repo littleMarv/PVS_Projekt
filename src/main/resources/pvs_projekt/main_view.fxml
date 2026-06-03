@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -51,13 +51,13 @@
             <children>
                 <!-- Navigation: Dashboard bleibt erstmal ohne Aktion -->
                 <Button prefWidth="150.0" text="Dashboard"
-                        style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;"/>
+                        style="-fx-background-color: #2f6f67; -fx-border-color: #2f6f67; -fx-text-fill: white; -fx-font-weight: bold;"/>
 
                 <!-- Dieser Button nutzt die vorhandene Methode im HelloController -->
                 <Button prefWidth="150.0" text="Mitarbeiter" onAction="#mitarbeiterAnzeigen"
-                        style="-fx-background-color: #2f6f67; -fx-border-color: #2f6f67; -fx-text-fill: white; -fx-font-weight: bold;"/>
+                        style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;"/>
 
-                <!-- Diese Buttons sind Platzhalter fuer spaetere Views -->
+                <!-- Diese Buttons sind Platzhalter für spätere Views -->
                 <Button prefWidth="150.0" text="Projekte"
                         style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;"/>
                 <Button prefWidth="150.0" text="Tickets"
@@ -74,14 +74,14 @@
                 <!-- Leerer Platzhalter, damit der Beenden-Button unten sitzt -->
                 <AnchorPane VBox.vgrow="ALWAYS"/>
 
-                <!-- Noch ohne Aktion, weil dafuer sonst eine Controller-Methode noetig waere -->
+                <!-- Noch ohne Aktion, weil dafür sonst eine Controller-Methode nötig wäre -->
                 <Button prefWidth="150.0" text="Beenden"
                         style="-fx-background-color: #f4c7b8; -fx-border-color: #e39a84; -fx-text-fill: #203044;"/>
             </children>
         </VBox>
     </left>
 
-    <!-- Mittlerer Bereich: Hier werden spaeter Tabellen und Formulare angezeigt -->
+    <!-- Mittlerer Bereich: Hier werden später Tabellen und Formulare angezeigt -->
     <center>
         <AnchorPane fx:id="contentPane"
                     prefHeight="530.0"

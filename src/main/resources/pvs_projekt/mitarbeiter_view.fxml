@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import org.controlsfx.control.SearchableComboBox?>
+
+<!--
+    Einzelansicht für einen Mitarbeiter.
+    Diese Maske ist für das Anlegen oder Bearbeiten eines Mitarbeiters gedacht.
+-->
+<AnchorPane maxHeight="-Infinity"
+            maxWidth="-Infinity"
+            minHeight="-Infinity"
+            minWidth="-Infinity"
+            prefHeight="500.0"
+            prefWidth="600.0"
+            style="-fx-background-color: #f8fafc;"
+            xmlns="http://javafx.com/javafx/26"
+            xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <!-- Überschrift der Maske -->
+      <Label layoutX="40.0"
+             layoutY="28.0"
+             text="Mitarbeiter bearbeiten"
+             style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #203044;" />
+
+      <!-- Personalnummer des Mitarbeiters -->
+      <Label layoutX="82.0"
+             layoutY="91.0"
+             text="Personalnummer"
+             style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
+      <TextField fx:id="personalnummerTextField"
+                 layoutX="213.0"
+                 layoutY="86.0"
+                 prefHeight="25.0"
+                 prefWidth="220.0"
+                 promptText="Personalnummer eingeben"
+                 style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
+
+      <!-- Vorname des Mitarbeiters -->
+      <Label layoutX="82.0"
+             layoutY="132.0"
+             text="Vorname"
+             style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
+      <TextField fx:id="vornameTextField"
+                 layoutX="213.0"
+                 layoutY="127.0"
+                 prefHeight="25.0"
+                 prefWidth="220.0"
+                 promptText="Vorname eingeben"
+                 style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
+
+      <!-- Nachname des Mitarbeiters -->
+      <Label layoutX="82.0"
+             layoutY="173.0"
+             text="Nachname"
+             style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
+      <TextField fx:id="nachnameTextField"
+                 layoutX="213.0"
+                 layoutY="168.0"
+                 prefHeight="25.0"
+                 prefWidth="220.0"
+                 promptText="Nachname eingeben"
+                 style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
+
+      <!-- Straße des Mitarbeiters -->
+      <Label layoutX="82.0"
+             layoutY="214.0"
+             text="Straße"
+             style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
+      <TextField fx:id="strasseTextField"
+                 layoutX="213.0"
+                 layoutY="209.0"
+                 prefHeight="25.0"
+                 prefWidth="220.0"
+                 promptText="Straße eingeben"
+                 style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
+
+      <!-- Hausnummer des Mitarbeiters -->
+      <Label layoutX="82.0"
+             layoutY="255.0"
+             text="Hausnummer"
+             style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
+      <TextField fx:id="hausnummerTextField"
+                 layoutX="213.0"
+                 layoutY="250.0"
+                 prefHeight="25.0"
+                 prefWidth="220.0"
+                 promptText="Hausnummer eingeben"
+                 style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
+
+      <!-- Geburtsdatum des Mitarbeiters -->
+      <Label layoutX="82.0"
+             layoutY="296.0"
+             text="Geburtsdatum"
+             style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
+      <DatePicker fx:id="geburtsdatumDatePicker"
+                  layoutX="213.0"
+                  layoutY="291.0"
+                  prefWidth="220.0"
+                  style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
+
+      <!-- Ort wird später aus der Orte-Tabelle geladen -->
+      <Label layoutX="82.0"
+             layoutY="337.0"
+             text="Ort"
+             style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
+      <SearchableComboBox fx:id="ortComboBox"
+                          layoutX="213.0"
+                          layoutY="332.0"
+                          prefWidth="220.0"
+                          promptText="Ort auswählen"
+                          style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
+
+      <!-- Ressort wird später aus der Ressort-Tabelle geladen -->
+      <Label layoutX="82.0"
+             layoutY="378.0"
+             text="Ressort"
+             style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
+      <SearchableComboBox fx:id="ressortComboBox"
+                          layoutX="213.0"
+                          layoutY="373.0"
+                          prefWidth="220.0"
+                          promptText="Ressort auswählen"
+                          style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
+
+      <!-- Vertragstyp gehört laut Datenmodell zum Mitarbeiter -->
+      <Label layoutX="82.0"
+             layoutY="419.0"
+             text="Vertragstyp"
+             style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
+      <SearchableComboBox fx:id="vertragstypComboBox"
+                          layoutX="213.0"
+                          layoutY="414.0"
+                          prefWidth="220.0"
+                          promptText="Vertragstyp auswählen"
+                          style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
+
+      <!-- Button zum Speichern; noch ohne onAction, weil die Logik im Controller ergänzt wird -->
+      <Button fx:id="mitarbeiterSpeichernButton"
+              layoutX="213.0"
+              layoutY="455.0"
+              mnemonicParsing="false"
+              prefWidth="105.0"
+              text="Speichern"
+              style="-fx-background-color: #2f6f67; -fx-border-color: #2f6f67; -fx-text-fill: white; -fx-font-weight: bold;" />
+
+      <!-- Button zum Abbrechen oder Zurückgehen; noch ohne onAction -->
+      <Button fx:id="mitarbeiterAbbrechenButton"
+              layoutX="328.0"
+              layoutY="455.0"
+              mnemonicParsing="false"
+              prefWidth="105.0"
+              text="Abbrechen"
+              style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;" />
+   </children>
+</AnchorPane>

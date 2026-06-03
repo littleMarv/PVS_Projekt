@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<!--
+    Tabellenansicht für Tickets.
+    Diese View zeigt später alle Tickets als Liste an.
+-->
+<AnchorPane prefHeight="400.0"
+            prefWidth="600.0"
+            style="-fx-background-color: #f8fafc;"
+            xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml">
+   <children>
+      <!-- Überschrift der Tabellenansicht -->
+      <Label layoutX="30.0"
+             layoutY="25.0"
+             text="Ticketliste"
+             style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #203044;" />
+
+      <!-- Suchfeld für eine spätere Suche nach Ticketdaten -->
+      <TextField fx:id="ticketSucheTextField"
+                 layoutX="30.0"
+                 layoutY="75.0"
+                 prefHeight="28.0"
+                 prefWidth="220.0"
+                 promptText="Ticket suchen"
+                 style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;" />
+
+      <!-- Button zum Öffnen der Einzelansicht für ein neues Ticket -->
+      <Button fx:id="ticketNeuButton"
+              layoutX="272.0"
+              layoutY="75.0"
+              prefHeight="28.0"
+              prefWidth="95.0"
+              text="Neu"
+              style="-fx-background-color: #2f6f67; -fx-border-color: #2f6f67; -fx-text-fill: white; -fx-font-weight: bold;" />
+
+      <!-- Button zum Bearbeiten des aktuell ausgewählten Tickets -->
+      <Button fx:id="ticketBearbeitenButton"
+              layoutX="377.0"
+              layoutY="75.0"
+              prefHeight="28.0"
+              prefWidth="105.0"
+              text="Bearbeiten"
+              style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;" />
+
+      <!-- Button zum Löschen des aktuell ausgewählten Tickets -->
+      <Button fx:id="ticketLoeschenButton"
+              layoutX="492.0"
+              layoutY="75.0"
+              prefHeight="28.0"
+              prefWidth="90.0"
+              text="Löschen"
+              style="-fx-background-color: #f4c7b8; -fx-border-color: #e39a84; -fx-text-fill: #203044;" />
+
+      <!-- Tabelle für alle Tickets -->
+      <TableView fx:id="ticketTableView"
+                 layoutX="30.0"
+                 layoutY="120.0"
+                 prefHeight="255.0"
+                 prefWidth="552.0"
+                 style="-fx-background-color: white; -fx-border-color: #c7d1dd;">
+         <columns>
+            <!-- Ticketnummer oder ID aus der Datenbank -->
+            <TableColumn fx:id="ticketIdColumn" prefWidth="55.0" text="ID" />
+
+            <!-- Person, die vom Ticket betroffen ist -->
+            <TableColumn fx:id="betroffenColumn" prefWidth="105.0" text="Betroffen" />
+
+            <!-- Grund für das Ticket -->
+            <TableColumn fx:id="grundColumn" prefWidth="115.0" text="Grund" />
+
+            <!-- Datum des Tickets -->
+            <TableColumn fx:id="datumColumn" prefWidth="80.0" text="Datum" />
+
+            <!-- Uhrzeit des Tickets -->
+            <TableColumn fx:id="uhrzeitColumn" prefWidth="70.0" text="Uhrzeit" />
+
+            <!-- Erster Mitarbeiter, der das Ticket ausgestellt hat -->
+            <TableColumn fx:id="ausstellerEinsColumn" prefWidth="80.0" text="Aussteller 1" />
+
+            <!-- Zweiter Mitarbeiter, der das Ticket ausgestellt hat -->
+            <TableColumn fx:id="ausstellerZweiColumn" prefWidth="80.0" text="Aussteller 2" />
+         </columns>
+      </TableView>
+   </children>
+</AnchorPane>

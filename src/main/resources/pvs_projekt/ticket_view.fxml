@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import org.controlsfx.control.SearchableComboBox?>
+
+<!--
+    Einzelansicht für ein Ticket.
+    Diese Maske ist für das Anlegen oder Bearbeiten eines einzelnen Tickets gedacht.
+-->
+<AnchorPane maxHeight="-Infinity"
+            maxWidth="-Infinity"
+            minHeight="-Infinity"
+            minWidth="-Infinity"
+            prefHeight="430.0"
+            prefWidth="600.0"
+            style="-fx-background-color: #f8fafc;"
+            xmlns="http://javafx.com/javafx/26"
+            xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <!-- Überschrift der Maske -->
+      <Label layoutX="40.0"
+             layoutY="28.0"
+             text="Ticket bearbeiten"
+             style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #203044;" />
+
+      <!-- Betroffene Person, die ein Ticket bekommen hat -->
+      <Label layoutX="82.0"
+             layoutY="91.0"
+             text="Betroffen"
+             style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
+      <SearchableComboBox fx:id="betroffenComboBox"
+                          layoutX="213.0"
+                          layoutY="86.0"
+                          prefWidth="220.0"
+                          promptText="Person auswählen"
+                          style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
+
+      <!-- Grund für das Ticket -->
+      <Label layoutX="82.0"
+             layoutY="132.0"
+             text="Grund"
+             style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
+      <TextField fx:id="grundTextField"
+                 layoutX="213.0"
+                 layoutY="127.0"
+                 prefHeight="25.0"
+                 prefWidth="220.0"
+                 promptText="Grund eingeben"
+                 style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
+
+      <!-- Erster Mitarbeiter, der das Ticket ausstellt -->
+      <Label layoutX="82.0"
+             layoutY="174.0"
+             text="Aussteller 1"
+             style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
+      <SearchableComboBox fx:id="ausstellerEinsComboBox"
+                          layoutX="213.0"
+                          layoutY="169.0"
+                          prefWidth="220.0"
+                          promptText="Mitarbeiter auswählen"
+                          style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
+
+      <!-- Zweiter Mitarbeiter, weil laut Aufgabe genau zwei Mitarbeiter das Ticket ausstellen -->
+      <Label layoutX="82.0"
+             layoutY="216.0"
+             text="Aussteller 2"
+             style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
+      <SearchableComboBox fx:id="ausstellerZweiComboBox"
+                          layoutX="213.0"
+                          layoutY="211.0"
+                          prefWidth="220.0"
+                          promptText="Mitarbeiter auswählen"
+                          style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
+
+      <!-- Datum des Tickets -->
+      <Label layoutX="82.0"
+             layoutY="258.0"
+             text="Datum"
+             style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
+      <DatePicker fx:id="datumDatePicker"
+                  layoutX="213.0"
+                  layoutY="253.0"
+                  prefWidth="220.0"
+                  style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
+
+      <!-- Uhrzeit des Tickets; bleibt wie vorher als SearchableComboBox -->
+      <Label layoutX="82.0"
+             layoutY="299.0"
+             text="Uhrzeit"
+             style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
+      <SearchableComboBox fx:id="uhrzeitComboBox"
+                          layoutX="213.0"
+                          layoutY="294.0"
+                          prefWidth="220.0"
+                          promptText="Uhrzeit auswählen"
+                          style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
+
+      <!-- Button zum Speichern des Tickets; noch ohne onAction, weil die Logik Backend-Aufgabe ist -->
+      <Button fx:id="ticketSpeichernButton"
+              layoutX="213.0"
+              layoutY="355.0"
+              mnemonicParsing="false"
+              prefWidth="220.0"
+              text="Ticket speichern"
+              style="-fx-background-color: #2f6f67; -fx-border-color: #2f6f67; -fx-text-fill: white; -fx-font-weight: bold;" />
+   </children>
+</AnchorPane>
