@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import org.controlsfx.control.SearchableComboBox?>
+
+<!--
+    Ansicht für die Projektleitung.
+    Hier wird später angezeigt, wer ein Projekt aktuell leitet und wer es früher geleitet hat.
+-->
+<AnchorPane prefHeight="430.0"
+            prefWidth="600.0"
+            style="-fx-background-color: #f8fafc;"
+            xmlns="http://javafx.com/javafx/26"
+            xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <!-- Überschrift der Ansicht -->
+      <Label layoutX="30.0"
+             layoutY="25.0"
+             text="Projektleitung"
+             style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #203044;" />
+
+      <!-- Auswahl des Projekts, dessen Projektleitung angezeigt wird -->
+      <Label layoutX="30.0"
+             layoutY="82.0"
+             text="Projekt"
+             style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
+      <SearchableComboBox fx:id="projektComboBox"
+                          layoutX="115.0"
+                          layoutY="77.0"
+                          prefWidth="220.0"
+                          promptText="Projekt auswählen"
+                          style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
+
+      <!-- Anzeige der aktuellen Projektleitung; der Text wird später vom Controller gesetzt -->
+      <Label layoutX="360.0"
+             layoutY="82.0"
+             text="Aktuelle Leitung:"
+             style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
+      <Label fx:id="aktuelleLeitungLabel"
+             layoutX="360.0"
+             layoutY="106.0"
+             text="Noch nicht geladen"
+             style="-fx-text-fill: #5d6b7a;" />
+
+      <!-- Anzeige, seit wann die aktuelle Projektleitung zuständig ist -->
+      <Label layoutX="360.0"
+             layoutY="135.0"
+             text="Seit:"
+             style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
+      <Label fx:id="leitungSeitLabel"
+             layoutX="410.0"
+             layoutY="135.0"
+             text="-"
+             style="-fx-text-fill: #5d6b7a;" />
+
+      <!-- Auswahl des Mitarbeiters, der als Projektleitung eingetragen werden soll -->
+      <Label layoutX="30.0"
+             layoutY="135.0"
+             text="Leitung"
+             style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
+      <SearchableComboBox fx:id="projektleitungComboBox"
+                          layoutX="115.0"
+                          layoutY="130.0"
+                          prefWidth="220.0"
+                          promptText="Mitarbeiter auswählen"
+                          style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
+
+      <!-- Beginn des Leitungszeitraums -->
+      <Label layoutX="30.0"
+             layoutY="177.0"
+             text="Von"
+             style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
+      <DatePicker fx:id="vonDatumDatePicker"
+                  layoutX="115.0"
+                  layoutY="172.0"
+                  prefWidth="140.0"
+                  style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
+
+      <!-- Ende des Leitungszeitraums; leer kann später aktuelle Leitung bedeuten -->
+      <Label layoutX="270.0"
+             layoutY="177.0"
+             text="Bis"
+             style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
+      <DatePicker fx:id="bisDatumDatePicker"
+                  layoutX="315.0"
+                  layoutY="172.0"
+                  prefWidth="140.0"
+                  style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
+
+      <!-- Button zum Hinzufügen eines Leitungseintrags; noch ohne onAction -->
+      <Button fx:id="leitungHinzufuegenButton"
+              layoutX="465.0"
+              layoutY="172.0"
+              prefWidth="90.0"
+              text="Hinzufügen"
+              style="-fx-background-color: #2f6f67; -fx-border-color: #2f6f67; -fx-text-fill: white; -fx-font-weight: bold;" />
+
+      <!-- Tabelle mit der bisherigen Projektleitung-Historie -->
+      <TableView fx:id="projektleitungTableView"
+                 layoutX="30.0"
+                 layoutY="220.0"
+                 prefHeight="185.0"
+                 prefWidth="552.0"
+                 style="-fx-background-color: white; -fx-border-color: #c7d1dd;">
+         <columns>
+            <!-- Mitarbeiter, der das Projekt geleitet hat -->
+            <TableColumn fx:id="leitungMitarbeiterColumn" prefWidth="220.0" text="Projektleitung" />
+
+            <!-- Beginn des Leitungszeitraums -->
+            <TableColumn fx:id="leitungVonColumn" prefWidth="120.0" text="Von" />
+
+            <!-- Ende des Leitungszeitraums -->
+            <TableColumn fx:id="leitungBisColumn" prefWidth="120.0" text="Bis" />
+
+            <!-- Kennzeichnung, ob diese Leitung aktuell ist -->
+            <TableColumn fx:id="leitungStatusColumn" prefWidth="90.0" text="Status" />
+         </columns>
+      </TableView>
+   </children>
+</AnchorPane>

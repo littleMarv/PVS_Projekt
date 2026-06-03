@@ -1,14 +1,107 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="CONTROLLER_NAME"
-            prefHeight="400.0" prefWidth="600.0">
+<!--
+    Einzelansicht für ein Projekt.
+    Diese Maske ist für das Anlegen oder Bearbeiten eines einzelnen Projekts gedacht.
+-->
+<AnchorPane maxHeight="-Infinity"
+            maxWidth="-Infinity"
+            minHeight="-Infinity"
+            minWidth="-Infinity"
+            prefHeight="410.0"
+            prefWidth="600.0"
+            style="-fx-background-color: #f8fafc;"
+            xmlns="http://javafx.com/javafx/26"
+            xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <!-- Überschrift der Maske -->
+      <Label layoutX="40.0"
+             layoutY="28.0"
+             text="Projekt bearbeiten"
+             style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #203044;" />
 
+      <!-- Bezeichnung oder Name des Projekts -->
+      <Label layoutX="82.0"
+             layoutY="91.0"
+             text="Bezeichnung"
+             style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
+      <TextField fx:id="bezeichnungTextField"
+                 layoutX="213.0"
+                 layoutY="86.0"
+                 prefHeight="25.0"
+                 prefWidth="220.0"
+                 promptText="Projektbezeichnung eingeben"
+                 style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
+
+      <!-- Startdatum des Projekts -->
+      <Label layoutX="82.0"
+             layoutY="132.0"
+             text="Beginn"
+             style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
+      <DatePicker fx:id="beginnDatePicker"
+                  layoutX="213.0"
+                  layoutY="127.0"
+                  prefWidth="220.0"
+                  style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
+
+      <!-- Abschlussdatum des Projekts -->
+      <Label layoutX="82.0"
+             layoutY="173.0"
+             text="Abschluss"
+             style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
+      <DatePicker fx:id="abschlussDatePicker"
+                  layoutX="213.0"
+                  layoutY="168.0"
+                  prefWidth="220.0"
+                  style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
+
+      <!-- Hinweis: Projektbesetzung und Leitungshistorie sind eigene fachliche Bereiche -->
+      <Label layoutX="82.0"
+             layoutY="222.0"
+             prefWidth="430.0"
+             text="Besetzung und Projektleitung werden getrennt gepflegt."
+             style="-fx-text-fill: #5d6b7a;" />
+
+      <!-- Öffnet später die Verwaltung der Mitarbeiter, die am Projekt mitarbeiten -->
+      <Button fx:id="besetzungVerwaltenButton"
+              layoutX="213.0"
+              layoutY="255.0"
+              mnemonicParsing="false"
+              prefWidth="220.0"
+              text="Besetzung verwalten"
+              style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;" />
+
+      <!-- Öffnet später die Tabelle mit der lückenlosen Projektleitung-Historie -->
+      <Button fx:id="leitungshistorieAnzeigenButton"
+              layoutX="213.0"
+              layoutY="296.0"
+              mnemonicParsing="false"
+              prefWidth="220.0"
+              text="Leitungshistorie anzeigen"
+              style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;" />
+
+      <!-- Button zum Speichern; noch ohne onAction, weil die Logik im Controller ergänzt wird -->
+      <Button fx:id="projektSpeichernButton"
+              layoutX="213.0"
+              layoutY="345.0"
+              mnemonicParsing="false"
+              prefWidth="105.0"
+              text="Speichern"
+              style="-fx-background-color: #2f6f67; -fx-border-color: #2f6f67; -fx-text-fill: white; -fx-font-weight: bold;" />
+
+      <!-- Button zum Abbrechen oder Zurückgehen; noch ohne onAction -->
+      <Button fx:id="projektAbbrechenButton"
+              layoutX="328.0"
+              layoutY="345.0"
+              mnemonicParsing="false"
+              prefWidth="105.0"
+              text="Abbrechen"
+              style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;" />
+   </children>
 </AnchorPane>
