@@ -53,5 +53,29 @@ public class SqlMacher {
             return -1;
         }
     }
+
+    public static long machUndHolId(String sql, Object... parameter) {
+        // Hier wird explizit das Flag für die Keys übergeben
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
+            for (int i = 0; i < parameter.length; i++) {
+                stmt.setObject(i + 1, parameter[i]);
+            }
+
+            stmt.executeUpdate();
+
+            // Die generierte ID auslesen
+            try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    return generatedKeys.getLong(1); // Gibt die neue ID zurück
+                }
+            }
+            return -1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
 }
 

@@ -119,7 +119,7 @@ public class MitarbeiterDao {
         }
     }
 
-    private Mitarbeiter mapToMitarbeiter(Map<String, Object> zeile) {
+    protected Mitarbeiter mapToMitarbeiter(Map<String, Object> zeile) {
         Ort ort = new Ort(
                 (Integer) zeile.get("ort_id"),
                 (String) zeile.get("ortsname"),
