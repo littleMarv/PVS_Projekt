@@ -14,8 +14,8 @@ public class MitarbeiterDao {
     public Mitarbeiter[] readAll() {
         String sql = "SELECT m.*, o.plz, o.ortsname, r.bezeichnung " +
                 "FROM mitarbeiter m " +
-                "LEFT JOIN ort o ON m.ort_id = o.id " +
-                "LEFT JOIN ressort r ON m.ressort_id = r.id;";
+                "LEFT JOIN orte o ON m.ort_id = o.id " +
+                "LEFT JOIN ressorts r ON m.ressort_id = r.id;";
 
         List<Map<String, Object>> daten = SqlMacher.such(sql);
         List<Mitarbeiter> rueckgabe = new ArrayList<>();

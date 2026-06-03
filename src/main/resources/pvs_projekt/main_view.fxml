@@ -1,40 +1,100 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<!-- Hauptlayout der Startseite -->
-<VBox alignment="CENTER"
-      spacing="15.0"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="controller.HelloController">
+<!--
+    Hauptlayout der Anwendung.
+    BorderPane teilt das Fenster in feste Bereiche:
+    oben = Kopfbereich, links = Navigation, mitte = Inhalt.
+-->
+<BorderPane prefHeight="600.0"
+            prefWidth="1000.0"
+            xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controller.HelloController">
 
-    <!-- Abstand zum Fensterrand -->
-    <padding>
-        <Insets bottom="20"
-                left="20"
-                right="20"
-                top="20"/>
-    </padding>
+    <!-- Oberer Bereich: Titel der Anwendung -->
+    <top>
+        <HBox alignment="CENTER_LEFT"
+              prefHeight="70.0"
+              style="-fx-background-color: #203044;"
+              BorderPane.alignment="CENTER">
+            <padding>
+                <Insets left="25.0" right="25.0"/>
+            </padding>
 
-    <!-- Überschrift -->
-    <Label text="PVS Projektverwaltung"
-           style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+            <children>
+                <!-- Sichtbarer Fenstertitel innerhalb der App -->
+                <Label text="PVS Projektverwaltung"
+                       style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+            </children>
+        </HBox>
+    </top>
 
-    <!-- Navigationsbuttons -->
-    <Button text="Mitarbeiter"
-            prefWidth="200"
-            onAction="#mitarbeiterAnzeigen"/>
+    <!-- Linker Bereich: Hauptnavigation zwischen den Modulen -->
+    <left>
+        <VBox alignment="TOP_CENTER"
+              prefWidth="190.0"
+              spacing="10.0"
+              style="-fx-background-color: #edf2f7;"
+              BorderPane.alignment="CENTER">
+            <padding>
+                <Insets top="65.0" left="15.0" right="15.0" bottom="20.0"/>
+            </padding>
 
-    <Button text="Projekte"
-            prefWidth="200"/>
+            <children>
+                <!-- Navigation: Dashboard bleibt erstmal ohne Aktion -->
+                <Button prefWidth="150.0" text="Dashboard"
+                        style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;"/>
 
-    <Button text="Tickets"
-            prefWidth="200"/>
+                <!-- Dieser Button nutzt die vorhandene Methode im HelloController -->
+                <Button prefWidth="150.0" text="Mitarbeiter" onAction="#mitarbeiterAnzeigen"
+                        style="-fx-background-color: #2f6f67; -fx-border-color: #2f6f67; -fx-text-fill: white; -fx-font-weight: bold;"/>
 
-    <Button text="Historie"
-            prefWidth="200"/>
+                <!-- Diese Buttons sind Platzhalter fuer spaetere Views -->
+                <Button prefWidth="150.0" text="Projekte"
+                        style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;"/>
+                <Button prefWidth="150.0" text="Tickets"
+                        style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;"/>
+                <Button prefWidth="150.0" text="Orte"
+                        style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;"/>
+                <Button prefWidth="150.0" text="Ressorts"
+                        style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;"/>
+                <Button prefWidth="150.0" text="Vertragstypen"
+                        style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;"/>
+                <Button prefWidth="150.0" text="Historie"
+                        style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;"/>
 
-</VBox>
+                <!-- Leerer Platzhalter, damit der Beenden-Button unten sitzt -->
+                <AnchorPane VBox.vgrow="ALWAYS"/>
+
+                <!-- Noch ohne Aktion, weil dafuer sonst eine Controller-Methode noetig waere -->
+                <Button prefWidth="150.0" text="Beenden"
+                        style="-fx-background-color: #f4c7b8; -fx-border-color: #e39a84; -fx-text-fill: #203044;"/>
+            </children>
+        </VBox>
+    </left>
+
+    <!-- Mittlerer Bereich: Hier werden spaeter Tabellen und Formulare angezeigt -->
+    <center>
+        <AnchorPane fx:id="contentPane"
+                    prefHeight="530.0"
+                    prefWidth="810.0"
+                    style="-fx-background-color: #f8fafc;"
+                    BorderPane.alignment="CENTER">
+            <children>
+                <!-- Startinhalt im Center-Bereich -->
+                <Label layoutX="30.0"
+                       layoutY="25.0"
+                       text="Dashboard"
+                       style="-fx-font-size: 24px; -fx-text-fill: #203044;"/>
+            </children>
+        </AnchorPane>
+    </center>
+</BorderPane>
