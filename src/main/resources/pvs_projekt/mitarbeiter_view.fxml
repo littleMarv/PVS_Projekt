@@ -15,7 +15,7 @@
             maxWidth="-Infinity"
             minHeight="-Infinity"
             minWidth="-Infinity"
-            prefHeight="500.0"
+            prefHeight="545.0"
             prefWidth="600.0"
             style="-fx-background-color: #f8fafc;"
             xmlns="http://javafx.com/javafx/26"
@@ -103,38 +103,50 @@
                   prefWidth="220.0"
                   style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
 
-      <!-- Ort wird später aus der Orte-Tabelle geladen -->
+      <!-- Geschlecht steht in der Mitarbeiter-Tabelle der gemeinsamen Datenbank -->
       <Label layoutX="82.0"
              layoutY="337.0"
+             text="Geschlecht"
+             style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
+      <SearchableComboBox fx:id="geschlechtComboBox"
+                          layoutX="213.0"
+                          layoutY="332.0"
+                          prefWidth="220.0"
+                          promptText="Geschlecht auswählen"
+                          style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
+
+      <!-- Ort wird später aus der Orte-Tabelle geladen -->
+      <Label layoutX="82.0"
+             layoutY="378.0"
              text="Ort"
              style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
       <SearchableComboBox fx:id="ortComboBox"
                           layoutX="213.0"
-                          layoutY="332.0"
+                          layoutY="373.0"
                           prefWidth="220.0"
                           promptText="Ort auswählen"
                           style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
 
       <!-- Ressort wird später aus der Ressort-Tabelle geladen -->
       <Label layoutX="82.0"
-             layoutY="378.0"
+             layoutY="419.0"
              text="Ressort"
              style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
       <SearchableComboBox fx:id="ressortComboBox"
                           layoutX="213.0"
-                          layoutY="373.0"
+                          layoutY="414.0"
                           prefWidth="220.0"
                           promptText="Ressort auswählen"
                           style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
 
       <!-- Vertragstyp gehört laut Datenmodell zum Mitarbeiter -->
       <Label layoutX="82.0"
-             layoutY="419.0"
+             layoutY="460.0"
              text="Vertragstyp"
              style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
       <SearchableComboBox fx:id="vertragstypComboBox"
                           layoutX="213.0"
-                          layoutY="414.0"
+                          layoutY="455.0"
                           prefWidth="220.0"
                           promptText="Vertragstyp auswählen"
                           style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
@@ -142,7 +154,7 @@
       <!-- Button zum Speichern; noch ohne onAction, weil die Logik im Controller ergänzt wird -->
       <Button fx:id="mitarbeiterSpeichernButton"
               layoutX="213.0"
-              layoutY="455.0"
+              layoutY="500.0"
               mnemonicParsing="false"
               prefWidth="105.0"
               text="Speichern"
@@ -151,7 +163,7 @@
       <!-- Button zum Abbrechen oder Zurückgehen; noch ohne onAction -->
       <Button fx:id="mitarbeiterAbbrechenButton"
               layoutX="328.0"
-              layoutY="455.0"
+              layoutY="500.0"
               mnemonicParsing="false"
               prefWidth="105.0"
               text="Abbrechen"

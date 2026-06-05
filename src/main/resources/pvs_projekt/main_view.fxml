@@ -39,24 +39,24 @@
 
             <children>
                 <!-- Navigation: Dashboard bleibt erstmal ohne Aktion -->
-                <Button fx:id="dashboard" prefWidth="150.0" style="-fx-background-color: #2f6f67; -fx-border-color: #2f6f67; -fx-text-fill: white; -fx-font-weight: bold;" text="Dashboard" />
+                <Button fx:id="dashboard" onAction="#dashboardAnzeigen" prefWidth="150.0" style="-fx-background-color: #2f6f67; -fx-border-color: #2f6f67; -fx-text-fill: white; -fx-font-weight: bold;" text="Dashboard" />
 
                 <!-- Dieser Button nutzt die vorhandene Methode im HelloController -->
                 <Button fx:id="mitarbeiter" onAction="#mitarbeiterAnzeigen" prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;" text="Mitarbeiter" />
 
                 <!-- Diese Buttons sind Platzhalter für spätere Views -->
-                <Button fx:id="projekte" prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;" text="Projekte" />
-                <Button fx:id="tickets" prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;" text="Tickets" />
-                <Button fx:id="orte" prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;" text="Orte" />
-                <Button fx:id="ressorts" prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;" text="Ressorts" />
-                <Button fx:id="vertragstypen" prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;" text="Vertragstypen" />
-                <Button prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;" text="Historie" />
+                <Button fx:id="projekte" onAction="#projekteAnzeigen" prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;" text="Projekte" />
+                <Button fx:id="tickets" onAction="#ticketsAnzeigen" prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;" text="Tickets" />
+                <Button fx:id="orte" onAction="#orteAnzeigen" prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;" text="Orte" />
+                <Button fx:id="ressorts" onAction="#ressortsAnzeigen" prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;" text="Ressorts" />
+                <Button fx:id="vertragstypen" onAction="#vertragstypenAnzeigen" prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;" text="Vertragstypen" />
+                <Button fx:id="besetzung" onAction="#besetzungAnzeigen" prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;" text="Besetzung" />
 
                 <!-- Leerer Platzhalter, damit der Beenden-Button unten sitzt -->
                 <AnchorPane VBox.vgrow="ALWAYS" />
 
                 <!-- Noch ohne Aktion, weil dafür sonst eine Controller-Methode nötig wäre -->
-                <Button prefWidth="150.0" style="-fx-background-color: #f4c7b8; -fx-border-color: #e39a84; -fx-text-fill: #203044;" text="Beenden" />
+                <Button fx:id="beendenButton" onAction="#beenden" prefWidth="150.0" style="-fx-background-color: #f4c7b8; -fx-border-color: #e39a84; -fx-text-fill: #203044;" text="Beenden" />
             </children>
         </VBox>
     </left>
@@ -71,3 +71,4 @@
         </AnchorPane>
     </center>
 </BorderPane>
+

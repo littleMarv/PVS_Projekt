@@ -14,7 +14,7 @@
             maxWidth="-Infinity"
             minHeight="-Infinity"
             minWidth="-Infinity"
-            prefHeight="410.0"
+            prefHeight="390.0"
             prefWidth="600.0"
             style="-fx-background-color: #f8fafc;"
             xmlns="http://javafx.com/javafx/26"
@@ -61,35 +61,26 @@
                   prefWidth="220.0"
                   style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
 
-      <!-- Hinweis: Projektbesetzung und Leitungshistorie sind eigene fachliche Bereiche -->
+      <!-- Projektleitung wird als Rolle in der Projektbesetzung gespeichert -->
       <Label layoutX="82.0"
              layoutY="222.0"
              prefWidth="430.0"
-             text="Besetzung und Projektleitung werden getrennt gepflegt."
+             text="Besetzung und Projektleitung werden gemeinsam gepflegt."
              style="-fx-text-fill: #5d6b7a;" />
 
-      <!-- Öffnet später die Verwaltung der Mitarbeiter, die am Projekt mitarbeiten -->
+      <!-- Öffnet später die Verwaltung der Projektmitarbeiter und ihrer Rollen -->
       <Button fx:id="besetzungVerwaltenButton"
               layoutX="213.0"
               layoutY="255.0"
               mnemonicParsing="false"
               prefWidth="220.0"
-              text="Besetzung verwalten"
-              style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;" />
-
-      <!-- Öffnet später die Tabelle mit der lückenlosen Projektleitung-Historie -->
-      <Button fx:id="leitungshistorieAnzeigenButton"
-              layoutX="213.0"
-              layoutY="296.0"
-              mnemonicParsing="false"
-              prefWidth="220.0"
-              text="Leitungshistorie anzeigen"
+              text="Besetzung und Leitung"
               style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;" />
 
       <!-- Button zum Speichern; noch ohne onAction, weil die Logik im Controller ergänzt wird -->
       <Button fx:id="projektSpeichernButton"
               layoutX="213.0"
-              layoutY="345.0"
+              layoutY="315.0"
               mnemonicParsing="false"
               prefWidth="105.0"
               text="Speichern"
@@ -98,7 +89,7 @@
       <!-- Button zum Abbrechen oder Zurückgehen; noch ohne onAction -->
       <Button fx:id="projektAbbrechenButton"
               layoutX="328.0"
-              layoutY="345.0"
+              layoutY="315.0"
               mnemonicParsing="false"
               prefWidth="105.0"
               text="Abbrechen"
