@@ -73,6 +73,8 @@ public class MainViewController {
         if (view == null) {
             return;
         }
+        view.setMaxWidth(Double.MAX_VALUE);
+        view.setMaxHeight(Double.MAX_VALUE);
 
         contentPane.getChildren().setAll(view);
 

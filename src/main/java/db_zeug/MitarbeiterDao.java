@@ -68,12 +68,13 @@ public class MitarbeiterDao {
                 "m.nachname LIKE ? OR " +
                 "m.strasse LIKE ? OR " +
                 "m.hausnummer LIKE ? OR " +
-                "o.name LIKE ? OR " +
+                "o.ortsname LIKE ? OR " +
                 "o.plz LIKE ? OR " +
-                "r.bezeichnung LIKE ? OR" +
-                "v.bezeichnung LIKE ?";
+                "r.bezeichnung LIKE ? OR " +
+                "v.bezeichnung LIKE ? OR " +
+                "m.geschlecht LIKE ?";
 
-        List<Map<String, Object>> daten = SqlMacher.such(sql, f, f, f, f, f, f, f, f, f);
+        List<Map<String, Object>> daten = SqlMacher.such(sql, f, f, f, f, f, f, f, f, f,f);
         List<Mitarbeiter> rueckgabe = new ArrayList<>();
 
         for (Map<String, Object> zeile : daten) {

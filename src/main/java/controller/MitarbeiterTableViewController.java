@@ -10,6 +10,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
+
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -81,8 +83,13 @@ public class MitarbeiterTableViewController implements Initializable {
 
 
         mitarbeiterTable.setItems(mitarbeiterliste);
+    }
 
-
+    @FXML
+    void mitarbeiterSuche(KeyEvent event) {
+        String typed = mitarbeiterSucheTextField.getText();
+        System.out.println(typed);
+        mitarbeiterliste.setAll(new MitarbeiterDao().fuzzyRead(typed));
     }
 }
 
