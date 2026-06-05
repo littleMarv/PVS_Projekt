@@ -1,4 +1,4 @@
-package db_conn;
+package db_zeug;
 
 
 import java.sql.Connection;
