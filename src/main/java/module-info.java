@@ -12,5 +12,4 @@ module org.example.pvs_projekt {
     exports fachklassen;
     opens fachklassen to javafx.base;
     exports db_zeug;
-    exports db_conn;
 }
