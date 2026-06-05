@@ -26,7 +26,7 @@ public class SqlMacher {
                 while (rs.next()) {
                     Map<String, Object> zeile = new HashMap<>();
                     for (int i = 1; i <= spaltenAnzahl; i++) {
-                        String spaltenName = metaData.getColumnName(i);
+                        String spaltenName = metaData.getColumnLabel(i);
                         Object wert = rs.getObject(i);
                         zeile.put(spaltenName, wert);
                     }

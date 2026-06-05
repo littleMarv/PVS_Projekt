@@ -12,9 +12,14 @@ public class Mitarbeiter {
     private String hausNr;
     private Ort ort;
     private Ressort ressort;
+    private Vertrag vertrag;
     private Date gebDatum;
+    private String geschlecht;
 
-    public Mitarbeiter(int mitarbeiterId, String persNr, String vorname, String nachname, String strasse, String hausNr, Ort ort, Ressort ressort, Date gebDatum) {
+    private String vertragBz;
+    private String ressortBz;
+
+    public Mitarbeiter(int mitarbeiterId, String persNr, String vorname, String nachname, String strasse, String hausNr, Ort ort, Ressort ressort, Date gebDatum, Vertrag vertrag, String geschlecht) {
         this.mitarbeiterId = mitarbeiterId;
         this.persNr = persNr;
         this.vorname = vorname;
@@ -24,9 +29,11 @@ public class Mitarbeiter {
         this.ort = ort;
         this.ressort = ressort;
         this.gebDatum = gebDatum;
+        this.vertrag = vertrag;
+        this.geschlecht = geschlecht;
     }
 
-    public Mitarbeiter(String persNr, String vorname, String nachname, String strasse, String hausNr, Ort ort, Ressort ressort, Date gebDatum) {
+    public Mitarbeiter(String persNr, String vorname, String nachname, String strasse, String hausNr, Ort ort, Ressort ressort, Date gebDatum, Vertrag vertrag, String geschlecht) {
         this.persNr = persNr;
         this.vorname = vorname;
         this.nachname = nachname;
@@ -35,6 +42,7 @@ public class Mitarbeiter {
         this.ort = ort;
         this.ressort = ressort;
         this.gebDatum = gebDatum;
+        this.vertrag = vertrag;
     }
 
     public int getMitarbeiterId() {
@@ -105,6 +113,22 @@ public class Mitarbeiter {
         this.gebDatum = gebDatum;
     }
 
+    public String getGeschlecht() {
+        return geschlecht;
+    }
+
+    public void setGeschlecht(String geschlecht) {
+        this.geschlecht = geschlecht;
+    }
+
+    public Vertrag getVertrag() {
+        return vertrag;
+    }
+
+    public void setVertrag(Vertrag vertrag) {
+        this.vertrag = vertrag;
+    }
+
     public String getAuswahlString(){
         return this.persNr +"-"+ this.nachname +"-"+ this.vorname;
     }
@@ -119,6 +143,36 @@ public class Mitarbeiter {
     @Override
     public int hashCode() {
         return Objects.hash(mitarbeiterId, persNr, vorname, nachname, strasse, hausNr, ort, ressort, gebDatum);
+    }
+
+    public String getPlz(){
+        if (this.ort == null){
+            return "-";
+        }
+        return this.ort.getPlz();
+    }
+    public String getOrtsname(){
+        if (this.ort == null){
+            return "-";
+        }
+        return this.ort.getOrtsname();
+    }
+    public String getVertragbz(){
+        if (this.vertrag == null){
+            return "-";
+        }
+        return this.vertrag.getBezeichnung();
+    }
+
+    public String getRessortbz(){
+        if (this.ressort == null){
+            return "-";
+        }
+        return this.ressort.getBezeichnung();
+    }
+
+    public String getGeburtsdatumstr(){
+        return this.gebDatum.toString();
     }
 }
 

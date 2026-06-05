@@ -3,6 +3,7 @@ package db_zeug;
 import fachklassen.Mitarbeiter;
 import fachklassen.Ort;
 import fachklassen.Ressort;
+import fachklassen.Vertrag;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -12,10 +13,11 @@ import java.util.Map;
 public class MitarbeiterDao {
 
     public Mitarbeiter[] readAll() {
-        String sql = "SELECT m.*, o.plz, o.ortsname, r.bezeichnung " +
+        String sql = "SELECT m.*, o.plz, o.ortsname, r.bezeichnung as ressortbezeichnung, v.bezeichnung as vertragbezeichnung " +
                 "FROM mitarbeiter m " +
                 "LEFT JOIN orte o ON m.ort_id = o.id " +
-                "LEFT JOIN ressorts r ON m.ressort_id = r.id;";
+                "LEFT JOIN ressorts r ON m.ressort_id = r.id " +
+                "LEFT JOIN vertragstypen v ON m.vertragstyp_id = v.id";
 
         List<Map<String, Object>> daten = SqlMacher.such(sql);
         List<Mitarbeiter> rueckgabe = new ArrayList<>();
@@ -27,10 +29,11 @@ public class MitarbeiterDao {
     }
 
     public Mitarbeiter readOne(String persnr) {
-        String sql = "SELECT m.*, o.plz, o.ortsname, r.bezeichnung " +
+        String sql = "SELECT m.*, o.plz, o.ortsname, r.bezeichnung as ressortbezeichnung, v.bezeichnung as vertragbezeichnung " +
                 "FROM mitarbeiter m " +
                 "LEFT JOIN orte o ON m.ort_id = o.id " +
-                "LEFT JOIN ressort r ON m.ressort_id = r.id WHERE m.personalnummer = ?;";
+                "LEFT JOIN ressorts r ON m.ressort_id = r.id " +
+                "LEFT JOIN vertragstypen v ON m.vertragstyp_id = v.id WHERE m.personalnummer = ?;";
 
         List<Map<String, Object>> daten = SqlMacher.such(sql, persnr);
         if (daten.isEmpty()) {
@@ -40,10 +43,11 @@ public class MitarbeiterDao {
     }
 
     public Mitarbeiter readOneById(int id) {
-        String sql = "SELECT m.*, o.plz, o.ortsname, r.bezeichnung" +
+        String sql = "SELECT m.*, o.plz, o.ortsname, r.bezeichnung as ressortbezeichnung, v.bezeichnung as vertragbezeichnung " +
                 "FROM mitarbeiter m " +
                 "LEFT JOIN orte o ON m.ort_id = o.id " +
-                "LEFT JOIN ressort r ON m.ressort_id = r.id WHERE m.id = ?;";
+                "LEFT JOIN ressorts r ON m.ressort_id = r.id " +
+                "LEFT JOIN vertragstypen v ON m.vertragstyp_id = v.id WHERE m.id = ?;";
 
         List<Map<String, Object>> daten = SqlMacher.such(sql, id);
         if (daten.isEmpty()) {
@@ -54,10 +58,11 @@ public class MitarbeiterDao {
 
     public Mitarbeiter[] fuzzyRead(String fuzz) {
         String f = "%" + fuzz + "%";
-        String sql = "SELECT m.*, o.plz, o.ortsname, r.bezeichnung" +
+        String sql = "SELECT m.*, o.plz, o.ortsname, r.bezeichnung as ressortbezeichnung, v.bezeichnung as vertragbezeichnung " +
                 "FROM mitarbeiter m " +
                 "LEFT JOIN orte o ON m.ort_id = o.id " +
-                "LEFT JOIN ressort r ON m.ressort_id = r.id " +
+                "LEFT JOIN ressorts r ON m.ressort_id = r.id " +
+                "LEFT JOIN vertragstypen v ON m.vertragstyp_id = v.id " +
                 "WHERE m.personalnummer LIKE ? OR " +
                 "m.vorname LIKE ? OR " +
                 "m.nachname LIKE ? OR " +
@@ -65,9 +70,10 @@ public class MitarbeiterDao {
                 "m.hausnummer LIKE ? OR " +
                 "o.name LIKE ? OR " +
                 "o.plz LIKE ? OR " +
-                "r.bezeichnung LIKE ?;";
+                "r.bezeichnung LIKE ? OR" +
+                "v.bezeichnung LIKE ?";
 
-        List<Map<String, Object>> daten = SqlMacher.such(sql, f, f, f, f, f, f, f, f);
+        List<Map<String, Object>> daten = SqlMacher.such(sql, f, f, f, f, f, f, f, f, f);
         List<Mitarbeiter> rueckgabe = new ArrayList<>();
 
         for (Map<String, Object> zeile : daten) {
@@ -120,18 +126,29 @@ public class MitarbeiterDao {
     }
 
     protected Mitarbeiter mapToMitarbeiter(Map<String, Object> zeile) {
-        Ort ort = new Ort(
-                (Integer) zeile.get("ort_id"),
-                (String) zeile.get("ortsname"),
-                (String) zeile.get("plz")
-        );
-
+        Ort ort = null;
+        Ressort ressort = null;
+        Vertrag vertrag = null;
+        if (zeile.get("ort_id") != null) {
+            ort = new Ort(
+                    (Integer) zeile.get("ort_id"),
+                    (String) zeile.get("ortsname"),
+                    (String) zeile.get("plz")
+            );
+        }
         // Greift nun korrekt auf "ressortbezeichnung" aus dem SQL-Alias zu
-        Ressort ressort = new Ressort(
-                (Integer) zeile.get("ressort_id"),
-                (String) zeile.get("ressortbezeichnung")
-        );
-
+        if (zeile.get("ressort_id") != null) {
+            ressort = new Ressort(
+                    (Integer) zeile.get("ressort_id"),
+                    (String) zeile.get("ressortbezeichnung")
+            );
+        }
+        if (zeile.get("vertragstyp_id") != null) {
+            vertrag = new Vertrag(
+                    (Integer) zeile.get("vertragstyp_id"),
+                    (String) zeile.get("vertragbezeichnung")
+            );
+        }
         return new Mitarbeiter(
                 (Integer) zeile.get("id"),
                 (String) zeile.get("personalnummer"),
@@ -141,7 +158,9 @@ public class MitarbeiterDao {
                 (String) zeile.get("hausnummer"),
                 ort,
                 ressort,
-                (Date) zeile.get("geburtsdatum")
+                (Date) zeile.get("geburtsdatum"),
+                vertrag,
+                (String) zeile.get("geschlecht")
         );
     }
 }
