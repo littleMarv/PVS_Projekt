@@ -1,6 +1,8 @@
 package db_zeug;
 
 
+import db_conn.DatabaseConnection;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;

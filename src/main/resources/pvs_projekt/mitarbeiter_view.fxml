@@ -1,51 +1,54 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import org.controlsfx.control.SearchableComboBox?>
+
 <!--
  Einzelansicht für einen Mitarbeiter.
  Maske zum Anlegen und Bearbeiten eines Mitarbeiters.
 -->
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="545.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MitarbeiterViewController" stylesheets="@css/pvs_style.css" styleClass="view-root">
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="545.0" prefWidth="600.0" styleClass="view-root" stylesheets="@css/pvs_style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MitarbeiterViewController">
   <children>
     <!-- Überschrift der Maske -->
-    <Label layoutX="40.0" layoutY="28.0" text="Mitarbeiter bearbeiten" styleClass="view-title" />
+    <Label layoutX="40.0" layoutY="28.0" styleClass="view-title" text="Mitarbeiter bearbeiten" />
     <!-- Personalnummer des Mitarbeiters -->
-    <Label layoutX="82.0" layoutY="91.0" text="Personalnummer" styleClass="field-label" />
+    <Label layoutX="82.0" layoutY="91.0" styleClass="field-label" text="Personalnummer" />
     <TextField fx:id="personalnummerTextField" layoutX="213.0" layoutY="86.0" prefHeight="25.0" prefWidth="220.0" promptText="Personalnummer eingeben" styleClass="input-field" />
     <!-- Vorname des Mitarbeiters -->
-    <Label layoutX="82.0" layoutY="132.0" text="Vorname" styleClass="field-label" />
+    <Label layoutX="82.0" layoutY="132.0" styleClass="field-label" text="Vorname" />
     <TextField fx:id="vornameTextField" layoutX="213.0" layoutY="127.0" prefHeight="25.0" prefWidth="220.0" promptText="Vorname eingeben" styleClass="input-field" />
     <!-- Nachname des Mitarbeiters -->
-    <Label layoutX="82.0" layoutY="173.0" text="Nachname" styleClass="field-label" />
+    <Label layoutX="82.0" layoutY="173.0" styleClass="field-label" text="Nachname" />
     <TextField fx:id="nachnameTextField" layoutX="213.0" layoutY="168.0" prefHeight="25.0" prefWidth="220.0" promptText="Nachname eingeben" styleClass="input-field" />
     <!-- Straße des Mitarbeiters -->
-    <Label layoutX="82.0" layoutY="214.0" text="Straße" styleClass="field-label" />
+    <Label layoutX="82.0" layoutY="214.0" styleClass="field-label" text="Straße" />
     <TextField fx:id="strasseTextField" layoutX="213.0" layoutY="209.0" prefHeight="25.0" prefWidth="220.0" promptText="Straße eingeben" styleClass="input-field" />
     <!-- Hausnummer des Mitarbeiters -->
-    <Label layoutX="82.0" layoutY="255.0" text="Hausnummer" styleClass="field-label" />
+    <Label layoutX="82.0" layoutY="255.0" styleClass="field-label" text="Hausnummer" />
     <TextField fx:id="hausnummerTextField" layoutX="213.0" layoutY="250.0" prefHeight="25.0" prefWidth="220.0" promptText="Hausnummer eingeben" styleClass="input-field" />
     <!-- Geburtsdatum des Mitarbeiters -->
-    <Label layoutX="82.0" layoutY="296.0" text="Geburtsdatum" styleClass="field-label" />
+    <Label layoutX="82.0" layoutY="296.0" styleClass="field-label" text="Geburtsdatum" />
     <DatePicker fx:id="geburtsdatumDatePicker" layoutX="213.0" layoutY="291.0" prefWidth="220.0" styleClass="input-field" />
     <!-- Geschlecht steht in der Tabelle mitarbeiter -->
-    <Label layoutX="82.0" layoutY="337.0" text="Geschlecht" styleClass="field-label" />
+    <Label layoutX="82.0" layoutY="337.0" styleClass="field-label" text="Geschlecht" />
     <SearchableComboBox fx:id="geschlechtComboBox" layoutX="213.0" layoutY="332.0" prefWidth="220.0" promptText="Geschlecht auswählen" styleClass="input-field" />
     <!-- Ort wird über mitarbeiter.ort_id aus der Tabelle orte geladen -->
-    <Label layoutX="82.0" layoutY="378.0" text="Ort" styleClass="field-label" />
+    <Label layoutX="82.0" layoutY="378.0" styleClass="field-label" text="Ort" />
     <SearchableComboBox fx:id="ortComboBox" layoutX="213.0" layoutY="373.0" prefWidth="220.0" promptText="Ort auswählen" styleClass="input-field" />
     <!-- Ressort wird über mitarbeiter.ressort_id aus der Tabelle ressorts geladen -->
-    <Label layoutX="82.0" layoutY="419.0" text="Ressort" styleClass="field-label" />
+    <Label layoutX="82.0" layoutY="419.0" styleClass="field-label" text="Ressort" />
     <SearchableComboBox fx:id="ressortComboBox" layoutX="213.0" layoutY="414.0" prefWidth="220.0" promptText="Ressort auswählen" styleClass="input-field" />
     <!-- Vertragstyp wird über mitarbeiter.vertragstyp_id aus der Tabelle vertragstypen geladen -->
-    <Label layoutX="82.0" layoutY="460.0" text="Vertragstyp" styleClass="field-label" />
+    <Label layoutX="82.0" layoutY="460.0" styleClass="field-label" text="Vertragstyp" />
     <SearchableComboBox fx:id="vertragstypComboBox" layoutX="213.0" layoutY="455.0" prefWidth="220.0" promptText="Vertragstyp auswählen" styleClass="input-field" />
     <!-- Speichert; Aktion wird im Controller ergänzt -->
-    <Button fx:id="mitarbeiterSpeichernButton" layoutX="213.0" layoutY="500.0" mnemonicParsing="false" prefWidth="105.0" text="Speichern" styleClass="primary-button" />
+    <Button fx:id="mitarbeiterSpeichernButton" layoutX="213.0" layoutY="500.0" mnemonicParsing="false" onAction="#setMitarbeiterSpeichernButton" prefWidth="105.0" styleClass="primary-button" text="Speichern" />
     <!-- Bricht ab oder geht zurück; Aktion wird im Controller ergänzt -->
-    <Button fx:id="mitarbeiterAbbrechenButton" layoutX="328.0" layoutY="500.0" mnemonicParsing="false" prefWidth="105.0" text="Abbrechen" styleClass="secondary-button" />
+    <Button fx:id="mitarbeiterAbbrechenButton" layoutX="328.0" layoutY="500.0" mnemonicParsing="false" prefWidth="105.0" styleClass="secondary-button" text="Abbrechen" />
   </children>
 </AnchorPane>

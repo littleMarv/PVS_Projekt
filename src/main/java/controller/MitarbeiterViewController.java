@@ -90,6 +90,7 @@ public class MitarbeiterViewController implements Initializable {
     }
 
     public void ladeMitarbeiter() {
+        personalnummerTextField.setText(aktuellerMitarbeiter.getPersNr());
         geschlechtComboBox.setValue(aktuellerMitarbeiter.getGeschlecht());
         vornameTextField.setText(aktuellerMitarbeiter.getVorname());
         nachnameTextField.setText(aktuellerMitarbeiter.getNachname());
@@ -101,7 +102,8 @@ public class MitarbeiterViewController implements Initializable {
             geburtsdatumDatePicker.setValue(null); // Bleibt einfach leer
         }
         ortComboBox.setValue(aktuellerMitarbeiter.getOrt());
-        personalnummerTextField.setText(aktuellerMitarbeiter.getPersNr());
+        ressortComboBox.setValue(aktuellerMitarbeiter.getRessort());
+        vertragstypComboBox.setValue(aktuellerMitarbeiter.getVertrag());
 
     }
 

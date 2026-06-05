@@ -1,28 +1,31 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+
 <!--
     Tabellenansicht für Mitarbeiter.
     Diese View zeigt später alle Mitarbeiter als Liste an.
 -->
-<AnchorPane prefHeight="530.0" prefWidth="810.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MitarbeiterTableViewController" stylesheets="@css/pvs_style.css" styleClass="view-root">
+
+<AnchorPane prefHeight="530.0" prefWidth="810.0" styleClass="view-root" stylesheets="@css/pvs_style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MitarbeiterTableViewController">
   <children>
     <!-- Überschrift der Tabellenansicht -->
-    <Label layoutX="30.0" layoutY="25.0" text="Mitarbeiterliste" styleClass="view-title" />
+    <Label layoutX="30.0" layoutY="25.0" styleClass="view-title" text="Mitarbeiterliste" />
     <!-- Suchfeld für eine spätere Suche nach Mitarbeitern -->
     <TextField fx:id="mitarbeiterSucheTextField" layoutX="30.0" layoutY="75.0" onKeyTyped="#mitarbeiterSuche" prefHeight="28.0" prefWidth="220.0" promptText="Mitarbeiter suchen" styleClass="input-field" />
     <!-- Button zum Öffnen der Einzelansicht für einen neuen Mitarbeiter -->
-    <Button fx:id="mitarbeiterNeuButton" onAction="#mitarbeiterNeuOeffnen" layoutX="272.0" layoutY="75.0" prefHeight="28.0" prefWidth="95.0" text="Neu" styleClass="primary-button" />
+    <Button fx:id="mitarbeiterNeuButton" layoutX="272.0" layoutY="75.0" onAction="#mitarbeiterNeuOeffnen" prefHeight="28.0" prefWidth="95.0" styleClass="primary-button" text="Neu" />
     <!-- Button zum Bearbeiten des aktuell ausgewählten Mitarbeiters -->
-    <Button fx:id="mitarbeiterBearbeitenButton" onAction="#mitarbeiterBearbeitenOeffnen" layoutX="377.0" layoutY="75.0" prefHeight="28.0" prefWidth="105.0" text="Bearbeiten" styleClass="secondary-button" />
+    <Button fx:id="mitarbeiterBearbeitenButton" layoutX="377.0" layoutY="75.0" onAction="#mitarbeiterBearbeitenOeffnen" prefHeight="28.0" prefWidth="105.0" styleClass="secondary-button" text="Bearbeiten" />
     <!-- Button zum Löschen des aktuell ausgewählten Mitarbeiters -->
-    <Button fx:id="mitarbeiterLoeschenButton" onAction="#mitarbeiterLoeschen" layoutX="492.0" layoutY="75.0" prefHeight="28.0" prefWidth="90.0" text="Löschen" styleClass="danger-button" />
+    <Button fx:id="mitarbeiterLoeschenButton" layoutX="492.0" layoutY="75.0" onAction="#mitarbeiterLoeschen" prefHeight="28.0" prefWidth="90.0" styleClass="danger-button" text="Löschen" />
     <!-- Tabelle für alle Mitarbeiter -->
-    <TableView fx:id="mitarbeiterTable" layoutX="30.0" layoutY="120.0" prefHeight="380.0" prefWidth="750.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="120.0" AnchorPane.bottomAnchor="30.0" styleClass="data-table">
+    <TableView fx:id="mitarbeiterTable" layoutX="30.0" layoutY="120.0" onMouseClicked="#tabellenClick" prefHeight="380.0" prefWidth="750.0" styleClass="data-table" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="120.0">
       <columnResizePolicy>
         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
       </columnResizePolicy>
