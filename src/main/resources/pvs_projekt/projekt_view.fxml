@@ -1,98 +1,68 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
+<?xml version="1.0" encoding="utf-8"?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-
+<?import org.controlsfx.control.SearchableComboBox?>
 <!--
-    Einzelansicht für ein Projekt.
-    Diese Maske ist für das Anlegen oder Bearbeiten eines einzelnen Projekts gedacht.
+ Einzelansicht für ein Projekt.
+ Hier werden die Projektdaten und die Projektbesetzung gemeinsam gepflegt.
 -->
-<AnchorPane maxHeight="-Infinity"
-            maxWidth="-Infinity"
-            minHeight="-Infinity"
-            minWidth="-Infinity"
-            prefHeight="390.0"
-            prefWidth="600.0"
-            style="-fx-background-color: #f8fafc;"
-            xmlns="http://javafx.com/javafx/26"
-            xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="720.0" style="-fx-background-color: #f8fafc;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <!-- Überschrift der Maske -->
-      <Label layoutX="40.0"
-             layoutY="28.0"
-             text="Projekt bearbeiten"
-             style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #203044;" />
-
+      <Label layoutX="40.0" layoutY="28.0" text="Projekt bearbeiten" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #203044;" />
       <!-- Bezeichnung oder Name des Projekts -->
-      <Label layoutX="82.0"
-             layoutY="91.0"
-             text="Bezeichnung"
-             style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
-      <TextField fx:id="bezeichnungTextField"
-                 layoutX="213.0"
-                 layoutY="86.0"
-                 prefHeight="25.0"
-                 prefWidth="220.0"
-                 promptText="Projektbezeichnung eingeben"
-                 style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
-
+      <Label layoutX="82.0" layoutY="91.0" text="Bezeichnung" style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
+      <TextField fx:id="bezeichnungTextField" layoutX="213.0" layoutY="86.0" prefHeight="25.0" prefWidth="220.0" promptText="Projektbezeichnung eingeben" style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
       <!-- Startdatum des Projekts -->
-      <Label layoutX="82.0"
-             layoutY="132.0"
-             text="Beginn"
-             style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
-      <DatePicker fx:id="beginnDatePicker"
-                  layoutX="213.0"
-                  layoutY="127.0"
-                  prefWidth="220.0"
-                  style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
-
+      <Label layoutX="82.0" layoutY="132.0" text="Beginn" style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
+      <DatePicker fx:id="beginnDatePicker" layoutX="213.0" layoutY="127.0" prefWidth="220.0" style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
       <!-- Abschlussdatum des Projekts -->
-      <Label layoutX="82.0"
-             layoutY="173.0"
-             text="Abschluss"
-             style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
-      <DatePicker fx:id="abschlussDatePicker"
-                  layoutX="213.0"
-                  layoutY="168.0"
-                  prefWidth="220.0"
-                  style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
-
-      <!-- Projektleitung wird als Rolle in der Projektbesetzung gespeichert -->
-      <Label layoutX="82.0"
-             layoutY="222.0"
-             prefWidth="430.0"
-             text="Besetzung und Projektleitung werden gemeinsam gepflegt."
-             style="-fx-text-fill: #5d6b7a;" />
-
-      <!-- Öffnet später die Verwaltung der Projektmitarbeiter und ihrer Rollen -->
-      <Button fx:id="besetzungVerwaltenButton"
-              layoutX="213.0"
-              layoutY="255.0"
-              mnemonicParsing="false"
-              prefWidth="220.0"
-              text="Besetzung und Leitung"
-              style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;" />
-
-      <!-- Button zum Speichern; noch ohne onAction, weil die Logik im Controller ergänzt wird -->
-      <Button fx:id="projektSpeichernButton"
-              layoutX="213.0"
-              layoutY="315.0"
-              mnemonicParsing="false"
-              prefWidth="105.0"
-              text="Speichern"
-              style="-fx-background-color: #2f6f67; -fx-border-color: #2f6f67; -fx-text-fill: white; -fx-font-weight: bold;" />
-
-      <!-- Button zum Abbrechen oder Zurückgehen; noch ohne onAction -->
-      <Button fx:id="projektAbbrechenButton"
-              layoutX="328.0"
-              layoutY="315.0"
-              mnemonicParsing="false"
-              prefWidth="105.0"
-              text="Abbrechen"
-              style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;" />
+      <Label layoutX="82.0" layoutY="173.0" text="Abschluss" style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
+      <DatePicker fx:id="abschlussDatePicker" layoutX="213.0" layoutY="168.0" prefWidth="220.0" style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
+      <!-- Aktuelle Projektleitung wird aus der Rolle Projektleitung ermittelt -->
+      <Label layoutX="470.0" layoutY="91.0" text="Aktuelle Leitung" style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
+      <Label fx:id="aktuelleLeitungLabel" layoutX="470.0" layoutY="121.0" prefWidth="180.0" text="Noch nicht geladen" style="-fx-text-fill: #5d6b7a;" />
+      <!-- Trennung zwischen Projektdaten und Besetzung -->
+      <Label layoutX="40.0" layoutY="235.0" text="Projektbesetzung" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #203044;" />
+      <!-- Mitarbeiter, der dem Projekt zugeordnet werden soll -->
+      <Label layoutX="82.0" layoutY="284.0" text="Mitarbeiter" style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
+      <SearchableComboBox fx:id="besetzungMitarbeiterComboBox" layoutX="213.0" layoutY="279.0" prefWidth="220.0" promptText="Mitarbeiter auswählen" style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
+      <!-- Rolle im Projekt, zum Beispiel Projektleitung -->
+      <Label layoutX="82.0" layoutY="325.0" text="Rolle" style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
+      <TextField fx:id="rolleImProjektTextField" layoutX="213.0" layoutY="320.0" prefHeight="25.0" prefWidth="220.0" promptText="z. B. Projektleitung" style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
+      <!-- Beginn der Mitarbeit oder Leitung im Projekt -->
+      <Label layoutX="470.0" layoutY="284.0" text="Von" style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
+      <DatePicker fx:id="vonDatumDatePicker" layoutX="520.0" layoutY="279.0" prefWidth="140.0" style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
+      <!-- Ende der Mitarbeit oder Leitung im Projekt -->
+      <Label layoutX="470.0" layoutY="325.0" text="Bis" style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
+      <DatePicker fx:id="bisDatumDatePicker" layoutX="520.0" layoutY="320.0" prefWidth="140.0" style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
+      <!-- Button zum Hinzufügen einer Projektbesetzung; Aktion wird im Controller ergänzt -->
+      <Button fx:id="besetzungHinzufuegenButton" layoutX="213.0" layoutY="365.0" mnemonicParsing="false" prefWidth="105.0" text="Hinzufügen" style="-fx-background-color: #2f6f67; -fx-border-color: #2f6f67; -fx-text-fill: white; -fx-font-weight: bold;" />
+      <!-- Bearbeitet der ausgewählten Projektbesetzung; Aktion wird im Controller ergänzt -->
+      <Button fx:id="besetzungBearbeitenButton" layoutX="328.0" layoutY="365.0" mnemonicParsing="false" prefWidth="105.0" text="Bearbeiten" style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;" />
+      <!-- Button zum Entfernen der ausgewählten Projektbesetzung; Aktion wird im Controller ergänzt -->
+      <Button fx:id="besetzungEntfernenButton" layoutX="443.0" layoutY="365.0" mnemonicParsing="false" prefWidth="105.0" text="Entfernen" style="-fx-background-color: #f4c7b8; -fx-border-color: #e39a84; -fx-text-fill: #203044;" />
+      <!-- Tabelle mit allen Mitarbeitern, die dem Projekt zugeordnet sind -->
+      <TableView fx:id="projektBesetzungTableView" layoutX="40.0" layoutY="415.0" prefHeight="110.0" prefWidth="640.0" style="-fx-background-color: white; -fx-border-color: #c7d1dd;">
+         <columns>
+            <!-- Mitarbeiter, der am Projekt mitarbeitet -->
+            <TableColumn fx:id="besetzungMitarbeiterColumn" prefWidth="220.0" text="Mitarbeiter" />
+            <!-- Rolle oder Aufgabe im Projekt, zum Beispiel Projektleitung -->
+            <TableColumn fx:id="besetzungRolleColumn" prefWidth="180.0" text="Rolle" />
+            <!-- Beginn der Mitarbeit oder Leitung -->
+            <TableColumn fx:id="besetzungVonColumn" prefWidth="120.0" text="Von" />
+            <!-- Ende der Mitarbeit oder Leitung -->
+            <TableColumn fx:id="besetzungBisColumn" prefWidth="120.0" text="Bis" />
+         </columns>
+      </TableView>
+      <!-- Speichert; Aktion wird im Controller ergänzt -->
+      <Button fx:id="projektSpeichernButton" layoutX="213.0" layoutY="550.0" mnemonicParsing="false" prefWidth="105.0" text="Speichern" style="-fx-background-color: #2f6f67; -fx-border-color: #2f6f67; -fx-text-fill: white; -fx-font-weight: bold;" />
+      <!-- Bricht ab oder geht zurück; Aktion wird im Controller ergänzt -->
+      <Button fx:id="projektAbbrechenButton" layoutX="328.0" layoutY="550.0" mnemonicParsing="false" prefWidth="105.0" text="Abbrechen" style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;" />
    </children>
 </AnchorPane>

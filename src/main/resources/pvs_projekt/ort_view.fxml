@@ -1,68 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
+<?xml version="1.0" encoding="utf-8"?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-
 <!--
-    Einzelansicht für einen Ort.
-    Diese Maske ist für das Anlegen oder Bearbeiten eines Wohnortes gedacht.
+ Einzelansicht für einen Ort.
+ Maske zum Anlegen und Bearbeiten eines Wohnortes.
 -->
-<AnchorPane prefHeight="300.0"
-            prefWidth="600.0"
-            style="-fx-background-color: #f8fafc;"
-            xmlns="http://javafx.com/javafx/26"
-            xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="300.0" prefWidth="600.0" style="-fx-background-color: #f8fafc;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <!-- Überschrift der Maske -->
-      <Label layoutX="40.0"
-             layoutY="28.0"
-             text="Ort bearbeiten"
-             style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #203044;" />
-
-      <!-- Postleitzahl des Ortes -->
-      <Label layoutX="82.0"
-             layoutY="91.0"
-             text="PLZ"
-             style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
-      <TextField fx:id="plzTextField"
-                 layoutX="213.0"
-                 layoutY="86.0"
-                 prefHeight="25.0"
-                 prefWidth="220.0"
-                 promptText="PLZ eingeben"
-                 style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
-
-      <!-- Name des Wohnortes -->
-      <Label layoutX="82.0"
-             layoutY="132.0"
-             text="Ortsname"
-             style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
-      <TextField fx:id="ortsnameTextField"
-                 layoutX="213.0"
-                 layoutY="127.0"
-                 prefHeight="25.0"
-                 prefWidth="220.0"
-                 promptText="Ortsname eingeben"
-                 style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
-
-      <!-- Button zum Speichern; noch ohne onAction, weil die Logik im Controller ergänzt wird -->
-      <Button fx:id="ortSpeichernButton"
-              layoutX="213.0"
-              layoutY="190.0"
-              mnemonicParsing="false"
-              prefWidth="105.0"
-              text="Speichern"
-              style="-fx-background-color: #2f6f67; -fx-border-color: #2f6f67; -fx-text-fill: white; -fx-font-weight: bold;" />
-
-      <!-- Button zum Abbrechen oder Zurückgehen; noch ohne onAction -->
-      <Button fx:id="ortAbbrechenButton"
-              layoutX="328.0"
-              layoutY="190.0"
-              mnemonicParsing="false"
-              prefWidth="105.0"
-              text="Abbrechen"
-              style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;" />
+      <Label layoutX="40.0" layoutY="28.0" text="Ort bearbeiten" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #203044;" />
+      <!-- Postleitzahl aus orte.plz -->
+      <Label layoutX="82.0" layoutY="91.0" text="PLZ" style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
+      <TextField fx:id="plzTextField" layoutX="213.0" layoutY="86.0" prefHeight="25.0" prefWidth="220.0" promptText="PLZ eingeben" style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
+      <!-- Ortsname aus orte.ortsname -->
+      <Label layoutX="82.0" layoutY="132.0" text="Ortsname" style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
+      <TextField fx:id="ortsnameTextField" layoutX="213.0" layoutY="127.0" prefHeight="25.0" prefWidth="220.0" promptText="Ortsname eingeben" style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
+      <!-- Speichert; Aktion wird im Controller ergänzt -->
+      <Button fx:id="ortSpeichernButton" layoutX="213.0" layoutY="190.0" mnemonicParsing="false" prefWidth="105.0" text="Speichern" style="-fx-background-color: #2f6f67; -fx-border-color: #2f6f67; -fx-text-fill: white; -fx-font-weight: bold;" />
+      <!-- Bricht ab oder geht zurück; Aktion wird im Controller ergänzt -->
+      <Button fx:id="ortAbbrechenButton" layoutX="328.0" layoutY="190.0" mnemonicParsing="false" prefWidth="105.0" text="Abbrechen" style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;" />
    </children>
 </AnchorPane>

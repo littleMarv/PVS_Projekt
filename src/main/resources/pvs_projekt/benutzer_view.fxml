@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import org.controlsfx.control.SearchableComboBox?>
+<!--
+ Einzelansicht für einen Benutzer.
+ Maske zum Anlegen und Bearbeiten eines Login-Benutzers.
+-->
+<AnchorPane prefHeight="430.0" prefWidth="600.0" style="-fx-background-color: #f8fafc;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <!-- Überschrift der Maske -->
+      <Label layoutX="40.0" layoutY="28.0" text="Benutzer bearbeiten" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #203044;" />
+      <!-- Benutzername aus benutzer.username -->
+      <Label layoutX="82.0" layoutY="91.0" text="Benutzername" style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
+      <TextField fx:id="benutzernameTextField" layoutX="213.0" layoutY="86.0" prefHeight="25.0" prefWidth="220.0" promptText="Benutzername eingeben" style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
+      <!-- E-Mail-Adresse aus benutzer.email -->
+      <Label layoutX="82.0" layoutY="132.0" text="E-Mail" style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
+      <TextField fx:id="emailTextField" layoutX="213.0" layoutY="127.0" prefHeight="25.0" prefWidth="220.0" promptText="E-Mail eingeben" style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
+      <!-- Passwort für benutzer.password_hash; das Hashen passiert im Backend -->
+      <Label layoutX="82.0" layoutY="173.0" text="Passwort" style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
+      <PasswordField fx:id="passwortField" layoutX="213.0" layoutY="168.0" prefHeight="25.0" prefWidth="220.0" promptText="Passwort eingeben" style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
+      <!-- Benutzerrolle über benutzer.rollen_id und rollen.id -->
+      <Label layoutX="82.0" layoutY="214.0" text="Benutzerrolle" style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
+      <SearchableComboBox fx:id="rolleComboBox" layoutX="213.0" layoutY="209.0" prefWidth="220.0" promptText="Rolle auswählen" style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
+      <!-- Optionaler Mitarbeiterbezug über benutzer.mitarbeiter_id -->
+      <Label layoutX="82.0" layoutY="255.0" text="Mitarbeiter" style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
+      <SearchableComboBox fx:id="mitarbeiterComboBox" layoutX="213.0" layoutY="250.0" prefWidth="220.0" promptText="Mitarbeiter auswählen" style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
+      <!-- Aktiv-Status aus benutzer.is_active -->
+      <CheckBox fx:id="aktivCheckBox" layoutX="213.0" layoutY="294.0" selected="true" text="Aktiv" style="-fx-text-fill: #203044;" />
+      <!-- Speichert; Aktion wird im Controller ergänzt -->
+      <Button fx:id="benutzerSpeichernButton" layoutX="213.0" layoutY="345.0" mnemonicParsing="false" prefWidth="105.0" text="Speichern" style="-fx-background-color: #2f6f67; -fx-border-color: #2f6f67; -fx-text-fill: white; -fx-font-weight: bold;" />
+      <!-- Bricht ab oder geht zurück; Aktion wird im Controller ergänzt -->
+      <Button fx:id="benutzerAbbrechenButton" layoutX="328.0" layoutY="345.0" mnemonicParsing="false" prefWidth="105.0" text="Abbrechen" style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;" />
+   </children>
+</AnchorPane>

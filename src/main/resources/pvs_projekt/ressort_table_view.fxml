@@ -1,76 +1,32 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
+<?xml version="1.0" encoding="utf-8"?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-
 <!--
-    Tabellenansicht für Ressorts.
-    Diese View zeigt später alle vordefinierten Ressorts als Liste an.
+ Tabellenansicht für Ressorts.
+ Liste der Arbeitsbereiche.
 -->
-<AnchorPane prefHeight="400.0"
-            prefWidth="600.0"
-            style="-fx-background-color: #f8fafc;"
-            xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #f8fafc;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <!-- Überschrift der Tabellenansicht -->
-      <Label layoutX="30.0"
-             layoutY="25.0"
-             text="Ressortliste"
-             style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #203044;" />
-
-      <!-- Suchfeld für eine spätere Suche nach Ressorts -->
-      <TextField fx:id="ressortSucheTextField"
-                 layoutX="30.0"
-                 layoutY="75.0"
-                 prefHeight="28.0"
-                 prefWidth="220.0"
-                 promptText="Ressort suchen"
-                 style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;" />
-
-      <!-- Button zum Öffnen der Einzelansicht für ein neues Ressort -->
-      <Button fx:id="ressortNeuButton"
-              layoutX="272.0"
-              layoutY="75.0"
-              prefHeight="28.0"
-              prefWidth="95.0"
-              text="Neu"
-              style="-fx-background-color: #2f6f67; -fx-border-color: #2f6f67; -fx-text-fill: white; -fx-font-weight: bold;" />
-
-      <!-- Button zum Bearbeiten des aktuell ausgewählten Ressorts -->
-      <Button fx:id="ressortBearbeitenButton"
-              layoutX="377.0"
-              layoutY="75.0"
-              prefHeight="28.0"
-              prefWidth="105.0"
-              text="Bearbeiten"
-              style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;" />
-
-      <!-- Button zum Löschen des aktuell ausgewählten Ressorts -->
-      <Button fx:id="ressortLoeschenButton"
-              layoutX="492.0"
-              layoutY="75.0"
-              prefHeight="28.0"
-              prefWidth="90.0"
-              text="Löschen"
-              style="-fx-background-color: #f4c7b8; -fx-border-color: #e39a84; -fx-text-fill: #203044;" />
-
+      <Label layoutX="30.0" layoutY="25.0" text="Ressortliste" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #203044;" />
+      <!-- Suchfeld für eine e Suche nach Ressorts -->
+      <TextField fx:id="ressortSucheTextField" layoutX="30.0" layoutY="75.0" prefHeight="28.0" prefWidth="220.0" promptText="Ressort suchen" style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;" />
+      <!-- Öffnet die Einzelansicht für ein neues Ressort -->
+      <Button fx:id="ressortNeuButton" layoutX="272.0" layoutY="75.0" prefHeight="28.0" prefWidth="95.0" text="Neu" style="-fx-background-color: #2f6f67; -fx-border-color: #2f6f67; -fx-text-fill: white; -fx-font-weight: bold;" />
+      <!-- Bearbeitet des aktuell ausgewählten Ressorts -->
+      <Button fx:id="ressortBearbeitenButton" layoutX="377.0" layoutY="75.0" prefHeight="28.0" prefWidth="105.0" text="Bearbeiten" style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;" />
+      <!-- Löscht des aktuell ausgewählten Ressorts -->
+      <Button fx:id="ressortLoeschenButton" layoutX="492.0" layoutY="75.0" prefHeight="28.0" prefWidth="90.0" text="Löschen" style="-fx-background-color: #f4c7b8; -fx-border-color: #e39a84; -fx-text-fill: #203044;" />
       <!-- Tabelle für alle Ressorts -->
-      <TableView fx:id="ressortTableView"
-                 layoutX="30.0"
-                 layoutY="120.0"
-                 prefHeight="255.0"
-                 prefWidth="552.0"
-                 style="-fx-background-color: white; -fx-border-color: #c7d1dd;">
+      <TableView fx:id="ressortTableView" layoutX="30.0" layoutY="120.0" prefHeight="255.0" prefWidth="552.0" style="-fx-background-color: white; -fx-border-color: #c7d1dd;">
          <columns>
-            <!-- Ressort-ID aus der Datenbank -->
+            <!-- Ressort-ID aus ressorts.id -->
             <TableColumn fx:id="ressortIdColumn" prefWidth="100.0" text="ID" />
-
-            <!-- Bezeichnung des Ressorts -->
+            <!-- Bezeichnung aus ressorts.bezeichnung -->
             <TableColumn fx:id="ressortBezeichnungColumn" prefWidth="450.0" text="Bezeichnung" />
          </columns>
       </TableView>
