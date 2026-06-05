@@ -6,7 +6,7 @@ target/
 
 
 ###
-/src/main/java/db_conn/
+/src/main/java/db_zeug/DatabaseConnection.java
 ### IntelliJ IDEA ###
 .idea/
 .idea/modules.xml
