@@ -11,61 +11,26 @@
     Tabellenansicht für Mitarbeiter.
     Diese View zeigt später alle Mitarbeiter als Liste an.
 -->
-<AnchorPane prefHeight="400.0"
-            prefWidth="600.0"
-            style="-fx-background-color: #f8fafc;"
-            xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml">
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #f8fafc;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MitarbeiterTableViewController">
    <children>
       <!-- Überschrift der Tabellenansicht -->
-      <Label layoutX="30.0"
-             layoutY="25.0"
-             text="Mitarbeiterliste"
-             style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #203044;" />
+      <Label layoutX="30.0" layoutY="25.0" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #203044;" text="Mitarbeiterliste" />
 
       <!-- Suchfeld für eine spätere Suche nach Mitarbeitern -->
-      <TextField fx:id="mitarbeiterSucheTextField"
-                 layoutX="30.0"
-                 layoutY="75.0"
-                 prefHeight="28.0"
-                 prefWidth="220.0"
-                 promptText="Mitarbeiter suchen"
-                 style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;" />
+      <TextField fx:id="mitarbeiterSucheTextField" layoutX="30.0" layoutY="75.0" prefHeight="28.0" prefWidth="220.0" promptText="Mitarbeiter suchen" style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;" />
 
       <!-- Button zum Öffnen der Einzelansicht für einen neuen Mitarbeiter -->
-      <Button fx:id="mitarbeiterNeuButton"
-              layoutX="272.0"
-              layoutY="75.0"
-              prefHeight="28.0"
-              prefWidth="95.0"
-              text="Neu"
-              style="-fx-background-color: #2f6f67; -fx-border-color: #2f6f67; -fx-text-fill: white; -fx-font-weight: bold;" />
+      <Button fx:id="mitarbeiterNeuButton" layoutX="272.0" layoutY="75.0" prefHeight="28.0" prefWidth="95.0" style="-fx-background-color: #2f6f67; -fx-border-color: #2f6f67; -fx-text-fill: white; -fx-font-weight: bold;" text="Neu" />
 
       <!-- Button zum Bearbeiten des aktuell ausgewählten Mitarbeiters -->
-      <Button fx:id="mitarbeiterBearbeitenButton"
-              layoutX="377.0"
-              layoutY="75.0"
-              prefHeight="28.0"
-              prefWidth="105.0"
-              text="Bearbeiten"
-              style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;" />
+      <Button fx:id="mitarbeiterBearbeitenButton" layoutX="377.0" layoutY="75.0" prefHeight="28.0" prefWidth="105.0" style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;" text="Bearbeiten" />
 
       <!-- Button zum Löschen des aktuell ausgewählten Mitarbeiters -->
-      <Button fx:id="mitarbeiterLoeschenButton"
-              layoutX="492.0"
-              layoutY="75.0"
-              prefHeight="28.0"
-              prefWidth="90.0"
-              text="Löschen"
-              style="-fx-background-color: #f4c7b8; -fx-border-color: #e39a84; -fx-text-fill: #203044;" />
+      <Button fx:id="mitarbeiterLoeschenButton" layoutX="492.0" layoutY="75.0" prefHeight="28.0" prefWidth="90.0" style="-fx-background-color: #f4c7b8; -fx-border-color: #e39a84; -fx-text-fill: #203044;" text="Löschen" />
 
       <!-- Tabelle für alle Mitarbeiter -->
-      <TableView fx:id="mitarbeiterTableView"
-                 layoutX="30.0"
-                 layoutY="120.0"
-                 prefHeight="255.0"
-                 prefWidth="552.0"
-                 style="-fx-background-color: white; -fx-border-color: #c7d1dd;">
+      <TableView fx:id="mitarbeiterTable" layoutX="30.0" layoutY="120.0" prefHeight="255.0" prefWidth="552.0" style="-fx-background-color: white; -fx-border-color: #c7d1dd;">
          <columns>
             <!-- Personalnummer aus der Mitarbeitertabelle -->
             <TableColumn fx:id="personalnummerColumn" prefWidth="105.0" text="Personalnummer" />

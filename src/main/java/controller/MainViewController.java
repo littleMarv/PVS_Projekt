@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import db_zeug.MitarbeiterDao;
 import fachklassen.Mitarbeiter;
 
-public class HelloController {
+public class MainViewController {
 
     // Wird aufgerufen, wenn auf den Mitarbeiter-Button geklickt wird
     @FXML
