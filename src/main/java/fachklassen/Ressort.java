@@ -42,4 +42,8 @@ public class Ressort {
     public int hashCode() {
         return Objects.hash(ressortId, bezeichnung);
     }
+
+    public String toString(){
+        return bezeichnung;
+    }
 }

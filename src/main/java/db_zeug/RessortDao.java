@@ -9,14 +9,14 @@ public class RessortDao {
 
     // Erstellt ein neues Ressort in der Datenbank
     public boolean create(Ressort ressort) {
-        String sql = "INSERT INTO ressort (bezeichnung) VALUES (?)";
+        String sql = "INSERT INTO ressorts (bezeichnung) VALUES (?)";
         int zeilen = SqlMacher.mach(sql, ressort.getBezeichnung());
         return zeilen > 0;
     }
 
     // Liest ein einzelnes Ressort anhand seiner ID aus
     public Ressort readOne(int ressortId) {
-        String sql = "SELECT id, bezeichnung FROM ressort WHERE id = ?";
+        String sql = "SELECT id, bezeichnung FROM ressorts WHERE id = ?";
         List<Map<String, Object>> ergebnis = SqlMacher.such(sql, ressortId);
 
         if (ergebnis.isEmpty()) {
@@ -28,7 +28,7 @@ public class RessortDao {
 
     // Gibt alle Ressorts aus der Datenbank zurück
     public List<Ressort> readAll() {
-        String sql = "SELECT id, bezeichnung FROM ressort";
+        String sql = "SELECT id, bezeichnung FROM ressorts";
         List<Map<String, Object>> ergebnis = SqlMacher.such(sql);
         List<Ressort> ressorts = new ArrayList<>();
 
@@ -40,14 +40,14 @@ public class RessortDao {
 
     // Aktualisiert die Bezeichnung eines bestehenden Ressorts
     public boolean update(Ressort ressort) {
-        String sql = "UPDATE ressort SET bezeichnung = ? WHERE id = ?";
+        String sql = "UPDATE ressorts SET bezeichnung = ? WHERE id = ?";
         int zeilen = SqlMacher.mach(sql, ressort.getBezeichnung(), ressort.getRessortId());
         return zeilen > 0;
     }
 
     // Löscht ein Ressort anhand seiner ID
     public boolean delete(int ressortId) {
-        String sql = "DELETE FROM ressort WHERE id = ?";
+        String sql = "DELETE FROM ressorts WHERE id = ?";
         int zeilen = SqlMacher.mach(sql, ressortId);
         return zeilen > 0;
     }

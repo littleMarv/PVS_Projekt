@@ -1,5 +1,4 @@
 package controller;
-
 import db_zeug.MitarbeiterDao;
 import fachklassen.Mitarbeiter;
 import javafx.collections.FXCollections;
@@ -7,12 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -20,7 +14,9 @@ import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+
 
 public class MitarbeiterTableViewController implements Initializable {
 
@@ -71,7 +67,10 @@ public class MitarbeiterTableViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Tabelle füllen
+        Mitarbeiter[] a = new MitarbeiterDao().readAll();
         mitarbeiterliste.setAll(new MitarbeiterDao().readAll());
+        //System.out.println("Mitarbeiterdaten gelesen");
+        //System.out.println(mitarbeiterliste);
 
         personalnummerColumn.setCellValueFactory(new PropertyValueFactory<>("persNr"));
         nachnameColumn.setCellValueFactory(new PropertyValueFactory<>("nachname"));
@@ -83,6 +82,7 @@ public class MitarbeiterTableViewController implements Initializable {
         ortColumn.setCellValueFactory(new PropertyValueFactory<>("ortsname"));
         vertragstypColumn.setCellValueFactory(new PropertyValueFactory<>("vertragbz"));
 
+
         mitarbeiterTable.setItems(mitarbeiterliste);
     }
 
@@ -93,10 +93,33 @@ public class MitarbeiterTableViewController implements Initializable {
         mitarbeiterliste.setAll(new MitarbeiterDao().fuzzyRead(typed));
     }
 
+    @FXML
+    public void tabellenClick(javafx.scene.input.MouseEvent event) {
+        // 1. Prüfen, ob es ein Doppelklick (2 Klicks) war
+        if (event.getClickCount() == 2) {
+
+            // 2. Das ausgewählte Objekt direkt aus der Tabelle abfragen
+            Mitarbeiter gewaehlterMitarbeiter = mitarbeiterTable.getSelectionModel().getSelectedItem();
+
+            // 3. Sicherheitscheck: Wurde wirklich eine Zeile getroffen?
+            // (Falls der Nutzer in den leeren Bereich unter den Zeilen doppelt klickt, ist es null)
+            AnchorPane hauptContentPane = (AnchorPane) mitarbeiterTable.getScene().lookup("#contentPane");
+
+            if (hauptContentPane != null) {
+                // Jetzt rufen wir den ViewLoader auf und übergeben die gefundene Pane!
+                new ViewLoader().ladeMitarbeiterDetails(gewaehlterMitarbeiter, hauptContentPane);
+            }
+        }
+    }
+
     // Öffnet die Eingabemaske für einen neuen Mitarbeiter.
     @FXML
     void mitarbeiterNeuOeffnen() {
-        ladeMitarbeiterView(null);
+        AnchorPane hauptContentPane = (AnchorPane) mitarbeiterTable.getScene().lookup("#contentPane");
+        if (hauptContentPane != null) {
+            // Jetzt rufen wir den ViewLoader auf und übergeben die gefundene Pane!
+            new ViewLoader().ladeMitarbeiterDetails(new Mitarbeiter(), hauptContentPane);
+        }
     }
 
     // Öffnet die Eingabemaske für den ausgewählten Mitarbeiter.
@@ -109,7 +132,12 @@ public class MitarbeiterTableViewController implements Initializable {
             return;
         }
 
-        ladeMitarbeiterView(ausgewaehlterMitarbeiter);
+        AnchorPane hauptContentPane = (AnchorPane) mitarbeiterTable.getScene().lookup("#contentPane");
+
+        if (hauptContentPane != null) {
+            // Jetzt rufen wir den ViewLoader auf und übergeben die gefundene Pane!
+            new ViewLoader().ladeMitarbeiterDetails(ausgewaehlterMitarbeiter, hauptContentPane);
+        }
     }
 
     // Fragt vor dem Löschen nach, damit kein Datensatz aus Versehen entfernt wird.
@@ -136,30 +164,6 @@ public class MitarbeiterTableViewController implements Initializable {
         }
     }
 
-    // Lädt die Mitarbeiter-Maske und übergibt beim Bearbeiten den ausgewählten Mitarbeiter.
-    private void ladeMitarbeiterView(Mitarbeiter mitarbeiter) {
-        AnchorPane contentPane = (AnchorPane) mitarbeiterTable.getScene().lookup("#contentPane");
-
-        if (contentPane == null) {
-            return;
-        }
-
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/pvs_projekt/mitarbeiter_view.fxml"));
-            Pane view = loader.load();
-            MitarbeiterViewController controller = loader.getController();
-            controller.setMitarbeiter(mitarbeiter);
-
-            contentPane.getChildren().setAll(view);
-            AnchorPane.setTopAnchor(view, 0.0);
-            AnchorPane.setRightAnchor(view, 0.0);
-            AnchorPane.setBottomAnchor(view, 0.0);
-            AnchorPane.setLeftAnchor(view, 0.0);
-        } catch (IOException e) {
-            zeigeHinweis("Die Mitarbeiter-Maske konnte nicht geladen werden.");
-            e.printStackTrace();
-        }
-    }
 
     // Kleines Hinweisfenster für einfache Bedienfehler.
     private void zeigeHinweis(String text) {

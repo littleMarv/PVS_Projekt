@@ -19,6 +19,7 @@ public class Mitarbeiter {
     private String vertragBz;
     private String ressortBz;
 
+    public Mitarbeiter(){}
     public Mitarbeiter(int mitarbeiterId, String persNr, String vorname, String nachname, String strasse, String hausNr, Ort ort, Ressort ressort, Date gebDatum, Vertrag vertrag, String geschlecht) {
         this.mitarbeiterId = mitarbeiterId;
         this.persNr = persNr;

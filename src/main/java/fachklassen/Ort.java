@@ -53,4 +53,8 @@ public class Ort {
     public int hashCode() {
         return Objects.hash(ortId, ortsname, plz);
     }
+
+    public String toString(){
+        return plz + " - " + ortsname;
+    }
 }

@@ -1,27 +1,28 @@
 package controller;
 
+import db_zeug.MitarbeiterDao;
+import db_zeug.OrtDao;
+import db_zeug.RessortDao;
+import db_zeug.VertragDao;
 import fachklassen.Mitarbeiter;
+import fachklassen.Ort;
+import fachklassen.Ressort;
+import fachklassen.Vertrag;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import org.controlsfx.control.SearchableComboBox;
 
-public class MitarbeiterViewController {
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
-    @FXML
-    private TextField personalnummerTextField;
+public class MitarbeiterViewController implements Initializable {
 
-    @FXML
-    private TextField vornameTextField;
-
-    @FXML
-    private TextField nachnameTextField;
-
-    @FXML
-    private TextField strasseTextField;
-
-    @FXML
-    private TextField hausnummerTextField;
+    private Mitarbeiter aktuellerMitarbeiter;
 
     @FXML
     private DatePicker geburtsdatumDatePicker;
@@ -30,32 +31,92 @@ public class MitarbeiterViewController {
     private SearchableComboBox<String> geschlechtComboBox;
 
     @FXML
-    private SearchableComboBox<String> ortComboBox;
+    private TextField hausnummerTextField;
+
 
     @FXML
-    private SearchableComboBox<String> ressortComboBox;
+    private TextField nachnameTextField;
 
     @FXML
-    private SearchableComboBox<String> vertragstypComboBox;
+    private SearchableComboBox<Ort> ortComboBox;
 
-    // Füllt die Maske mit den Daten aus der ausgewählten Tabellenzeile.
-    public void setMitarbeiter(Mitarbeiter mitarbeiter) {
-        if (mitarbeiter == null) {
-            return;
+    @FXML
+    private TextField personalnummerTextField;
+
+    @FXML
+    private SearchableComboBox<Ressort> ressortComboBox;
+
+    @FXML
+    private TextField strasseTextField;
+
+    @FXML
+    private SearchableComboBox<Vertrag> vertragstypComboBox;
+
+    @FXML
+    private TextField vornameTextField;
+
+    @FXML
+    private Button mitarbeiterAbbrechenButton;
+
+    @FXML
+    private Button mitarbeiterSpeichernButton;
+
+    public Mitarbeiter getAktuellerMitarbeiter() {
+        return aktuellerMitarbeiter;
+    }
+
+    public void setAktuellerMitarbeiter(Mitarbeiter aktuellerMitarbeiter) {
+        this.aktuellerMitarbeiter = aktuellerMitarbeiter;
+        ladeMitarbeiter();
+    }
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        List<Ressort> alleRessorts = new RessortDao().readAll(); // bzw. deine Methode
+        List<Vertrag> alleVertraege = new VertragDao().readAll();
+        List<Ort> alleOrte = new OrtDao().readAll();
+        List<String> geschlechter = List.of(new String[]{"Frau", "Divers", "Mann"});
+        ressortComboBox.getItems().setAll(alleRessorts);
+        vertragstypComboBox.getItems().setAll(alleVertraege);
+        ortComboBox.getItems().setAll(alleOrte);
+        geschlechtComboBox.getItems().setAll(geschlechter);
+    }
+
+    @FXML
+    public void setMitarbeiterSpeichernButton() {
+        updateTmpMitarbeiter();
+        new MitarbeiterDao().saveOne(aktuellerMitarbeiter);
+    }
+
+    public void ladeMitarbeiter() {
+        geschlechtComboBox.setValue(aktuellerMitarbeiter.getGeschlecht());
+        vornameTextField.setText(aktuellerMitarbeiter.getVorname());
+        nachnameTextField.setText(aktuellerMitarbeiter.getNachname());
+        strasseTextField.setText(aktuellerMitarbeiter.getStrasse());
+        hausnummerTextField.setText(aktuellerMitarbeiter.getHausNr());
+        if (aktuellerMitarbeiter.getGebDatum() != null) {
+            geburtsdatumDatePicker.setValue(aktuellerMitarbeiter.getGebDatum().toLocalDate());
+        } else {
+            geburtsdatumDatePicker.setValue(null); // Bleibt einfach leer
         }
+        ortComboBox.setValue(aktuellerMitarbeiter.getOrt());
+        personalnummerTextField.setText(aktuellerMitarbeiter.getPersNr());
 
-        personalnummerTextField.setText(mitarbeiter.getPersNr());
-        vornameTextField.setText(mitarbeiter.getVorname());
-        nachnameTextField.setText(mitarbeiter.getNachname());
-        strasseTextField.setText(mitarbeiter.getStrasse());
-        hausnummerTextField.setText(mitarbeiter.getHausNr());
-        geschlechtComboBox.setValue(mitarbeiter.getGeschlecht());
-        ortComboBox.setValue(mitarbeiter.getOrtsname());
-        ressortComboBox.setValue(mitarbeiter.getRessortbz());
-        vertragstypComboBox.setValue(mitarbeiter.getVertragbz());
+    }
 
-        if (mitarbeiter.getGebDatum() != null) {
-            geburtsdatumDatePicker.setValue(mitarbeiter.getGebDatum().toLocalDate());
-        }
+    private void updateTmpMitarbeiter() {
+        aktuellerMitarbeiter.setPersNr(personalnummerTextField.getText());
+        aktuellerMitarbeiter.setVorname(vornameTextField.getText());
+        aktuellerMitarbeiter.setNachname(nachnameTextField.getText());
+        aktuellerMitarbeiter.setStrasse(strasseTextField.getText());
+        aktuellerMitarbeiter.setHausNr(hausnummerTextField.getText());
+        aktuellerMitarbeiter.setOrt(ortComboBox.getValue());
+        aktuellerMitarbeiter.setGebDatum(java.sql.Date.valueOf(geburtsdatumDatePicker.getValue()));
+        aktuellerMitarbeiter.setGeschlecht(geschlechtComboBox.getValue());
+        aktuellerMitarbeiter.setRessort(ressortComboBox.getValue());
+        aktuellerMitarbeiter.setVertrag(vertragstypComboBox.getValue());
+
+
     }
 }

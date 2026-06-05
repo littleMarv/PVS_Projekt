@@ -38,4 +38,9 @@ public class Vertrag {
     public int hashCode() {
         return Objects.hash(vertragId, bezeichnung);
     }
+
+    @Override
+    public String toString() {
+        return bezeichnung;
+    }
 }

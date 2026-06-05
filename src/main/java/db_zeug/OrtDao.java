@@ -18,7 +18,7 @@ public class OrtDao {
 
     // Liest einen einzelnen Ort anhand seiner ID aus
     public Ort readOne(int ortId) {
-        String sql = "SELECT ortId, ortName, plz FROM orte WHERE ortId = ?";
+        String sql = "SELECT Id, ortsname, plz FROM orte WHERE Id = ?";
         List<Map<String, Object>> ergebnis = SqlMacher.such(sql, ortId);
 
         if (ergebnis.isEmpty()) {
@@ -30,7 +30,7 @@ public class OrtDao {
 
     // Gibt alle Orte aus der Datenbank zurück
     public List<Ort> readAll() {
-        String sql = "SELECT ortId, ortName, plz FROM orte";
+        String sql = "SELECT Id, ortsname, plz FROM orte";
         List<Map<String, Object>> ergebnis = SqlMacher.such(sql);
         List<Ort> orte = new ArrayList<>();
 
@@ -42,14 +42,14 @@ public class OrtDao {
 
     // Aktualisiert einen bestehenden Ort
     public boolean update(Ort ort) {
-        String sql = "UPDATE orte SET ortName = ?, plz = ? WHERE ortId = ?";
+        String sql = "UPDATE orte SET ortsame = ?, plz = ? WHERE Id = ?";
         int ergebnis = SqlMacher.mach(sql, ort.getOrtsname(), ort.getPlz(), ort.getOrtId());
         return ergebnis > 0;
     }
 
     // Löscht einen Ort anhand seiner ID
     public boolean delete(int ortId) {
-        String sql = "DELETE FROM orte WHERE ortId = ?";
+        String sql = "DELETE FROM orte WHERE Id = ?";
         int ergebnis = SqlMacher.mach(sql, ortId);
         return ergebnis > 0;
     }
@@ -65,8 +65,8 @@ public class OrtDao {
 
     // Hilfsmethode: Wandelt eine Tabellenzeile in ein Ort-Objekt um
     private Ort mapToOrt(Map<String, Object> zeile) {
-        int id = (int) zeile.get("ortId");
-        String name = (String) zeile.get("ortName");
+        int id = (int) zeile.get("Id");
+        String name = (String) zeile.get("ortsname");
         String plz = (String) zeile.get("plz");
         return new Ort(id, name, plz);
     }
