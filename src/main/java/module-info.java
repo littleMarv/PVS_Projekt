@@ -2,6 +2,7 @@ module org.example.pvs_projekt {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
+    requires org.controlsfx.controls;
 
 
     exports controller;

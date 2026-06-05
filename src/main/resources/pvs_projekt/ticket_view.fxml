@@ -9,29 +9,29 @@
  Einzelansicht für ein Ticket.
  Die Daten landen in ticket und ticket_aussteller.
 -->
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="600.0" style="-fx-background-color: #f8fafc;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <!-- Überschrift der Maske -->
-      <Label layoutX="40.0" layoutY="28.0" text="Ticket bearbeiten" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #203044;" />
-      <!-- Betroffene Person; entspricht ticket.verursacher_id -->
-      <Label layoutX="82.0" layoutY="91.0" text="Betroffen" style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
-      <SearchableComboBox fx:id="betroffenComboBox" layoutX="213.0" layoutY="86.0" prefWidth="220.0" promptText="Person auswählen" style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
-      <!-- Grund des Tickets; entspricht ticket.grund -->
-      <Label layoutX="82.0" layoutY="132.0" text="Grund" style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
-      <TextField fx:id="grundTextField" layoutX="213.0" layoutY="127.0" prefHeight="25.0" prefWidth="220.0" promptText="Grund eingeben" style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
-      <!-- Erster Aussteller; wird in ticket_aussteller gespeichert -->
-      <Label layoutX="82.0" layoutY="174.0" text="Aussteller 1" style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
-      <SearchableComboBox fx:id="ausstellerEinsComboBox" layoutX="213.0" layoutY="169.0" prefWidth="220.0" promptText="Mitarbeiter auswählen" style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
-      <!-- Zweiter Aussteller, weil laut Aufgabe genau zwei Mitarbeiter das Ticket ausstellen -->
-      <Label layoutX="82.0" layoutY="216.0" text="Aussteller 2" style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
-      <SearchableComboBox fx:id="ausstellerZweiComboBox" layoutX="213.0" layoutY="211.0" prefWidth="220.0" promptText="Mitarbeiter auswählen" style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
-      <!-- Datum des Tickets; wird mit der Uhrzeit zu ticket.zeitpunkt zusammengeführt -->
-      <Label layoutX="82.0" layoutY="258.0" text="Datum" style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
-      <DatePicker fx:id="datumDatePicker" layoutX="213.0" layoutY="253.0" prefWidth="220.0" style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
-      <!-- Uhrzeit des Tickets; wird mit dem Datum zu ticket.zeitpunkt zusammengeführt -->
-      <Label layoutX="82.0" layoutY="299.0" text="Uhrzeit" style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
-      <SearchableComboBox fx:id="uhrzeitComboBox" layoutX="213.0" layoutY="294.0" prefWidth="220.0" promptText="Uhrzeit auswählen" style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
-      <!-- Speichert des Tickets; Speicheraktion wird im Controller ergänzt -->
-      <Button fx:id="ticketSpeichernButton" layoutX="213.0" layoutY="355.0" mnemonicParsing="false" prefWidth="220.0" text="Ticket speichern" style="-fx-background-color: #2f6f67; -fx-border-color: #2f6f67; -fx-text-fill: white; -fx-font-weight: bold;" />
-   </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@css/pvs_style.css" styleClass="view-root">
+  <children>
+    <!-- Überschrift der Maske -->
+    <Label layoutX="40.0" layoutY="28.0" text="Ticket bearbeiten" styleClass="view-title" />
+    <!-- Betroffene Person; entspricht ticket.verursacher_id -->
+    <Label layoutX="82.0" layoutY="91.0" text="Betroffen" styleClass="field-label" />
+    <SearchableComboBox fx:id="betroffenComboBox" layoutX="213.0" layoutY="86.0" prefWidth="220.0" promptText="Person auswählen" styleClass="input-field" />
+    <!-- Grund des Tickets; entspricht ticket.grund -->
+    <Label layoutX="82.0" layoutY="132.0" text="Grund" styleClass="field-label" />
+    <TextField fx:id="grundTextField" layoutX="213.0" layoutY="127.0" prefHeight="25.0" prefWidth="220.0" promptText="Grund eingeben" styleClass="input-field" />
+    <!-- Erster Aussteller; wird in ticket_aussteller gespeichert -->
+    <Label layoutX="82.0" layoutY="174.0" text="Aussteller 1" styleClass="field-label" />
+    <SearchableComboBox fx:id="ausstellerEinsComboBox" layoutX="213.0" layoutY="169.0" prefWidth="220.0" promptText="Mitarbeiter auswählen" styleClass="input-field" />
+    <!-- Zweiter Aussteller, weil laut Aufgabe genau zwei Mitarbeiter das Ticket ausstellen -->
+    <Label layoutX="82.0" layoutY="216.0" text="Aussteller 2" styleClass="field-label" />
+    <SearchableComboBox fx:id="ausstellerZweiComboBox" layoutX="213.0" layoutY="211.0" prefWidth="220.0" promptText="Mitarbeiter auswählen" styleClass="input-field" />
+    <!-- Datum des Tickets; wird mit der Uhrzeit zu ticket.zeitpunkt zusammengeführt -->
+    <Label layoutX="82.0" layoutY="258.0" text="Datum" styleClass="field-label" />
+    <DatePicker fx:id="datumDatePicker" layoutX="213.0" layoutY="253.0" prefWidth="220.0" styleClass="input-field" />
+    <!-- Uhrzeit des Tickets; wird mit dem Datum zu ticket.zeitpunkt zusammengeführt -->
+    <Label layoutX="82.0" layoutY="299.0" text="Uhrzeit" styleClass="field-label" />
+    <SearchableComboBox fx:id="uhrzeitComboBox" layoutX="213.0" layoutY="294.0" prefWidth="220.0" promptText="Uhrzeit auswählen" styleClass="input-field" />
+    <!-- Speichert des Tickets; Speicheraktion wird im Controller ergänzt -->
+    <Button fx:id="ticketSpeichernButton" layoutX="213.0" layoutY="355.0" mnemonicParsing="false" prefWidth="220.0" text="Ticket speichern" styleClass="primary-button" />
+  </children>
 </AnchorPane>

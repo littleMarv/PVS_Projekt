@@ -8,12 +8,6 @@ import javafx.scene.layout.Pane;
 
 public class MainViewController {
 
-    // Stil für den Navigationsbutton, dessen View gerade geöffnet ist.
-    private static final String AKTIVER_BUTTON_STYLE = "-fx-background-color: #2f6f67; -fx-border-color: #2f6f67; -fx-text-fill: white; -fx-font-weight: bold;";
-
-    // Stil für normale Navigationsbuttons.
-    private static final String NORMALER_BUTTON_STYLE = "-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;";
-
     // In diesen Bereich wird immer die gerade ausgewählte View geladen.
     @FXML
     private AnchorPane contentPane;
@@ -100,12 +94,17 @@ public class MainViewController {
         Button[] navigationsButtons = {dashboard, mitarbeiter, projekte, tickets, orte, ressorts, vertragstypen};
 
         for (Button button : navigationsButtons) {
-            button.setStyle(NORMALER_BUTTON_STYLE);
+            button.getStyleClass().remove("nav-button-active");
+            if (!button.getStyleClass().contains("nav-button")) {
+                button.getStyleClass().add("nav-button");
+            }
         }
 
-        aktiverButton.setStyle(AKTIVER_BUTTON_STYLE);
+        aktiverButton.getStyleClass().remove("nav-button");
+        if (!aktiverButton.getStyleClass().contains("nav-button-active")) {
+            aktiverButton.getStyleClass().add("nav-button-active");
+        }
     }
-
     // Diese Hilfsmethode lädt eine FXML-Datei und setzt sie in den Center-Bereich.
     private void ladeViewInDieMitte(String dateiname) {
         ViewLoader loader = new ViewLoader();

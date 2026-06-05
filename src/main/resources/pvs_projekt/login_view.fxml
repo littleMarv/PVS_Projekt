@@ -8,19 +8,19 @@
  Login-Maske der Anwendung.
  Hier meldet sich der Benutzer mit Name/E-Mail und Passwort an.
 -->
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #f8fafc;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <!-- Überschrift der Login-Maske -->
-      <Label layoutX="40.0" layoutY="35.0" text="PVS Login" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #203044;" />
-      <!-- Eingabe für Benutzername oder E-Mail-Adresse -->
-      <Label layoutX="95.0" layoutY="105.0" text="Name / E-Mail" style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
-      <TextField fx:id="namemail" layoutX="220.0" layoutY="100.0" prefHeight="25.0" prefWidth="220.0" promptText="Name oder E-Mail eingeben" style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
-      <!-- Eingabe für das Passwort -->
-      <Label layoutX="95.0" layoutY="150.0" text="Passwort" style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
-      <PasswordField fx:id="passwort" layoutX="220.0" layoutY="145.0" prefHeight="25.0" prefWidth="220.0" promptText="Passwort eingeben" style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
-      <!-- Dieses Label kann Fehlermeldungen anzeigen -->
-      <Label fx:id="meldungLabel" layoutX="220.0" layoutY="185.0" prefWidth="260.0" text="" style="-fx-text-fill: #b94a35;" />
-      <!-- Button zum Anmelden -->
-      <Button fx:id="login" layoutX="220.0" layoutY="225.0" mnemonicParsing="false" prefWidth="220.0" text="Login" style="-fx-background-color: #2f6f67; -fx-border-color: #2f6f67; -fx-text-fill: white; -fx-font-weight: bold;" />
-   </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@css/pvs_style.css" styleClass="view-root">
+  <children>
+    <!-- Überschrift der Login-Maske -->
+    <Label layoutX="40.0" layoutY="35.0" text="PVS Login" styleClass="field-label" />
+    <!-- Eingabe für Benutzername oder E-Mail-Adresse -->
+    <Label layoutX="95.0" layoutY="105.0" text="Name / E-Mail" styleClass="field-label" />
+    <TextField fx:id="namemail" layoutX="220.0" layoutY="100.0" prefHeight="25.0" prefWidth="220.0" promptText="Name oder E-Mail eingeben" styleClass="input-field" />
+    <!-- Eingabe für das Passwort -->
+    <Label layoutX="95.0" layoutY="150.0" text="Passwort" styleClass="field-label" />
+    <PasswordField fx:id="passwort" layoutX="220.0" layoutY="145.0" prefHeight="25.0" prefWidth="220.0" promptText="Passwort eingeben" styleClass="input-field" />
+    <!-- Dieses Label kann Fehlermeldungen anzeigen -->
+    <Label fx:id="meldungLabel" layoutX="220.0" layoutY="185.0" prefWidth="260.0" text="" styleClass="field-label" />
+    <!-- Button zum Anmelden -->
+    <Button fx:id="login" layoutX="220.0" layoutY="225.0" mnemonicParsing="false" prefWidth="220.0" text="Login" styleClass="secondary-button" />
+  </children>
 </AnchorPane>

@@ -7,19 +7,19 @@
  Einzelansicht für einen Ort.
  Maske zum Anlegen und Bearbeiten eines Wohnortes.
 -->
-<AnchorPane prefHeight="300.0" prefWidth="600.0" style="-fx-background-color: #f8fafc;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <!-- Überschrift der Maske -->
-      <Label layoutX="40.0" layoutY="28.0" text="Ort bearbeiten" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #203044;" />
-      <!-- Postleitzahl aus orte.plz -->
-      <Label layoutX="82.0" layoutY="91.0" text="PLZ" style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
-      <TextField fx:id="plzTextField" layoutX="213.0" layoutY="86.0" prefHeight="25.0" prefWidth="220.0" promptText="PLZ eingeben" style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
-      <!-- Ortsname aus orte.ortsname -->
-      <Label layoutX="82.0" layoutY="132.0" text="Ortsname" style="-fx-text-fill: #203044; -fx-font-weight: bold;" />
-      <TextField fx:id="ortsnameTextField" layoutX="213.0" layoutY="127.0" prefHeight="25.0" prefWidth="220.0" promptText="Ortsname eingeben" style="-fx-background-color: white; -fx-border-color: #c7d1dd;" />
-      <!-- Speichert; Aktion wird im Controller ergänzt -->
-      <Button fx:id="ortSpeichernButton" layoutX="213.0" layoutY="190.0" mnemonicParsing="false" prefWidth="105.0" text="Speichern" style="-fx-background-color: #2f6f67; -fx-border-color: #2f6f67; -fx-text-fill: white; -fx-font-weight: bold;" />
-      <!-- Bricht ab oder geht zurück; Aktion wird im Controller ergänzt -->
-      <Button fx:id="ortAbbrechenButton" layoutX="328.0" layoutY="190.0" mnemonicParsing="false" prefWidth="105.0" text="Abbrechen" style="-fx-background-color: white; -fx-border-color: #c7d1dd; -fx-text-fill: #203044;" />
-   </children>
+<AnchorPane prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@css/pvs_style.css" styleClass="view-root">
+  <children>
+    <!-- Überschrift der Maske -->
+    <Label layoutX="40.0" layoutY="28.0" text="Ort bearbeiten" styleClass="view-title" />
+    <!-- Postleitzahl aus orte.plz -->
+    <Label layoutX="82.0" layoutY="91.0" text="PLZ" styleClass="field-label" />
+    <TextField fx:id="plzTextField" layoutX="213.0" layoutY="86.0" prefHeight="25.0" prefWidth="220.0" promptText="PLZ eingeben" styleClass="input-field" />
+    <!-- Ortsname aus orte.ortsname -->
+    <Label layoutX="82.0" layoutY="132.0" text="Ortsname" styleClass="field-label" />
+    <TextField fx:id="ortsnameTextField" layoutX="213.0" layoutY="127.0" prefHeight="25.0" prefWidth="220.0" promptText="Ortsname eingeben" styleClass="input-field" />
+    <!-- Speichert; Aktion wird im Controller ergänzt -->
+    <Button fx:id="ortSpeichernButton" layoutX="213.0" layoutY="190.0" mnemonicParsing="false" prefWidth="105.0" text="Speichern" styleClass="primary-button" />
+    <!-- Bricht ab oder geht zurück; Aktion wird im Controller ergänzt -->
+    <Button fx:id="ortAbbrechenButton" layoutX="328.0" layoutY="190.0" mnemonicParsing="false" prefWidth="105.0" text="Abbrechen" styleClass="secondary-button" />
+  </children>
 </AnchorPane>
