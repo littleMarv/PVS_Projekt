@@ -9,10 +9,13 @@ import fachklassen.Ort;
 import fachklassen.Ressort;
 import fachklassen.Vertrag;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import org.controlsfx.control.SearchableComboBox;
 
 import java.net.URL;
@@ -21,7 +24,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class MitarbeiterViewController implements Initializable {
-    private MainViewController mainController;
+
     private Mitarbeiter aktuellerMitarbeiter;
 
     @FXML
@@ -87,6 +90,7 @@ public class MitarbeiterViewController implements Initializable {
     public void setMitarbeiterSpeichernButton() {
         updateTmpMitarbeiter();
         new MitarbeiterDao().saveOne(aktuellerMitarbeiter);
+        abrechenButtonClick();
     }
 
     public void ladeMitarbeiter() {
@@ -123,10 +127,25 @@ public class MitarbeiterViewController implements Initializable {
     }
 
     @FXML
-    public void abrechenButtonClick(){
-        if (mainController != null) {
-            // Rufe exakt die Methode auf, die auch beim Klick auf den Haupt-Tab feuert
-            mainController.mitarbeiterAnzeigen();
+    public void abrechenButtonClick(){ //ich mag das nicht, will aber nicht zu viel struktur ändern....
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/pvs_projekt/mitarbeiter_view.fxml"));
+            Pane detailView = loader.load();
+
+
+            // Wichtig für das Layout (Wachstum erlauben)
+            detailView.setMaxWidth(Double.MAX_VALUE);
+            detailView.setMaxHeight(Double.MAX_VALUE);
+            AnchorPane pane = (AnchorPane) mitarbeiterAbbrechenButton.getScene().lookup("#contentPane");
+            // In die übergebene Pane setzen und verankern
+            pane.getChildren().setAll(detailView);
+            AnchorPane.setTopAnchor(detailView, 0.0);
+            AnchorPane.setRightAnchor(detailView, 0.0);
+            AnchorPane.setBottomAnchor(detailView, 0.0);
+            AnchorPane.setLeftAnchor(detailView, 0.0);
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }

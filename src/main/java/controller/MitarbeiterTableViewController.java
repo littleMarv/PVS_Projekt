@@ -162,6 +162,7 @@ public class MitarbeiterTableViewController implements Initializable {
         if (alert.showAndWait().orElse(abbrechenButton) == bestaetigenButton) {
             new MitarbeiterDao().deleteOne(ausgewaehlterMitarbeiter.getMitarbeiterId());
         }
+        mitarbeiterliste.setAll(new MitarbeiterDao().readAll());
     }
 
 
