@@ -30,9 +30,13 @@ public class DashboardController {
         orteAnzahlLabel.setText(String.valueOf(zaehleDatensaetze("orte")));
     }
 
-    // Gibt die Anzahl der Datensätze einer Tabelle zurück.
+    // Gibt die Anzahl der Datensätze einer erlaubten Tabelle zurück.
     private int zaehleDatensaetze(String tabellenName) {
-        List<Map<String, Object>> ergebnis = SqlMacher.such("SELECT COUNT(*) AS anzahl FROM ?", tabellenName);
+        if (!istErlaubteTabelle(tabellenName)) {
+            return 0;
+        }
+
+        List<Map<String, Object>> ergebnis = SqlMacher.such("SELECT COUNT(*) AS anzahl FROM " + tabellenName);
 
         if (ergebnis.isEmpty() || ergebnis.getFirst().get("anzahl") == null) {
             return 0;
@@ -40,5 +44,12 @@ public class DashboardController {
 
         Number anzahl = (Number) ergebnis.getFirst().get("anzahl");
         return anzahl.intValue();
+    }
+
+    private boolean istErlaubteTabelle(String tabellenName) {
+        return tabellenName.equals("mitarbeiter")
+                || tabellenName.equals("projekte")
+                || tabellenName.equals("ticket")
+                || tabellenName.equals("orte");
     }
 }

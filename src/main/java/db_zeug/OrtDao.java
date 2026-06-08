@@ -6,11 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+
 public class OrtDao {
 
     // Erstellt einen neuen Ort in der Datenbank
     public boolean create(Ort ort) {
-        String sql = "INSERT INTO orte (ortName, plz) VALUES (?, ?)";
+        String sql = "INSERT INTO orte (ortsname, plz) VALUES (?, ?)";
         // mach() liefert die Anzahl geänderter Zeilen oder -1 bei Fehlern
         int ergebnis = SqlMacher.mach(sql, ort.getOrtsname(), ort.getPlz());
         return ergebnis > 0;
@@ -40,9 +41,24 @@ public class OrtDao {
         return orte;
     }
 
+    // Sucht Orte nach Ortsname oder Postleitzahl
+    public List<Ort> fuzzyRead(String suchtext) {
+        String sql = "SELECT Id, ortsname, plz FROM orte WHERE ortsname LIKE ? OR plz LIKE ?";
+        String suche = "%" + suchtext + "%";
+
+        List<Map<String, Object>> ergebnis = SqlMacher.such(sql, suche, suche);
+        List<Ort> orte = new ArrayList<>();
+
+        for (Map<String, Object> zeile : ergebnis) {
+            orte.add(mapToOrt(zeile));
+        }
+
+        return orte;
+    }
+
     // Aktualisiert einen bestehenden Ort
     public boolean update(Ort ort) {
-        String sql = "UPDATE orte SET ortsame = ?, plz = ? WHERE Id = ?";
+        String sql = "UPDATE orte SET ortsname = ?, plz = ? WHERE Id = ?";
         int ergebnis = SqlMacher.mach(sql, ort.getOrtsname(), ort.getPlz(), ort.getOrtId());
         return ergebnis > 0;
     }

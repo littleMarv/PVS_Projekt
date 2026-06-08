@@ -5,12 +5,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <!--
  Einzelansicht für einen Ort.
- Maske zum Anlegen und Bearbeiten eines Wohnortes.
+ Maske zum Anlegen eines Wohnortes.
 -->
-<AnchorPane prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@css/pvs_style.css" styleClass="view-root">
+<AnchorPane prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OrtViewController" stylesheets="@css/pvs_style.css" styleClass="view-root">
   <children>
     <!-- Überschrift der Maske -->
-    <Label layoutX="40.0" layoutY="28.0" text="Ort bearbeiten" styleClass="view-title" />
+    <Label fx:id="ortTitelLabel" layoutX="40.0" layoutY="28.0" text="Ort anlegen" styleClass="view-title" />
     <!-- Postleitzahl aus orte.plz -->
     <Label layoutX="82.0" layoutY="91.0" text="PLZ" styleClass="field-label" />
     <TextField fx:id="plzTextField" layoutX="213.0" layoutY="86.0" prefHeight="25.0" prefWidth="220.0" promptText="PLZ eingeben" styleClass="input-field" />
