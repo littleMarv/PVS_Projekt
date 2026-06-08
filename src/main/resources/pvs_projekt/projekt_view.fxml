@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -7,46 +8,48 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import org.controlsfx.control.SearchableComboBox?>
+
 <!--
  Einzelansicht für ein Projekt.
  Hier werden die Projektdaten und die Projektbesetzung gemeinsam gepflegt.
 -->
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ProjektViewController" stylesheets="@css/pvs_style.css" styleClass="view-root">
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="720.0" styleClass="view-root" stylesheets="@css/pvs_style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ProjektViewController">
   <children>
     <!-- Überschrift der Maske -->
-    <Label layoutX="40.0" layoutY="28.0" text="Projekt bearbeiten" styleClass="view-title" />
+    <Label layoutX="40.0" layoutY="28.0" styleClass="view-title" text="Projekt bearbeiten" />
     <!-- Bezeichnung oder Name des Projekts -->
-    <Label layoutX="82.0" layoutY="91.0" text="Bezeichnung" styleClass="field-label" />
+    <Label layoutX="82.0" layoutY="91.0" styleClass="field-label" text="Bezeichnung" />
     <TextField fx:id="bezeichnungTextField" layoutX="213.0" layoutY="86.0" prefHeight="25.0" prefWidth="220.0" promptText="Projektbezeichnung eingeben" styleClass="input-field" />
     <!-- Startdatum des Projekts -->
-    <Label layoutX="82.0" layoutY="132.0" text="Beginn" styleClass="field-label" />
+    <Label layoutX="82.0" layoutY="132.0" styleClass="field-label" text="Beginn" />
     <DatePicker fx:id="beginnDatePicker" layoutX="213.0" layoutY="127.0" prefWidth="220.0" styleClass="input-field" />
     <!-- Abschlussdatum des Projekts -->
-    <Label layoutX="82.0" layoutY="173.0" text="Abschluss" styleClass="field-label" />
+    <Label layoutX="82.0" layoutY="173.0" styleClass="field-label" text="Abschluss" />
     <DatePicker fx:id="abschlussDatePicker" layoutX="213.0" layoutY="168.0" prefWidth="220.0" styleClass="input-field" />
     <!-- Aktuelle Projektleitung wird aus der Rolle Projektleitung ermittelt -->
-    <Label layoutX="470.0" layoutY="91.0" text="Aktuelle Leitung" styleClass="field-label" />
-    <Label fx:id="aktuelleLeitungLabel" layoutX="470.0" layoutY="121.0" prefWidth="180.0" text="Noch nicht geladen" styleClass="muted-label" />
+    <Label layoutX="470.0" layoutY="91.0" styleClass="field-label" text="Aktuelle Leitung" />
+    <Label fx:id="aktuelleLeitungLabel" layoutX="470.0" layoutY="121.0" prefWidth="180.0" styleClass="muted-label" text="Noch nicht geladen" />
     <!-- Trennung zwischen Projektdaten und Besetzung -->
-    <Label layoutX="40.0" layoutY="235.0" text="Projektbesetzung" styleClass="section-title" />
+    <Label layoutX="40.0" layoutY="235.0" styleClass="section-title" text="Projektbesetzung" />
     <!-- Mitarbeiter, der dem Projekt zugeordnet werden soll -->
-    <Label layoutX="82.0" layoutY="284.0" text="Mitarbeiter" styleClass="field-label" />
+    <Label layoutX="82.0" layoutY="284.0" styleClass="field-label" text="Mitarbeiter" />
     <SearchableComboBox fx:id="besetzungMitarbeiterComboBox" layoutX="213.0" layoutY="279.0" prefWidth="220.0" promptText="Mitarbeiter auswählen" styleClass="input-field" />
     <!-- Rolle im Projekt, zum Beispiel Projektleitung -->
-    <Label layoutX="82.0" layoutY="325.0" text="Rolle" styleClass="field-label" />
+    <Label layoutX="82.0" layoutY="325.0" styleClass="field-label" text="Rolle" />
     <TextField fx:id="rolleImProjektTextField" layoutX="213.0" layoutY="320.0" prefHeight="25.0" prefWidth="220.0" promptText="z. B. Projektleitung" styleClass="input-field" />
     <!-- Beginn der Mitarbeit oder Leitung im Projekt -->
-    <Label layoutX="470.0" layoutY="284.0" text="Von" styleClass="field-label" />
+    <Label layoutX="470.0" layoutY="284.0" styleClass="field-label" text="Von" />
     <DatePicker fx:id="vonDatumDatePicker" layoutX="520.0" layoutY="279.0" prefWidth="140.0" styleClass="input-field" />
     <!-- Ende der Mitarbeit oder Leitung im Projekt -->
-    <Label layoutX="470.0" layoutY="325.0" text="Bis" styleClass="field-label" />
+    <Label layoutX="470.0" layoutY="325.0" styleClass="field-label" text="Bis" />
     <DatePicker fx:id="bisDatumDatePicker" layoutX="520.0" layoutY="320.0" prefWidth="140.0" styleClass="input-field" />
     <!-- Button zum Hinzufügen einer Projektbesetzung; Aktion wird im Controller ergänzt -->
-    <Button fx:id="besetzungHinzufuegenButton" layoutX="213.0" layoutY="365.0" mnemonicParsing="false" prefWidth="105.0" text="Hinzufügen" styleClass="primary-button" />
+    <Button fx:id="besetzungHinzufuegenButton" layoutX="213.0" layoutY="365.0" mnemonicParsing="false" onAction="#projektAddMitarbeiterBtn" prefWidth="105.0" styleClass="primary-button" text="Hinzufügen" />
     <!-- Bearbeitet der ausgewählten Projektbesetzung; Aktion wird im Controller ergänzt -->
-    <Button fx:id="besetzungBearbeitenButton" layoutX="328.0" layoutY="365.0" mnemonicParsing="false" prefWidth="105.0" text="Bearbeiten" styleClass="secondary-button" />
+    <Button fx:id="besetzungBearbeitenButton" layoutX="328.0" layoutY="365.0" mnemonicParsing="false" prefWidth="105.0" styleClass="secondary-button" text="Bearbeiten" />
     <!-- Button zum Entfernen der ausgewählten Projektbesetzung; Aktion wird im Controller ergänzt -->
-    <Button fx:id="besetzungEntfernenButton" onAction="#besetzungEntfernen" layoutX="443.0" layoutY="365.0" mnemonicParsing="false" prefWidth="105.0" text="Entfernen" styleClass="danger-button" />
+    <Button fx:id="besetzungEntfernenButton" layoutX="443.0" layoutY="365.0" mnemonicParsing="false" onAction="#besetzungEntfernen" prefWidth="105.0" styleClass="danger-button" text="Entfernen" />
     <!-- Tabelle mit allen Mitarbeitern, die dem Projekt zugeordnet sind -->
     <TableView fx:id="projektBesetzungTableView" layoutX="40.0" layoutY="415.0" prefHeight="110.0" prefWidth="640.0" styleClass="data-table">
       <columns>
@@ -61,8 +64,8 @@
       </columns>
     </TableView>
     <!-- Speichert; Aktion wird im Controller ergänzt -->
-    <Button fx:id="projektSpeichernButton" layoutX="213.0" layoutY="550.0" mnemonicParsing="false" prefWidth="105.0" text="Speichern" styleClass="primary-button" />
+    <Button fx:id="projektSpeichernButton" layoutX="213.0" layoutY="550.0" mnemonicParsing="false" onAction="#speicherProjekt" prefWidth="105.0" styleClass="primary-button" text="Speichern" />
     <!-- Bricht ab oder geht zurück; Aktion wird im Controller ergänzt -->
-    <Button fx:id="projektAbbrechenButton" layoutX="328.0" layoutY="550.0" mnemonicParsing="false" prefWidth="105.0" text="Abbrechen" styleClass="secondary-button" />
+    <Button fx:id="projektAbbrechenButton" layoutX="328.0" layoutY="550.0" mnemonicParsing="false" onAction="#abbrechenProjekt" prefWidth="105.0" styleClass="secondary-button" text="Abbrechen" />
   </children>
 </AnchorPane>

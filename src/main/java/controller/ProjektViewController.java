@@ -1,26 +1,35 @@
 package controller;
 
+import db_zeug.MitarbeiterDao;
+import db_zeug.ProjektDao;
+import db_zeug.RessortDao;
 import fachklassen.Mitarbeiter;
 import fachklassen.Projekt;
+import fachklassen.ProjektMitarbeiter;
+import fachklassen.Ressort;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.util.StringConverter;
 import org.controlsfx.control.SearchableComboBox;
 
+import java.net.URL;
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class ProjektViewController {
+public class ProjektViewController implements Initializable {
 
+    ObservableList<ProjektMitarbeiter> pmitarbeiters = FXCollections.observableArrayList();
     private Projekt projekt;
-    private List<Mitarbeiter> mitarbeiters;
 
     @FXML
     private DatePicker abschlussDatePicker;
@@ -35,7 +44,7 @@ public class ProjektViewController {
     private Button besetzungBearbeitenButton;
 
     @FXML
-    private TableColumn<?, ?> besetzungBisColumn;
+    private TableColumn<ProjektMitarbeiter, String> besetzungBisColumn;
 
     @FXML
     private Button besetzungEntfernenButton;
@@ -44,16 +53,16 @@ public class ProjektViewController {
     private Button besetzungHinzufuegenButton;
 
     @FXML
-    private TableColumn<?, ?> besetzungMitarbeiterColumn;
+    private TableColumn<ProjektMitarbeiter, String> besetzungMitarbeiterColumn;
 
     @FXML
-    private SearchableComboBox<?> besetzungMitarbeiterComboBox;
+    private SearchableComboBox<Mitarbeiter> besetzungMitarbeiterComboBox;
 
     @FXML
-    private TableColumn<?, ?> besetzungRolleColumn;
+    private TableColumn<ProjektMitarbeiter, String> besetzungRolleColumn;
 
     @FXML
-    private TableColumn<?, ?> besetzungVonColumn;
+    private TableColumn<ProjektMitarbeiter, String> besetzungVonColumn;
 
     @FXML
     private TextField bezeichnungTextField;
@@ -65,7 +74,7 @@ public class ProjektViewController {
     private Button projektAbbrechenButton;
 
     @FXML
-    private TableView<?> projektBesetzungTableView;
+    private TableView<ProjektMitarbeiter> projektBesetzungTableView;
 
     @FXML
     private Button projektSpeichernButton;
@@ -77,7 +86,7 @@ public class ProjektViewController {
     private DatePicker vonDatumDatePicker;
 
     @FXML
-    void AbbrechenProjekt() {
+    void abbrechenProjekt() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/pvs_projekt/projekt_table_view.fxml"));
             Pane detailView = loader.load();
@@ -100,20 +109,87 @@ public class ProjektViewController {
     }
 
     @FXML
-    void ProjektAddMitarbeiterBtn(ActionEvent event) {
+    void projektAddMitarbeiterBtn() {
+        ProjektMitarbeiter tmp = new ProjektMitarbeiter(besetzungMitarbeiterComboBox.getValue(), Date.valueOf(vonDatumDatePicker.getValue()), Date.valueOf(bisDatumDatePicker.getValue()), rolleImProjektTextField.getText());
+        projekt.getMitarbeiterListetoAdd().add(tmp);
+        pmitarbeiters.add(tmp);
 
     }
 
     @FXML
-    void SpeicherProjekt() {
-
-
-        AbbrechenProjekt();
+    void speicherProjekt() {
+        new ProjektDao().save(projekt);
+        abbrechenProjekt();
     }
 
     @FXML
     void besetzungEntfernen(ActionEvent event) {
+        ProjektMitarbeiter ausgewaehlterMitarbeiter = projektBesetzungTableView.getSelectionModel().getSelectedItem();
 
+        if (ausgewaehlterMitarbeiter == null) {
+            zeigeHinweis("Bitte zuerst einen Mitarbeiter in der Tabelle auswählen.");
+            return;
+        }
+        if (ausgewaehlterMitarbeiter.getRolle() == "Projektleitung") {
+            zeigeHinweis("Projektleitung darf nicht gelöscht werden");
+            return;
+        }
+
+        ButtonType bestaetigenButton = new ButtonType("Bestätigen");
+        ButtonType abbrechenButton = new ButtonType("Abbrechen");
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Entfernen bestätigen");
+        alert.setHeaderText(null);
+        alert.setContentText("Soll " + ausgewaehlterMitarbeiter.getAuswahlString() + " aus dem Projekt entfernt werden?");
+        alert.getButtonTypes().setAll(bestaetigenButton, abbrechenButton);
+
+        if (alert.showAndWait().orElse(abbrechenButton) == bestaetigenButton) {
+            projekt.getMitarbeiterListetoDel().add(ausgewaehlterMitarbeiter);
+        }
+        pmitarbeiters.remove(ausgewaehlterMitarbeiter);
     }
 
+    public Projekt getProjekt() {
+        return projekt;
+    }
+
+    public void setProjekt(Projekt projekt) {
+        this.projekt = projekt;
+        ladeProjekt();
+    }
+
+    private void ladeProjekt() {
+        pmitarbeiters.setAll(projekt.getMitarbeiterListe()!=null?projekt.getMitarbeiterListe(): new ArrayList<>());
+        besetzungVonColumn.setCellValueFactory(new PropertyValueFactory<>("vonDatum"));
+        besetzungBisColumn.setCellValueFactory(new PropertyValueFactory<>("bisDatum"));
+        besetzungMitarbeiterColumn.setCellValueFactory(new PropertyValueFactory<>("auswahlString"));
+        besetzungRolleColumn.setCellValueFactory(new PropertyValueFactory<>("rolle"));
+        projektBesetzungTableView.setItems(pmitarbeiters);
+        bezeichnungTextField.setText(projekt.getBezeichnung());
+
+        List<Mitarbeiter> alleMitarbeiter = List.of(new MitarbeiterDao().readAll());
+        besetzungMitarbeiterComboBox.getItems().setAll(alleMitarbeiter);
+        if (projekt != null) {
+            aktuelleLeitungLabel.setText(projekt.getProjektleitung()!=null?projekt.getProjektleitung().getAuswahlString():"---");
+            beginnDatePicker.setValue(projekt.getBeginn().toLocalDate());
+            abschlussDatePicker.setValue(projekt.getAbschluss().toLocalDate());
+        }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        besetzungMitarbeiterComboBox.setConverter(new StringConverter<Mitarbeiter>() {
+            @Override public String toString(Mitarbeiter m) { return m != null ? m.getAuswahlString() : ""; }
+            @Override public Mitarbeiter fromString(String s) { return null; }
+        });
+    }
+
+    private void zeigeHinweis(String text) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Hinweis");
+        alert.setHeaderText(null);
+        alert.setContentText(text);
+        alert.showAndWait();
+    }
 }

@@ -5,6 +5,7 @@ import javafx.fxml.Initializable;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -18,9 +19,10 @@ public class Projekt {
     private List<ProjektMitarbeiter> mitarbeiterListe;
     private ProjektMitarbeiter projektLeitung;
 
-    private List<ProjektMitarbeiter> mitarbeiterListetoAdd;
-    private List<ProjektMitarbeiter> mitarbeiterListetoDel;
+    private List<ProjektMitarbeiter> mitarbeiterListetoAdd = new ArrayList<>();
+    private List<ProjektMitarbeiter> mitarbeiterListetoDel = new ArrayList<>();
 
+    public Projekt(){};
     public Projekt(String bezeichnung, Date beginn, Date abschluss, List<ProjektMitarbeiter> mitarbeiterListe) {
         this.bezeichnung = bezeichnung;
         this.beginn = beginn;
@@ -102,13 +104,11 @@ public class Projekt {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Projekt projekt = (Projekt) o;
-        return projektId == projekt.projektId && Objects.equals(bezeichnung, projekt.bezeichnung) && Objects.equals(beginn, projekt.beginn) && Objects.equals(abschluss, projekt.abschluss);
+        return projektId == projekt.projektId && Objects.equals(bezeichnung, projekt.bezeichnung) && Objects.equals(beginn, projekt.beginn) && Objects.equals(abschluss, projekt.abschluss) && Objects.equals(mitarbeiterListe, projekt.mitarbeiterListe) && Objects.equals(projektLeitung, projekt.projektLeitung) && Objects.equals(mitarbeiterListetoAdd, projekt.mitarbeiterListetoAdd) && Objects.equals(mitarbeiterListetoDel, projekt.mitarbeiterListetoDel);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(projektId, bezeichnung, beginn, abschluss);
+        return Objects.hash(projektId, bezeichnung, beginn, abschluss, mitarbeiterListe, projektLeitung, mitarbeiterListetoAdd, mitarbeiterListetoDel);
     }
-
-
 }

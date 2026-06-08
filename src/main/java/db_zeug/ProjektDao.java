@@ -26,7 +26,7 @@ public class ProjektDao {
                 "LEFT JOIN mitarbeiter m ON mp.id_mitarbeiter = m.id " +
                 "LEFT JOIN orte o ON m.ort_id = o.id " +
                 "LEFT JOIN ressorts r ON m.ressort_id = r.id " +
-                "LEFT JOIN vertragstyp v ON m.vertragstyp_id = v.id " +
+                "LEFT JOIN vertragstypen v ON m.vertragstyp_id = v.id " +
                 "WHERE id_projekt = ?";
 
         List<Map<String, Object>> mitarbeiterRawList = SqlMacher.such(sql, projektId);
@@ -51,7 +51,7 @@ public class ProjektDao {
                     "LEFT JOIN mitarbeiter m ON mp.id_mitarbeiter = m.id " +
                     "LEFT JOIN orte o ON m.ort_id = o.id " +
                     "LEFT JOIN ressorts r ON m.ressort_id = r.id " +
-                    "LEFT JOIN vertragstyp v ON m.vertragstyp_id = v.id " +
+                    "LEFT JOIN vertragstypen v ON m.vertragstyp_id = v.id " +
                     "WHERE id_projekt = ?";
             List<Map<String, Object>> mitarbeiterRawList = SqlMacher.such(sql, zeile.get("id"));
             rueck.add(stuffToProjekt(zeile, mitarbeiterRawList));
@@ -59,12 +59,19 @@ public class ProjektDao {
         return rueck;
     }
 
-    // Aktualisiert ein Ticket und  löscht/erstellt entsprechende datensätze in ticket_aussteller (hoffentlich...)
+
     public boolean update(Projekt projekt) {
         int projektId = projekt.getProjektId();
         String sql = "UPDATE projekte SET beginn = ?, abschluss = ?, bezeichnung =? WHERE id = ?";
         int ergebnis = SqlMacher.mach(sql, projekt.getBeginn(),projekt.getAbschluss(),projekt.getBezeichnung(),projektId);
-        String sqlDeleteAll = "DELETE FROM ticket_aussteller WHERE ticket_id = ?";
+        for (ProjektMitarbeiter a: projekt.getMitarbeiterListetoDel()){ //gelöschte raus
+            sql="DELETE FROM mitarbeiter_projekte WHERE id = ?";
+            ergebnis = SqlMacher.mach(sql,a.getMitarbeiterId());
+        }
+        for (ProjektMitarbeiter a: projekt.getMitarbeiterListetoAdd()){ //neue rein
+            sql= "INSERT INTO mitarbeiter_projekte(id_projekt,id_mitarbeiter,von_datum,bis_datum,rolle_im_projekt) VALUES (?,?,?,?,?)";
+            ergebnis = SqlMacher.mach(sql,projekt.getProjektId(),a.getMitarbeiterId(),a.getVonDatum(),a.getBisDatum(),a.getRolle());
+        }
         return ergebnis > 0;
     }
 

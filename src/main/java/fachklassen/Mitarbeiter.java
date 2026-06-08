@@ -175,6 +175,11 @@ public class Mitarbeiter {
     public String getGeburtsdatumstr(){
         return this.gebDatum.toString();
     }
+
+    @Override
+    public String toString() {
+        return getAuswahlString();
+    }
 }
 
 
