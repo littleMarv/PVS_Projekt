@@ -129,7 +129,7 @@ public class MitarbeiterViewController implements Initializable {
     @FXML
     public void abrechenButtonClick(){ //ich mag das nicht, will aber nicht zu viel struktur ändern....
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/pvs_projekt/mitarbeiter_view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/pvs_projekt/mitarbeiter_table_view.fxml"));
             Pane detailView = loader.load();
 
 
