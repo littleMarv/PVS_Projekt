@@ -32,7 +32,7 @@ public class DashboardController {
 
     // Gibt die Anzahl der Datensätze einer Tabelle zurück.
     private int zaehleDatensaetze(String tabellenName) {
-        List<Map<String, Object>> ergebnis = SqlMacher.such("SELECT COUNT(*) AS anzahl FROM " + tabellenName);
+        List<Map<String, Object>> ergebnis = SqlMacher.such("SELECT COUNT(*) AS anzahl FROM ?", tabellenName);
 
         if (ergebnis.isEmpty() || ergebnis.getFirst().get("anzahl") == null) {
             return 0;

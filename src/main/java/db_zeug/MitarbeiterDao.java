@@ -83,14 +83,14 @@ public class MitarbeiterDao {
         return rueckgabe.toArray(new Mitarbeiter[0]);
     }
 
-    public boolean deleteOne(String persnr) {
-        String sql = "DELETE FROM mitarbeiter WHERE personalnummer = ?";
-        int zeilen = SqlMacher.mach(sql, persnr);
+    public boolean deleteOne(int id) {
+        String sql = "DELETE FROM mitarbeiter WHERE Id = ?";
+        int zeilen = SqlMacher.mach(sql, id);
         return zeilen > 0;
     }
 
     public boolean updateOne(Mitarbeiter mitarbeiter) {
-        String sql = "UPDATE mitarbeiter SET vorname = ?, nachname = ?, strasse = ?, hausnummer = ?, ort_id = ?, ressort_id = ?, geburtsdatum = ? WHERE personalnummer = ?";
+        String sql = "UPDATE mitarbeiter SET vorname = ?, nachname = ?, strasse = ?, hausnummer = ?, ort_id = ?, ressort_id = ?, geburtsdatum = ?, vertragstyp_id = ?, geschlecht = ?,  WHERE personalnummer = ?";
         int zeilen = SqlMacher.mach(sql,
                 mitarbeiter.getVorname(),
                 mitarbeiter.getNachname(),
@@ -99,12 +99,14 @@ public class MitarbeiterDao {
                 mitarbeiter.getOrt().getOrtId(),
                 mitarbeiter.getRessort().getRessortId(),
                 mitarbeiter.getGebDatum(),
+                mitarbeiter.getVertrag().getVertragId(),
+                mitarbeiter.getGeschlecht(),
                 mitarbeiter.getPersNr());
         return zeilen > 0;
     }
 
     public boolean create(Mitarbeiter mitarbeiter) {
-        String sql = "INSERT INTO mitarbeiter (personalnummer, vorname, nachname, strasse, hausnummer, ort_id, ressort_id, geburtsdatum) VALUES (?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO mitarbeiter (personalnummer, vorname, nachname, strasse, hausnummer, ort_id, ressort_id, geburtsdatum, vertragstyp_id, geschlecht) VALUES (?,?,?,?,?,?,?,?,?,?)";
         int zeilen = SqlMacher.mach(sql,
                 mitarbeiter.getPersNr(),
                 mitarbeiter.getVorname(),
@@ -113,7 +115,9 @@ public class MitarbeiterDao {
                 mitarbeiter.getHausNr(),
                 mitarbeiter.getOrt().getOrtId(),
                 mitarbeiter.getRessort().getRessortId(),
-                mitarbeiter.getGebDatum());
+                mitarbeiter.getGebDatum(),
+                mitarbeiter.getVertrag().getVertragId(),
+                mitarbeiter.getGeschlecht());
         return zeilen > 0;
     }
 

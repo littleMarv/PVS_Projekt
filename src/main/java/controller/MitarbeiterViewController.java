@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class MitarbeiterViewController implements Initializable {
-
+    private MainViewController mainController;
     private Mitarbeiter aktuellerMitarbeiter;
 
     @FXML
@@ -119,6 +119,15 @@ public class MitarbeiterViewController implements Initializable {
         aktuellerMitarbeiter.setRessort(ressortComboBox.getValue());
         aktuellerMitarbeiter.setVertrag(vertragstypComboBox.getValue());
 
+
+    }
+
+    @FXML
+    public void abrechenButtonClick(){
+        if (mainController != null) {
+            // Rufe exakt die Methode auf, die auch beim Klick auf den Haupt-Tab feuert
+            mainController.mitarbeiterAnzeigen();
+        }
 
     }
 }

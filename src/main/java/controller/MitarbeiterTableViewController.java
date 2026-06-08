@@ -160,7 +160,7 @@ public class MitarbeiterTableViewController implements Initializable {
         alert.getButtonTypes().setAll(bestaetigenButton, abbrechenButton);
 
         if (alert.showAndWait().orElse(abbrechenButton) == bestaetigenButton) {
-            zeigeHinweis("Platzhalter: Das Löschen wird später mit der Datenbank verbunden.");
+            new MitarbeiterDao().deleteOne(ausgewaehlterMitarbeiter.getMitarbeiterId());
         }
     }
 

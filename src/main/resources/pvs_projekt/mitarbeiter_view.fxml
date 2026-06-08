@@ -49,6 +49,6 @@
     <!-- Speichert; Aktion wird im Controller ergänzt -->
     <Button fx:id="mitarbeiterSpeichernButton" layoutX="213.0" layoutY="500.0" mnemonicParsing="false" onAction="#setMitarbeiterSpeichernButton" prefWidth="105.0" styleClass="primary-button" text="Speichern" />
     <!-- Bricht ab oder geht zurück; Aktion wird im Controller ergänzt -->
-    <Button fx:id="mitarbeiterAbbrechenButton" layoutX="328.0" layoutY="500.0" mnemonicParsing="false" prefWidth="105.0" styleClass="secondary-button" text="Abbrechen" />
+    <Button fx:id="mitarbeiterAbbrechenButton" layoutX="328.0" layoutY="500.0" mnemonicParsing="false" onAction="#abrechenButtonClick" prefWidth="105.0" styleClass="secondary-button" text="Abbrechen" />
   </children>
 </AnchorPane>
