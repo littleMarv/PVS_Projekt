@@ -1,6 +1,7 @@
 package fachklassen;
 
 import java.sql.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class Projekt {
@@ -9,17 +10,21 @@ public class Projekt {
     private Date beginn;
     private Date abschluss;
 
-    public Projekt(String bezeichnung, Date beginn, Date abschluss) {
+    private List<ProjektMitarbeiter> mitarbeiterListe;
+
+    public Projekt(String bezeichnung, Date beginn, Date abschluss, List<ProjektMitarbeiter> mitarbeiterListe) {
         this.bezeichnung = bezeichnung;
         this.beginn = beginn;
         this.abschluss = abschluss;
+        this.mitarbeiterListe = mitarbeiterListe;
     }
 
-    public Projekt(int projektId, String bezeichnung, Date beginn, Date abschluss) {
+    public Projekt(int projektId, String bezeichnung, Date beginn, Date abschluss, List<ProjektMitarbeiter> mitarbeiterListe) {
         this.projektId = projektId;
         this.bezeichnung = bezeichnung;
         this.beginn = beginn;
         this.abschluss = abschluss;
+        this.mitarbeiterListe = mitarbeiterListe;
     }
 
     public int getProjektId() {
@@ -49,6 +54,15 @@ public class Projekt {
     public void setAbschluss(Date abschluss) {
         this.abschluss = abschluss;
     }
+
+    public List<ProjektMitarbeiter> getMitarbeiterListe() {
+        return mitarbeiterListe;
+    }
+
+    public void setMitarbeiterListe(List<ProjektMitarbeiter> mitarbeiterListe) {
+        this.mitarbeiterListe = mitarbeiterListe;
+    }
+
 
     @Override
     public boolean equals(Object o) {
