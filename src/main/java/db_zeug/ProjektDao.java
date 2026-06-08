@@ -25,7 +25,7 @@ public class ProjektDao {
                 "FROM mitarbeiter_projekte mp " +
                 "LEFT JOIN mitarbeiter m ON mp.id_mitarbeiter = m.id " +
                 "LEFT JOIN orte o ON m.ort_id = o.id " +
-                "LEFT JOIN ressort r ON m.ressort_id = r.id " +
+                "LEFT JOIN ressorts r ON m.ressort_id = r.id " +
                 "LEFT JOIN vertragstyp v ON m.vertragstyp_id = v.id " +
                 "WHERE id_projekt = ?";
 
@@ -46,14 +46,14 @@ public class ProjektDao {
         }
         List<Projekt> rueck = new ArrayList<>();
         for (Map<String,Object> zeile : ergebnis) {
-            sql = "SELECT m.*, o.plz, o.ortsname, r.bezeichnung AS ressortbz, v.bezeichnung AS vertragstypbz, mp.von_datum, mp.bis_datum, mp.rolle_im_projekt " +
+            sql = "SELECT m.*, o.plz, o.ortsname, r.bezeichnung AS ressortbezeichnung, v.bezeichnung AS vertragbezeichnung, mp.von_datum, mp.bis_datum, mp.rolle_im_projekt " +
                     "FROM mitarbeiter_projekte mp " +
                     "LEFT JOIN mitarbeiter m ON mp.id_mitarbeiter = m.id " +
                     "LEFT JOIN orte o ON m.ort_id = o.id " +
-                    "LEFT JOIN ressort r ON m.ressort_id = r.id " +
+                    "LEFT JOIN ressorts r ON m.ressort_id = r.id " +
                     "LEFT JOIN vertragstyp v ON m.vertragstyp_id = v.id " +
                     "WHERE id_projekt = ?";
-            List<Map<String, Object>> mitarbeiterRawList = SqlMacher.such(sql);
+            List<Map<String, Object>> mitarbeiterRawList = SqlMacher.such(sql, zeile.get("id"));
             rueck.add(stuffToProjekt(zeile, mitarbeiterRawList));
         }
         return rueck;
@@ -132,7 +132,7 @@ public class ProjektDao {
                     (String) zeile.get("rolle_im_projekt")
             ));
         }
-        return new Projekt((Integer) projekt.get("Id"),(String) projekt.get("bezeichnung"),(Date) projekt.get("beginn"),(Date) projekt.get("abschluss"),prMa);
+        return new Projekt((Integer) projekt.get("id"),(String) projekt.get("bezeichnung"),(Date) projekt.get("beginn"),(Date) projekt.get("abschluss"),prMa);
     }
 }
 

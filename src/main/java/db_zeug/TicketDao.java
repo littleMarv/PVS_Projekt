@@ -34,7 +34,7 @@ public class TicketDao {
                 "FROM ticket_aussteller ta " +
                 "LEFT JOIN mitarbeiter m ON ta.aussteller_id = m.id " +
                 "LEFT JOIN orte o ON m.ort_id = o.id " +
-                "LEFT JOIN ressort r ON m.ressort_id = r.id" +
+                "LEFT JOIN ressorts r ON m.ressort_id = r.id" +
                 "WHERE ticket_id = ?";
 
         List<Map<String, Object>> aussteller = SqlMacher.such(sql, ticketId);
@@ -56,7 +56,7 @@ public class TicketDao {
                     "FROM ticket_aussteller ta " +
                     "LEFT JOIN mitarbeiter m ON ta.aussteller_id = m.id " +
                     "LEFT JOIN orte o ON m.ort_id = o.id " +
-                    "LEFT JOIN ressort r ON m.ressort_id = r.id" +
+                    "LEFT JOIN ressorts r ON m.ressort_id = r.id" +
                     "WHERE ticket_id = ?";
 
             List<Map<String, Object>> aussteller = SqlMacher.such(sql, (Integer) zeile.get("id"));

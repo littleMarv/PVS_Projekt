@@ -1,8 +1,13 @@
 package fachklassen;
 
+import javafx.fxml.Initializable;
+
+import java.net.URL;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
 public class Projekt {
     private int projektId;
@@ -11,12 +16,23 @@ public class Projekt {
     private Date abschluss;
 
     private List<ProjektMitarbeiter> mitarbeiterListe;
+    private ProjektMitarbeiter projektLeitung;
+
+    private List<ProjektMitarbeiter> mitarbeiterListetoAdd;
+    private List<ProjektMitarbeiter> mitarbeiterListetoDel;
 
     public Projekt(String bezeichnung, Date beginn, Date abschluss, List<ProjektMitarbeiter> mitarbeiterListe) {
         this.bezeichnung = bezeichnung;
         this.beginn = beginn;
         this.abschluss = abschluss;
         this.mitarbeiterListe = mitarbeiterListe;
+        for (ProjektMitarbeiter m : mitarbeiterListe){
+            if (Objects.equals(m.getRolle(), "Projektleitung") &&
+                    (m.getBisDatum()== null||m.getBisDatum().toLocalDate().isAfter(LocalDate.now())) &&
+                    !m.getVonDatum().toLocalDate().isAfter(LocalDate.now())){
+                this.projektLeitung = m;
+            }
+        }
     }
 
     public Projekt(int projektId, String bezeichnung, Date beginn, Date abschluss, List<ProjektMitarbeiter> mitarbeiterListe) {
@@ -25,6 +41,13 @@ public class Projekt {
         this.beginn = beginn;
         this.abschluss = abschluss;
         this.mitarbeiterListe = mitarbeiterListe;
+        for (ProjektMitarbeiter m : mitarbeiterListe){
+            if (Objects.equals(m.getRolle(), "Projektleitung") &&
+                    (m.getBisDatum()== null||m.getBisDatum().toLocalDate().isAfter(LocalDate.now())) &&
+                    !m.getVonDatum().toLocalDate().isAfter(LocalDate.now())){
+                this.projektLeitung = m;
+            }
+        }
     }
 
     public int getProjektId() {
@@ -63,6 +86,17 @@ public class Projekt {
         this.mitarbeiterListe = mitarbeiterListe;
     }
 
+    public List<ProjektMitarbeiter> getMitarbeiterListetoDel() {
+        return mitarbeiterListetoDel;
+    }
+
+    public List<ProjektMitarbeiter> getMitarbeiterListetoAdd() {
+        return mitarbeiterListetoAdd;
+    }
+
+    public ProjektMitarbeiter getProjektleitung() {
+        return projektLeitung;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -75,4 +109,6 @@ public class Projekt {
     public int hashCode() {
         return Objects.hash(projektId, bezeichnung, beginn, abschluss);
     }
+
+
 }
