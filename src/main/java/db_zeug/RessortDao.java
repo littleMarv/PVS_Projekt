@@ -38,6 +38,21 @@ public class RessortDao {
         return ressorts;
     }
 
+    // Sucht Ressorts nach ihrer Bezeichnung
+    public List<Ressort> fuzzyRead(String suchtext) {
+        String sql = "SELECT id, bezeichnung FROM ressorts WHERE bezeichnung LIKE ?";
+        String suche = "%" + suchtext + "%";
+
+        List<Map<String, Object>> ergebnis = SqlMacher.such(sql, suche);
+        List<Ressort> ressorts = new ArrayList<>();
+
+        for (Map<String, Object> zeile : ergebnis) {
+            ressorts.add(mapToRessort(zeile));
+        }
+
+        return ressorts;
+    }
+
     // Aktualisiert die Bezeichnung eines bestehenden Ressorts
     public boolean update(Ressort ressort) {
         String sql = "UPDATE ressorts SET bezeichnung = ? WHERE id = ?";

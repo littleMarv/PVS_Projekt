@@ -7,16 +7,16 @@
  Einzelansicht für ein Ressort.
  Maske zum Anlegen und Bearbeiten eines Arbeitsbereiches.
 -->
-<AnchorPane prefHeight="260.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@css/pvs_style.css" styleClass="view-root">
+<AnchorPane prefHeight="260.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RessortViewController" stylesheets="@css/pvs_style.css" styleClass="view-root">
   <children>
     <!-- Überschrift der Maske -->
-    <Label layoutX="40.0" layoutY="28.0" text="Ressort bearbeiten" styleClass="view-title" />
+    <Label fx:id="ressortTitelLabel" layoutX="40.0" layoutY="28.0" text="Ressort anlegen" styleClass="view-title" />
     <!-- Bezeichnung aus ressorts.bezeichnung -->
     <Label layoutX="82.0" layoutY="91.0" text="Bezeichnung" styleClass="field-label" />
     <TextField fx:id="ressortBezeichnungTextField" layoutX="213.0" layoutY="86.0" prefHeight="25.0" prefWidth="220.0" promptText="Bezeichnung eingeben" styleClass="input-field" />
     <!-- Speichert; Aktion wird im Controller ergänzt -->
-    <Button fx:id="ressortSpeichernButton" layoutX="213.0" layoutY="150.0" mnemonicParsing="false" prefWidth="105.0" text="Speichern" styleClass="primary-button" />
+    <Button fx:id="ressortSpeichernButton" layoutX="213.0" layoutY="150.0" mnemonicParsing="false" onAction="#ressortSpeichern" prefWidth="105.0" text="Speichern" styleClass="primary-button" />
     <!-- Bricht ab oder geht zurück; Aktion wird im Controller ergänzt -->
-    <Button fx:id="ressortAbbrechenButton" layoutX="328.0" layoutY="150.0" mnemonicParsing="false" prefWidth="105.0" text="Abbrechen" styleClass="secondary-button" />
+    <Button fx:id="ressortAbbrechenButton" layoutX="328.0" layoutY="150.0" mnemonicParsing="false" onAction="#ressortAbbrechen" prefWidth="105.0" text="Abbrechen" styleClass="secondary-button" />
   </children>
 </AnchorPane>
