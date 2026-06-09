@@ -46,9 +46,9 @@
     <!-- Vertragstyp wird über mitarbeiter.vertragstyp_id aus der Tabelle vertragstypen geladen -->
     <Label layoutX="82.0" layoutY="460.0" styleClass="field-label" text="Vertragstyp" />
     <SearchableComboBox fx:id="vertragstypComboBox" layoutX="213.0" layoutY="455.0" prefWidth="220.0" promptText="Vertragstyp auswählen" styleClass="input-field" />
-    <!-- Speichert; Aktion wird im Controller ergänzt -->
+    <!-- Speichert die Mitarbeiterdaten -->
     <Button fx:id="mitarbeiterSpeichernButton" layoutX="213.0" layoutY="500.0" mnemonicParsing="false" onAction="#setMitarbeiterSpeichernButton" prefWidth="105.0" styleClass="primary-button" text="Speichern" />
-    <!-- Bricht ab oder geht zurück; Aktion wird im Controller ergänzt -->
+    <!-- Bricht die Eingabe ab und geht zurück -->
     <Button fx:id="mitarbeiterAbbrechenButton" layoutX="328.0" layoutY="500.0" mnemonicParsing="false" onAction="#abrechenButtonClick" prefWidth="105.0" styleClass="secondary-button" text="Abbrechen" />
   </children>
 </AnchorPane>

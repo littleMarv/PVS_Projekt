@@ -9,18 +9,18 @@
  Tabellenansicht für Vertragstypen.
  Liste der Beschäftigungsverhältnisse.
 -->
-<AnchorPane prefHeight="530.0" prefWidth="810.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@css/pvs_style.css" styleClass="view-root">
+<AnchorPane prefHeight="530.0" prefWidth="810.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.VertragstypTableViewController" stylesheets="@css/pvs_style.css" styleClass="view-root">
   <children>
     <!-- Überschrift der Tabellenansicht -->
     <Label layoutX="30.0" layoutY="25.0" text="Vertragstypen" styleClass="view-title" />
     <!-- Suchfeld für eine e Suche nach Vertragstypen -->
-    <TextField fx:id="vertragstypSucheTextField" layoutX="30.0" layoutY="75.0" prefHeight="28.0" prefWidth="220.0" promptText="Vertragstyp suchen" styleClass="input-field" />
+    <TextField fx:id="vertragstypSucheTextField" layoutX="30.0" layoutY="75.0" onKeyReleased="#vertragstypSuche" prefHeight="28.0" prefWidth="220.0" promptText="Vertragstyp suchen" styleClass="input-field" />
     <!-- Öffnet die Einzelansicht für einen neuen Vertragstyp -->
-    <Button fx:id="vertragstypNeuButton" layoutX="272.0" layoutY="75.0" prefHeight="28.0" prefWidth="95.0" text="Neu" styleClass="primary-button" />
+    <Button fx:id="vertragstypNeuButton" layoutX="272.0" layoutY="75.0" onAction="#vertragstypNeuOeffnen" prefHeight="28.0" prefWidth="95.0" text="Neu" styleClass="primary-button" />
     <!-- Bearbeitet des aktuell ausgewählten Vertragstyps -->
-    <Button fx:id="vertragstypBearbeitenButton" layoutX="377.0" layoutY="75.0" prefHeight="28.0" prefWidth="105.0" text="Bearbeiten" styleClass="secondary-button" />
+    <Button fx:id="vertragstypBearbeitenButton" layoutX="377.0" layoutY="75.0" onAction="#vertragstypBearbeitenOeffnen" prefHeight="28.0" prefWidth="105.0" text="Bearbeiten" styleClass="secondary-button" />
     <!-- Löscht des aktuell ausgewählten Vertragstyps -->
-    <Button fx:id="vertragstypLoeschenButton" layoutX="492.0" layoutY="75.0" prefHeight="28.0" prefWidth="90.0" text="Löschen" styleClass="danger-button" />
+    <Button fx:id="vertragstypLoeschenButton" layoutX="492.0" layoutY="75.0" onAction="#vertragstypLoeschen" prefHeight="28.0" prefWidth="90.0" text="Löschen" styleClass="danger-button" />
     <!-- Tabelle für alle Vertragstypen -->
     <TableView fx:id="vertragstypTableView" layoutX="30.0" layoutY="120.0" prefHeight="380.0" prefWidth="750.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="120.0" AnchorPane.bottomAnchor="30.0" styleClass="data-table">
       <columns>

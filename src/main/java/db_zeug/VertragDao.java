@@ -38,6 +38,21 @@ public class VertragDao {
         return Vertrags;
     }
 
+    // Sucht Vertragstypen nach ihrer Bezeichnung
+    public List<Vertrag> fuzzyRead(String suchtext) {
+        String sql = "SELECT id, bezeichnung FROM vertragstypen WHERE bezeichnung LIKE ?";
+        String suche = "%" + suchtext + "%";
+
+        List<Map<String, Object>> ergebnis = SqlMacher.such(sql, suche);
+        List<Vertrag> vertraege = new ArrayList<>();
+
+        for (Map<String, Object> zeile : ergebnis) {
+            vertraege.add(mapToVertrag(zeile));
+        }
+
+        return vertraege;
+    }
+
     // Aktualisiert die Bezeichnung eines bestehenden Vertrags
     public boolean update(Vertrag Vertrag) {
         String sql = "UPDATE vertragstypen SET bezeichnung = ? WHERE id = ?";
@@ -66,7 +81,7 @@ public class VertragDao {
         int id = (Integer) zeile.get("id");
         String bezeichnung = (String) zeile.get("bezeichnung");
 
-        // Verwendet den Konstruktor deiner Vertrag-Klasse (int, String)
+        // Verwendet den Konstruktor der Vertrag-Klasse (int, String)
         return new Vertrag(id, bezeichnung);
     }
 }

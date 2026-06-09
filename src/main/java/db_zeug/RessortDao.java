@@ -81,7 +81,7 @@ public class RessortDao {
         int id = (Integer) zeile.get("id");
         String bezeichnung = (String) zeile.get("bezeichnung");
 
-        // Verwendet den Konstruktor deiner Ressort-Klasse (int, String)
+        // Verwendet den Konstruktor der Ressort-Klasse (int, String)
         return new Ressort(id, bezeichnung);
     }
 }

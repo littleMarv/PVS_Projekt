@@ -76,7 +76,7 @@ public class MitarbeiterViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        List<Ressort> alleRessorts = new RessortDao().readAll(); // bzw. deine Methode
+        List<Ressort> alleRessorts = new RessortDao().readAll(); // Lädt die Ressorts für die Auswahl
         List<Vertrag> alleVertraege = new VertragDao().readAll();
         List<Ort> alleOrte = new OrtDao().readAll();
         List<String> geschlechter = List.of(new String[]{"Frau", "Divers", "Mann"});
@@ -127,7 +127,7 @@ public class MitarbeiterViewController implements Initializable {
     }
 
     @FXML
-    public void abrechenButtonClick(){ //ich mag das nicht, will aber nicht zu viel struktur ändern....
+    public void abrechenButtonClick(){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/pvs_projekt/mitarbeiter_table_view.fxml"));
             Pane detailView = loader.load();

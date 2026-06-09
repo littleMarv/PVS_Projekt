@@ -44,11 +44,11 @@
     <!-- Ende der Mitarbeit oder Leitung im Projekt -->
     <Label layoutX="470.0" layoutY="325.0" styleClass="field-label" text="Bis" />
     <DatePicker fx:id="bisDatumDatePicker" layoutX="520.0" layoutY="320.0" prefWidth="140.0" styleClass="input-field" />
-    <!-- Button zum Hinzufügen einer Projektbesetzung; Aktion wird im Controller ergänzt -->
+    <!-- Fügt eine Projektbesetzung hinzu -->
     <Button fx:id="besetzungHinzufuegenButton" layoutX="213.0" layoutY="365.0" mnemonicParsing="false" onAction="#projektAddMitarbeiterBtn" prefWidth="105.0" styleClass="primary-button" text="Hinzufügen" />
-    <!-- Bearbeitet der ausgewählten Projektbesetzung; Aktion wird im Controller ergänzt -->
+    <!-- Bearbeitet die ausgewählte Projektbesetzung -->
     <Button fx:id="besetzungBearbeitenButton" layoutX="328.0" layoutY="365.0" mnemonicParsing="false" onAction="#projektleitungButton" prefWidth="105.0" styleClass="secondary-button" text="Projektleitung" />
-    <!-- Button zum Entfernen der ausgewählten Projektbesetzung; Aktion wird im Controller ergänzt -->
+    <!-- Entfernt die ausgewählte Projektbesetzung -->
     <Button fx:id="besetzungEntfernenButton" layoutX="443.0" layoutY="365.0" mnemonicParsing="false" onAction="#besetzungEntfernen" prefWidth="105.0" styleClass="danger-button" text="Entfernen" />
     <!-- Tabelle mit allen Mitarbeitern, die dem Projekt zugeordnet sind -->
     <TableView fx:id="projektBesetzungTableView" layoutX="40.0" layoutY="415.0" prefHeight="110.0" prefWidth="640.0" styleClass="data-table">
@@ -63,9 +63,9 @@
         <TableColumn fx:id="besetzungBisColumn" prefWidth="120.0" text="Bis" />
       </columns>
     </TableView>
-    <!-- Speichert; Aktion wird im Controller ergänzt -->
+    <!-- Speichert das Projekt -->
     <Button fx:id="projektSpeichernButton" layoutX="213.0" layoutY="550.0" mnemonicParsing="false" onAction="#speicherProjekt" prefWidth="105.0" styleClass="primary-button" text="Speichern" />
-    <!-- Bricht ab oder geht zurück; Aktion wird im Controller ergänzt -->
+    <!-- Bricht die Eingabe ab und geht zurück -->
     <Button fx:id="projektAbbrechenButton" layoutX="328.0" layoutY="550.0" mnemonicParsing="false" onAction="#abbrechenProjekt" prefWidth="105.0" styleClass="secondary-button" text="Abbrechen" />
   </children>
 </AnchorPane>

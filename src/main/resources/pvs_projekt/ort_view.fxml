@@ -17,9 +17,9 @@
     <!-- Ortsname aus orte.ortsname -->
     <Label layoutX="82.0" layoutY="132.0" text="Ortsname" styleClass="field-label" />
     <TextField fx:id="ortsnameTextField" layoutX="213.0" layoutY="127.0" prefHeight="25.0" prefWidth="220.0" promptText="Ortsname eingeben" styleClass="input-field" />
-    <!-- Speichert; Aktion wird im Controller ergänzt -->
+    <!-- Speichert den Ort -->
     <Button fx:id="ortSpeichernButton" layoutX="213.0" layoutY="190.0" mnemonicParsing="false" onAction="#ortSpeichern" prefWidth="105.0" text="Speichern" styleClass="primary-button" />
-    <!-- Bricht ab oder geht zurück; Aktion wird im Controller ergänzt -->
+    <!-- Bricht die Eingabe ab und geht zurück -->
     <Button fx:id="ortAbbrechenButton" layoutX="328.0" layoutY="190.0" mnemonicParsing="false" onAction="#ortAbbrechen" prefWidth="105.0" text="Abbrechen" styleClass="secondary-button" />
   </children>
 </AnchorPane>
