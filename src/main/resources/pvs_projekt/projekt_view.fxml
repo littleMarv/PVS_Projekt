@@ -47,7 +47,7 @@
     <!-- Button zum Hinzufügen einer Projektbesetzung; Aktion wird im Controller ergänzt -->
     <Button fx:id="besetzungHinzufuegenButton" layoutX="213.0" layoutY="365.0" mnemonicParsing="false" onAction="#projektAddMitarbeiterBtn" prefWidth="105.0" styleClass="primary-button" text="Hinzufügen" />
     <!-- Bearbeitet der ausgewählten Projektbesetzung; Aktion wird im Controller ergänzt -->
-    <Button fx:id="besetzungBearbeitenButton" layoutX="328.0" layoutY="365.0" mnemonicParsing="false" prefWidth="105.0" styleClass="secondary-button" text="Bearbeiten" />
+    <Button fx:id="besetzungBearbeitenButton" layoutX="328.0" layoutY="365.0" mnemonicParsing="false" onAction="#projektleitungButton" prefWidth="105.0" styleClass="secondary-button" text="Projektleitung" />
     <!-- Button zum Entfernen der ausgewählten Projektbesetzung; Aktion wird im Controller ergänzt -->
     <Button fx:id="besetzungEntfernenButton" layoutX="443.0" layoutY="365.0" mnemonicParsing="false" onAction="#besetzungEntfernen" prefWidth="105.0" styleClass="danger-button" text="Entfernen" />
     <!-- Tabelle mit allen Mitarbeitern, die dem Projekt zugeordnet sind -->

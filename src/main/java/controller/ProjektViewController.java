@@ -109,10 +109,19 @@ public class ProjektViewController implements Initializable {
     }
 
     @FXML
+    void projektleitungButton(){
+        rolleImProjektTextField.setText("Projektleitung");
+    }
+
+    @FXML
     void projektAddMitarbeiterBtn() {
         ProjektMitarbeiter tmp = new ProjektMitarbeiter(besetzungMitarbeiterComboBox.getValue(), Date.valueOf(vonDatumDatePicker.getValue()), Date.valueOf(bisDatumDatePicker.getValue()), rolleImProjektTextField.getText());
-        projekt.getMitarbeiterListetoAdd().add(tmp);
-        pmitarbeiters.add(tmp);
+        if (projekt.add(tmp)) {
+            pmitarbeiters.add(tmp);
+        }
+        else {
+            zeigeHinweis("Projektleitung darf sich zeitlich nicht überschneiden.");
+        }
 
     }
 

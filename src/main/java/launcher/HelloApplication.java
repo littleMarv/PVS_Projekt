@@ -18,7 +18,7 @@ public class HelloApplication extends Application {
         );
 
         // Erstellt die Szene mit Breite und Höhe
-        Scene scene = new Scene(fxmlLoader.load(), 1000, 600);
+        Scene scene = new Scene(fxmlLoader.load(), 1000, 700);
 
         // Fenstertitel setzen
         stage.setTitle("PVS Projektverwaltung");

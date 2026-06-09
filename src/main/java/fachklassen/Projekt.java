@@ -22,16 +22,20 @@ public class Projekt {
     private List<ProjektMitarbeiter> mitarbeiterListetoAdd = new ArrayList<>();
     private List<ProjektMitarbeiter> mitarbeiterListetoDel = new ArrayList<>();
 
-    public Projekt(){};
+    public Projekt() {
+    }
+
+    ;
+
     public Projekt(String bezeichnung, Date beginn, Date abschluss, List<ProjektMitarbeiter> mitarbeiterListe) {
         this.bezeichnung = bezeichnung;
         this.beginn = beginn;
         this.abschluss = abschluss;
         this.mitarbeiterListe = mitarbeiterListe;
-        for (ProjektMitarbeiter m : mitarbeiterListe){
+        for (ProjektMitarbeiter m : mitarbeiterListe) {
             if (Objects.equals(m.getRolle(), "Projektleitung") &&
-                    (m.getBisDatum()== null||m.getBisDatum().toLocalDate().isAfter(LocalDate.now())) &&
-                    !m.getVonDatum().toLocalDate().isAfter(LocalDate.now())){
+                    (m.getBisDatum() == null || m.getBisDatum().toLocalDate().isAfter(LocalDate.now())) &&
+                    !m.getVonDatum().toLocalDate().isAfter(LocalDate.now())) {
                 this.projektLeitung = m;
             }
         }
@@ -43,10 +47,10 @@ public class Projekt {
         this.beginn = beginn;
         this.abschluss = abschluss;
         this.mitarbeiterListe = mitarbeiterListe;
-        for (ProjektMitarbeiter m : mitarbeiterListe){
+        for (ProjektMitarbeiter m : mitarbeiterListe) {
             if (Objects.equals(m.getRolle(), "Projektleitung") &&
-                    (m.getBisDatum()== null||m.getBisDatum().toLocalDate().isAfter(LocalDate.now())) &&
-                    !m.getVonDatum().toLocalDate().isAfter(LocalDate.now())){
+                    (m.getBisDatum() == null || m.getBisDatum().toLocalDate().isAfter(LocalDate.now())) &&
+                    !m.getVonDatum().toLocalDate().isAfter(LocalDate.now())) {
                 this.projektLeitung = m;
             }
         }
@@ -110,5 +114,21 @@ public class Projekt {
     @Override
     public int hashCode() {
         return Objects.hash(projektId, bezeichnung, beginn, abschluss, mitarbeiterListe, projektLeitung, mitarbeiterListetoAdd, mitarbeiterListetoDel);
+    }
+
+    public boolean add(ProjektMitarbeiter pm) {
+        boolean check = true;
+        if (Objects.equals(pm.getRolle(), "Projektleitung")) {
+            for (ProjektMitarbeiter tmp : mitarbeiterListe) {
+                if (Objects.equals(tmp.getRolle(), "Projektleitung"))
+                    if(tmp.getVonDatum().before(pm.getVonDatum())&&tmp.getBisDatum().after(pm.getBisDatum())||tmp.getVonDatum().before(pm.getBisDatum())&&tmp.getBisDatum().after(pm.getBisDatum())){
+                        check = false;
+                    }
+            }
+        }
+        if (check) {
+            mitarbeiterListetoAdd.add(pm);
+        }
+        return check;
     }
 }
