@@ -122,8 +122,8 @@ public class ProjektTableViewController implements Initializable {
                 String lowerCaseFilter = newValue.toLowerCase();
 
                 String projektbz = projekt.getBezeichnung() != null ? projekt.getBezeichnung().toLowerCase() : "";
-                String vorname = projekt.getProjektleitung().getVorname() != null ? projekt.getProjektleitung().getVorname().toLowerCase() : "";
-                String nachname = projekt.getProjektleitung().getNachname() != null ? projekt.getProjektleitung().getNachname().toLowerCase() : "";
+                String vorname = (projekt.getProjektleitung() != null && projekt.getProjektleitung().getVorname() != null) ? projekt.getProjektleitung().getVorname().toLowerCase() : "";
+                String nachname = (projekt.getProjektleitung() != null && projekt.getProjektleitung().getNachname() != null) ? projekt.getProjektleitung().getNachname().toLowerCase() : "";
 
                 // Filter-Logik (Vorname ODER Nachname)
                 return vorname.contains(lowerCaseFilter) || nachname.contains(lowerCaseFilter) || projektbz.contains(lowerCaseFilter);

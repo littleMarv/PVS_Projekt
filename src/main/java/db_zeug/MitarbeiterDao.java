@@ -39,7 +39,7 @@ public class MitarbeiterDao {
         if (daten.isEmpty()) {
             return null;
         }
-        return mapToMitarbeiter(daten.get(0));
+        return mapToMitarbeiter(daten.getFirst());
     }
 
     public Mitarbeiter readOneById(int id) {
@@ -53,7 +53,7 @@ public class MitarbeiterDao {
         if (daten.isEmpty()) {
             return null;
         }
-        return mapToMitarbeiter(daten.get(0));
+        return mapToMitarbeiter(daten.getFirst());
     }
 
     public Mitarbeiter[] fuzzyRead(String fuzz) {

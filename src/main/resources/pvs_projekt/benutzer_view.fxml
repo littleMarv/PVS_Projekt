@@ -34,9 +34,10 @@
     <SearchableComboBox fx:id="mitarbeiterComboBox" layoutX="213.0" layoutY="250.0" prefWidth="220.0" promptText="Mitarbeiter auswählen" styleClass="input-field" />
     <!-- Aktiv-Status aus benutzer.is_active -->
     <CheckBox fx:id="aktivCheckBox" layoutX="213.0" layoutY="294.0" selected="true" text="Aktiv" />
-    <!-- Speichert den Benutzer -->
-    <Button fx:id="benutzerSpeichernButton" layoutX="213.0" layoutY="345.0" mnemonicParsing="false" prefWidth="105.0" styleClass="primary-button" text="Speichern" />
-    <!-- Bricht die Eingabe ab und geht zurück -->
-    <Button fx:id="benutzerAbbrechenButton" layoutX="328.0" layoutY="345.0" mnemonicParsing="false" prefWidth="105.0" styleClass="secondary-button" text="Abbrechen" />
+    <!-- Speichert;  -->
+    <Button fx:id="benutzerSpeichernButton" layoutX="213.0" layoutY="345.0" mnemonicParsing="false" onAction="#speichernButton" prefWidth="105.0" styleClass="primary-button" text="Speichern" />
+    <!-- Bricht ab oder geht zurück;  -->
+    <Button fx:id="benutzerAbbrechenButton" layoutX="328.0" layoutY="345.0" mnemonicParsing="false" onAction="#abbrechenButton" prefWidth="105.0" styleClass="secondary-button" text="Abbrechen" />
+      <CheckBox fx:id="overridePwCheckbox" layoutX="439.0" layoutY="173.0" selected="true" text="Neues Passwort" />
   </children>
 </AnchorPane>

@@ -1,15 +1,20 @@
 package controller;
 
 import db_zeug.MitarbeiterDao;
+import db_zeug.UserDao;
 import db_zeug.UserRollenDao;
 import fachklassen.Mitarbeiter;
+import fachklassen.User;
 import fachklassen.UserRolle;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import org.controlsfx.control.SearchableComboBox;
 
 import java.net.URL;
@@ -17,6 +22,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class BenutzerView implements Initializable {
+
+    private User angezeigterUser;
 
     @FXML
     private CheckBox aktivCheckBox;
@@ -40,6 +47,9 @@ public class BenutzerView implements Initializable {
     private PasswordField passwortField;
 
     @FXML
+    private CheckBox overridePwCheckbox;
+
+    @FXML
     private SearchableComboBox<UserRolle> rolleComboBox;
 
     @Override
@@ -48,5 +58,39 @@ public class BenutzerView implements Initializable {
         mitarbeiterComboBox.getItems().setAll(alleMitarbeiter);
         List<UserRolle> alleRollen = new UserRollenDao().readAll();
         rolleComboBox.getItems().setAll(alleRollen);
+    }
+
+    @FXML
+    void abbrechenButton() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/pvs_projekt/benutzer_table_view.fxml"));
+            Pane detailView = loader.load();
+
+
+            // Wichtig für das Layout (Wachstum erlauben)
+            detailView.setMaxWidth(Double.MAX_VALUE);
+            detailView.setMaxHeight(Double.MAX_VALUE);
+            AnchorPane pane = (AnchorPane) benutzerAbbrechenButton.getScene().lookup("#contentPane");
+            // In die übergebene Pane setzen und verankern
+            pane.getChildren().setAll(detailView);
+            AnchorPane.setTopAnchor(detailView, 0.0);
+            AnchorPane.setRightAnchor(detailView, 0.0);
+            AnchorPane.setBottomAnchor(detailView, 0.0);
+            AnchorPane.setLeftAnchor(detailView, 0.0);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void speichernButton() {
+        User user = new User(benutzernameTextField.getText(),emailTextField.getText(),mitarbeiterComboBox.getValue(),rolleComboBox.getValue(),aktivCheckBox.isSelected());
+        UserDao dao =new UserDao();
+        angezeigterUser = dao.save(user);
+        if (overridePwCheckbox.isSelected()){
+            dao.updatePw(angezeigterUser.getUserId(),User.hashPassword(passwortField.getText()));
+        }
+        abbrechenButton();
     }
 }

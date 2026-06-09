@@ -23,4 +23,14 @@ public class UserRollenDao {
         }
         return rueck;
     }
+
+    public UserRolle readOneById(Integer rollenId) {
+        String sql = "SELECT * from rollen WHERE id= ?";
+        List<Map<String,Object>> ergebnis = SqlMacher.such(sql, rollenId);
+        List<UserRolle> rueck = new ArrayList<>();
+        for (Map<String,Object> zeile: ergebnis){
+            rueck.add(new UserRolle((Integer)zeile.get("id"),(String)zeile.get("bezeichnung")));
+        }
+        return rueck.getFirst();
+    }
 }
