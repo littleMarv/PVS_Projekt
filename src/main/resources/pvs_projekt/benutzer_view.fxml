@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
@@ -6,34 +7,36 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import org.controlsfx.control.SearchableComboBox?>
+
 <!--
  Einzelansicht für einen Benutzer.
  Maske zum Anlegen und Bearbeiten eines Login-Benutzers.
 -->
-<AnchorPane prefHeight="430.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@css/pvs_style.css" styleClass="view-root">
+
+<AnchorPane prefHeight="430.0" prefWidth="600.0" styleClass="view-root" stylesheets="@css/pvs_style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BenutzerView">
   <children>
     <!-- Überschrift der Maske -->
-    <Label layoutX="40.0" layoutY="28.0" text="Benutzer bearbeiten" styleClass="view-title" />
+    <Label layoutX="40.0" layoutY="28.0" styleClass="view-title" text="Benutzer bearbeiten" />
     <!-- Benutzername aus benutzer.username -->
-    <Label layoutX="82.0" layoutY="91.0" text="Benutzername" styleClass="field-label" />
+    <Label layoutX="82.0" layoutY="91.0" styleClass="field-label" text="Benutzername" />
     <TextField fx:id="benutzernameTextField" layoutX="213.0" layoutY="86.0" prefHeight="25.0" prefWidth="220.0" promptText="Benutzername eingeben" styleClass="input-field" />
     <!-- E-Mail-Adresse aus benutzer.email -->
-    <Label layoutX="82.0" layoutY="132.0" text="E-Mail" styleClass="field-label" />
+    <Label layoutX="82.0" layoutY="132.0" styleClass="field-label" text="E-Mail" />
     <TextField fx:id="emailTextField" layoutX="213.0" layoutY="127.0" prefHeight="25.0" prefWidth="220.0" promptText="E-Mail eingeben" styleClass="input-field" />
     <!-- Passwort für benutzer.password_hash; das Hashen passiert im Backend -->
-    <Label layoutX="82.0" layoutY="173.0" text="Passwort" styleClass="field-label" />
+    <Label layoutX="82.0" layoutY="173.0" styleClass="field-label" text="Passwort" />
     <PasswordField fx:id="passwortField" layoutX="213.0" layoutY="168.0" prefHeight="25.0" prefWidth="220.0" promptText="Passwort eingeben" styleClass="input-field" />
     <!-- Benutzerrolle über benutzer.rollen_id und rollen.id -->
-    <Label layoutX="82.0" layoutY="214.0" text="Benutzerrolle" styleClass="field-label" />
+    <Label layoutX="82.0" layoutY="214.0" styleClass="field-label" text="Benutzerrolle" />
     <SearchableComboBox fx:id="rolleComboBox" layoutX="213.0" layoutY="209.0" prefWidth="220.0" promptText="Rolle auswählen" styleClass="input-field" />
     <!-- Optionaler Mitarbeiterbezug über benutzer.mitarbeiter_id -->
-    <Label layoutX="82.0" layoutY="255.0" text="Mitarbeiter" styleClass="field-label" />
+    <Label layoutX="82.0" layoutY="255.0" styleClass="field-label" text="Mitarbeiter" />
     <SearchableComboBox fx:id="mitarbeiterComboBox" layoutX="213.0" layoutY="250.0" prefWidth="220.0" promptText="Mitarbeiter auswählen" styleClass="input-field" />
     <!-- Aktiv-Status aus benutzer.is_active -->
     <CheckBox fx:id="aktivCheckBox" layoutX="213.0" layoutY="294.0" selected="true" text="Aktiv" />
     <!-- Speichert; Aktion wird im Controller ergänzt -->
-    <Button fx:id="benutzerSpeichernButton" layoutX="213.0" layoutY="345.0" mnemonicParsing="false" prefWidth="105.0" text="Speichern" styleClass="primary-button" />
+    <Button fx:id="benutzerSpeichernButton" layoutX="213.0" layoutY="345.0" mnemonicParsing="false" prefWidth="105.0" styleClass="primary-button" text="Speichern" />
     <!-- Bricht ab oder geht zurück; Aktion wird im Controller ergänzt -->
-    <Button fx:id="benutzerAbbrechenButton" layoutX="328.0" layoutY="345.0" mnemonicParsing="false" prefWidth="105.0" text="Abbrechen" styleClass="secondary-button" />
+    <Button fx:id="benutzerAbbrechenButton" layoutX="328.0" layoutY="345.0" mnemonicParsing="false" prefWidth="105.0" styleClass="secondary-button" text="Abbrechen" />
   </children>
 </AnchorPane>

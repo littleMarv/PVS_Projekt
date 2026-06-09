@@ -2,6 +2,7 @@ package db_zeug;
 
 import fachklassen.Mitarbeiter;
 import fachklassen.User;
+import fachklassen.UserRolle;
 
 import java.util.List;
 import java.util.Map;
@@ -19,4 +20,10 @@ public class UserDao {
         Mitarbeiter mitarbeiter = new MitarbeiterDao().readOneById((Integer)daten.getFirst().get("mitabeiterId"));
         return new User((Integer)daten.getFirst().get("Id"),(String) daten.getFirst().get("username"),(String)daten.getFirst().get("email"),mitarbeiter);
     }
+
+    public void create(String name, String email, String pwh, int activ, Mitarbeiter m, UserRolle r){
+        String sql = "INSERT INTO benutzer (username, email, password_hash, is_active, mitarbeiter_id) VALUES (?,?,?,?,?)";
+        SqlMacher.mach(sql,name,email,pwh,activ,m.getMitarbeiterId(),r.getId());
+    }
+
 }

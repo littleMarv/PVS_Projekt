@@ -5,6 +5,7 @@ import fachklassen.Projekt;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import launcher.HelloApplication;
 
 import java.net.URL;
 
@@ -75,6 +76,18 @@ public class ViewLoader {
             AnchorPane.setLeftAnchor(detailView, 0.0);
 
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadMain() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(
+                    HelloApplication.class.getResource("/pvs_projekt/main_view.fxml")
+            );
+            fxmlLoader.load();
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
     }

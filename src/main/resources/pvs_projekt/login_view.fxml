@@ -1,26 +1,29 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+
 <!--
  Login-Maske der Anwendung.
  Hier meldet sich der Benutzer mit Name/E-Mail und Passwort an.
 -->
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@css/pvs_style.css" styleClass="view-root">
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="view-root" stylesheets="@css/pvs_style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginViewController">
   <children>
     <!-- Überschrift der Login-Maske -->
-    <Label layoutX="40.0" layoutY="35.0" text="PVS Login" styleClass="field-label" />
+    <Label layoutX="40.0" layoutY="35.0" styleClass="field-label" text="PVS Login" />
     <!-- Eingabe für Benutzername oder E-Mail-Adresse -->
-    <Label layoutX="95.0" layoutY="105.0" text="Name / E-Mail" styleClass="field-label" />
+    <Label layoutX="95.0" layoutY="105.0" styleClass="field-label" text="Name / E-Mail" />
     <TextField fx:id="namemail" layoutX="220.0" layoutY="100.0" prefHeight="25.0" prefWidth="220.0" promptText="Name oder E-Mail eingeben" styleClass="input-field" />
     <!-- Eingabe für das Passwort -->
-    <Label layoutX="95.0" layoutY="150.0" text="Passwort" styleClass="field-label" />
+    <Label layoutX="95.0" layoutY="150.0" styleClass="field-label" text="Passwort" />
     <PasswordField fx:id="passwort" layoutX="220.0" layoutY="145.0" prefHeight="25.0" prefWidth="220.0" promptText="Passwort eingeben" styleClass="input-field" />
     <!-- Dieses Label kann Fehlermeldungen anzeigen -->
-    <Label fx:id="meldungLabel" layoutX="220.0" layoutY="185.0" prefWidth="260.0" text="" styleClass="field-label" />
+    <Label fx:id="meldungLabel" layoutX="220.0" layoutY="185.0" prefWidth="260.0" styleClass="field-label" text="" />
     <!-- Button zum Anmelden -->
-    <Button fx:id="login" layoutX="220.0" layoutY="225.0" mnemonicParsing="false" prefWidth="220.0" text="Login" styleClass="secondary-button" />
+    <Button fx:id="login" layoutX="220.0" layoutY="225.0" mnemonicParsing="false" onAction="#loginButtonClick" prefWidth="220.0" styleClass="secondary-button" text="Login" />
   </children>
 </AnchorPane>
