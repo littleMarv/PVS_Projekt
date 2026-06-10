@@ -1,5 +1,6 @@
 package controller;
 
+import db_zeug.MitarbeiterDao;
 import db_zeug.TicketDao;
 import fachklassen.Mitarbeiter;
 import fachklassen.Ticket;
@@ -15,6 +16,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
@@ -101,7 +103,13 @@ public class TicketTableViewController implements Initializable {
 
     @FXML
     void ticketNeuOeffnen() {
-        zeigePlatzhalter("Ticket anlegen", "DB fehlt");
+        AnchorPane hauptContentPane = (AnchorPane) ticketTableView.getScene().lookup("#contentPane");
+
+        if (hauptContentPane != null) {
+            // Jetzt rufen wir den ViewLoader auf und übergeben die gefundene Pane!
+            new ViewLoader().ladeTicketDetails(new Ticket(), hauptContentPane);
+        }
+
     }
 
     @FXML
@@ -113,23 +121,36 @@ public class TicketTableViewController implements Initializable {
             return;
         }
 
-        zeigePlatzhalter("Ticket bearbeiten", "DB fehlt");
+       AnchorPane hauptContentPane = (AnchorPane) ticketTableView.getScene().lookup("#contentPane");
+
+        if (hauptContentPane != null) {
+            // Jetzt rufen wir den ViewLoader auf und übergeben die gefundene Pane!
+            new ViewLoader().ladeTicketDetails(ausgewaehltesTicket, hauptContentPane);
+        }
     }
 
     @FXML
     void ticketLoeschen() {
-        Alert bestaetigung = new Alert(Alert.AlertType.CONFIRMATION);
-        bestaetigung.setTitle("Ticket löschen");
-        bestaetigung.setHeaderText(null);
-        bestaetigung.setContentText("Soll das ausgewählte Ticket wirklich gelöscht werden?");
+        Ticket tucket = ticketTableView.getSelectionModel().getSelectedItem();
+
+        if (tucket == null) {
+            zeigePlatzhalter("","Bitte zuerst einen Mitarbeiter in der Tabelle auswählen.");
+            return;
+        }
 
         ButtonType bestaetigenButton = new ButtonType("Bestätigen");
         ButtonType abbrechenButton = new ButtonType("Abbrechen");
-        bestaetigung.getButtonTypes().setAll(bestaetigenButton, abbrechenButton);
 
-        if (bestaetigung.showAndWait().orElse(abbrechenButton) == bestaetigenButton) {
-        zeigePlatzhalter("Löschen noch nicht verbunden", "DB fehlt");
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Löschen bestätigen");
+        alert.setHeaderText(null);
+        alert.setContentText("Möchten Sie diesen Datensatz wirklich löschen?");
+        alert.getButtonTypes().setAll(bestaetigenButton, abbrechenButton);
+
+        if (alert.showAndWait().orElse(abbrechenButton) == bestaetigenButton) {
+            new TicketDao().delete(tucket.getTicketId());
         }
+        alleTickets.setAll(new TicketDao().readAll());
     }
 
     private String mitarbeiterText(Mitarbeiter mitarbeiter) {

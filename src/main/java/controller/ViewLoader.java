@@ -2,6 +2,7 @@ package controller;
 
 import fachklassen.Mitarbeiter;
 import fachklassen.Projekt;
+import fachklassen.Ticket;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -88,6 +89,31 @@ public class ViewLoader {
             fxmlLoader.load();
         }
         catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void ladeTicketDetails(Ticket ticket, AnchorPane targetContentPane) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/pvs_projekt/ticket_view.fxml"));
+            Pane detailView = loader.load();
+
+            // Daten an den neuen Controller übergeben
+            TicketViewController detailController = loader.getController();
+            detailController.setTicket(ticket);
+
+            // Wichtig für das Layout (Wachstum erlauben)
+            detailView.setMaxWidth(Double.MAX_VALUE);
+            detailView.setMaxHeight(Double.MAX_VALUE);
+
+            // In die übergebene Pane setzen und verankern
+            targetContentPane.getChildren().setAll(detailView);
+            AnchorPane.setTopAnchor(detailView, 0.0);
+            AnchorPane.setRightAnchor(detailView, 0.0);
+            AnchorPane.setBottomAnchor(detailView, 0.0);
+            AnchorPane.setLeftAnchor(detailView, 0.0);
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
