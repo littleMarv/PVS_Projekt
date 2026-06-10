@@ -145,7 +145,7 @@ public class BenutzerTableViewController implements Initializable {
 
                 String lowerCaseFilter = newValue.toLowerCase();
 
-                String email = user.geteMail() != null ? user.geteMail().toLowerCase() : "";
+                String email = user.getEMail() != null ? user.getEMail().toLowerCase() : "";
                 String uname = (user.getUserName() != null) ? user.getUserName().toLowerCase() : "";
                 String mname = (user.getMitarbeiter() != null && user.getMitarbeiter().getAuswahlString() != null) ? user.getMitarbeiter().getAuswahlString().toLowerCase() : "";
 

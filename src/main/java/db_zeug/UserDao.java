@@ -35,7 +35,7 @@ public class UserDao {
 
     public int readIdByRest(User user){
         String sql ="SELECT id from benutzer WHERE username=? AND email=? AND mitarbeiter_id = ?";
-        return (int) SqlMacher.such(sql,user.getUserName(),user.geteMail(),user.getMitarbeiter().getMitarbeiterId()).getFirst().get("id");
+        return (int) SqlMacher.such(sql,user.getUserName(),user.getEMail(),user.getMitarbeiter().getMitarbeiterId()).getFirst().get("id");
     }
 
     public List<User> readAll(){
@@ -55,7 +55,7 @@ public class UserDao {
 
     public User create(User user, String passwortHash){
         String sql = "INSERT INTO benutzer (username, email, password_hash, is_active, mitarbeiter_id, rollen_id) VALUES (?,?,?,?,?,?)";
-        long neueId = SqlMacher.machUndHolId(sql,user.getUserName(),user.geteMail(),passwortHash,user.getIsActive(),user.getMitarbeiter().getMitarbeiterId(),user.getRolle().getId());
+        long neueId = SqlMacher.machUndHolId(sql,user.getUserName(),user.getEMail(),passwortHash,user.getIsActive(),user.getMitarbeiter().getMitarbeiterId(),user.getRolle().getId());
         return readOneById((int) neueId);
     }
 
@@ -67,7 +67,7 @@ public class UserDao {
 
     public User update(User user){
         String sql = "UPDATE benutzer SET username = ?, email = ?, rollen_id= ?, mitarbeiter_id =?, is_active= ? WHERE id = ?";
-        SqlMacher.mach(sql,user.getUserName(),user.geteMail(),user.getRolle().getId(),user.getMitarbeiter().getMitarbeiterId(),user.getIsActive(),user.getUserId());
+        SqlMacher.mach(sql,user.getUserName(),user.getEMail(),user.getRolle().getId(),user.getMitarbeiter().getMitarbeiterId(),user.getIsActive(),user.getUserId());
         return readOneById(user.getUserId());
     }
 

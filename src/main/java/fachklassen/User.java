@@ -39,7 +39,7 @@ public class User {
         return userId;
     }
 
-    public String geteMail() {
+    public String getEMail() {
         return eMail;
     }
 

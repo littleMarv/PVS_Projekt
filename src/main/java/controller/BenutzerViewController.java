@@ -121,7 +121,7 @@ public class BenutzerViewController implements Initializable {
             // Neue Benutzer brauchen direkt beim Anlegen ein Passwort.
             angezeigterUser = dao.create(user, User.hashPassword(passwortField.getText()));
         } else {
-            angezeigterUser.seteMail(user.geteMail());
+            angezeigterUser.seteMail(user.getEMail());
             angezeigterUser.setUserName(user.getUserName());
             angezeigterUser.setMitarbeiter(user.getMitarbeiter());
             angezeigterUser.setRolle(user.getRolle());
@@ -148,7 +148,7 @@ public class BenutzerViewController implements Initializable {
             overridePwCheckbox.setSelected(false);
         }
 
-        emailTextField.setText(angezeigterUser.geteMail());
+        emailTextField.setText(angezeigterUser.getEMail());
         benutzernameTextField.setText(angezeigterUser.getUserName());
         mitarbeiterComboBox.setValue(angezeigterUser.getMitarbeiter());
         rolleComboBox.setValue(angezeigterUser.getRolle());
