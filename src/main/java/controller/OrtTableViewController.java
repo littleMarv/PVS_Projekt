@@ -13,15 +13,19 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class OrtTableViewController implements Initializable {
@@ -57,8 +61,19 @@ public class OrtTableViewController implements Initializable {
         plzColumn.setCellValueFactory(new PropertyValueFactory<>("plz"));
         ortsnameColumn.setCellValueFactory(new PropertyValueFactory<>("ortsname"));
         ortMitarbeiterAnzahlColumn.setCellValueFactory(cellData ->
-                new ReadOnlyObjectWrapper<>(zaehleMitarbeiterAmOrt(cellData.getValue()))
+                new ReadOnlyObjectWrapper<>(holeMitarbeiterAmOrt(cellData.getValue()).size())
         );
+
+        // Ein Doppelklick auf eine Zeile zeigt die Mitarbeiter an, die zu diesem Ort gehören.
+        ortTableView.setRowFactory(tableView -> {
+            TableRow<Ort> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+                    zeigeMitarbeiterAmOrt(row.getItem());
+                }
+            });
+            return row;
+        });
 
         // Lädt die Orte aus der Datenbank in die Tabelle
         ladeOrte();
@@ -159,15 +174,39 @@ public class OrtTableViewController implements Initializable {
         }
     }
 
-    private int zaehleMitarbeiterAmOrt(Ort ort) {
-        int anzahl = 0;
+    private List<Mitarbeiter> holeMitarbeiterAmOrt(Ort ort) {
+        List<Mitarbeiter> zugeordneteMitarbeiter = new ArrayList<>();
 
         for (Mitarbeiter mitarbeiter : new MitarbeiterDao().readAll()) {
             if (mitarbeiter.getOrt() != null && mitarbeiter.getOrt().getOrtId() == ort.getOrtId()) {
-                anzahl++;
+                zugeordneteMitarbeiter.add(mitarbeiter);
             }
         }
 
-        return anzahl;
+        return zugeordneteMitarbeiter;
+    }
+
+    private void zeigeMitarbeiterAmOrt(Ort ort) {
+        List<Mitarbeiter> zugeordneteMitarbeiter = holeMitarbeiterAmOrt(ort);
+        StringBuilder text = new StringBuilder();
+
+        if (zugeordneteMitarbeiter.isEmpty()) {
+            text.append("Diesem Ort sind keine Mitarbeiter zugeordnet.");
+        } else {
+            for (Mitarbeiter mitarbeiter : zugeordneteMitarbeiter) {
+                text.append(mitarbeiter.getPersNr())
+                        .append(" - ")
+                        .append(mitarbeiter.getVorname())
+                        .append(" ")
+                        .append(mitarbeiter.getNachname())
+                        .append("\n");
+            }
+        }
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Zugeordnete Mitarbeiter");
+        alert.setHeaderText(ort.getPlz() + " " + ort.getOrtsname());
+        alert.setContentText(text.toString());
+        alert.showAndWait();
     }
 }

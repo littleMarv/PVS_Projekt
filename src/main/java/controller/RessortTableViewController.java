@@ -13,15 +13,19 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class RessortTableViewController implements Initializable {
@@ -53,8 +57,19 @@ public class RessortTableViewController implements Initializable {
         ressortIdColumn.setCellValueFactory(new PropertyValueFactory<>("ressortId"));
         ressortBezeichnungColumn.setCellValueFactory(new PropertyValueFactory<>("bezeichnung"));
         ressortMitarbeiterAnzahlColumn.setCellValueFactory(cellData ->
-                new ReadOnlyObjectWrapper<>(zaehleMitarbeiterImRessort(cellData.getValue()))
+                new ReadOnlyObjectWrapper<>(holeMitarbeiterImRessort(cellData.getValue()).size())
         );
+
+        // Ein Doppelklick auf eine Zeile zeigt die Mitarbeiter an, die zu diesem Ressort gehören.
+        ressortTableView.setRowFactory(tableView -> {
+            TableRow<Ressort> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+                    zeigeMitarbeiterImRessort(row.getItem());
+                }
+            });
+            return row;
+        });
 
         // Lädt die Ressorts aus der Datenbank in die Tabelle
         ladeRessorts();
@@ -149,15 +164,39 @@ public class RessortTableViewController implements Initializable {
         }
     }
 
-    private int zaehleMitarbeiterImRessort(Ressort ressort) {
-        int anzahl = 0;
+    private List<Mitarbeiter> holeMitarbeiterImRessort(Ressort ressort) {
+        List<Mitarbeiter> zugeordneteMitarbeiter = new ArrayList<>();
 
         for (Mitarbeiter mitarbeiter : new MitarbeiterDao().readAll()) {
             if (mitarbeiter.getRessort() != null && mitarbeiter.getRessort().getRessortId() == ressort.getRessortId()) {
-                anzahl++;
+                zugeordneteMitarbeiter.add(mitarbeiter);
             }
         }
 
-        return anzahl;
+        return zugeordneteMitarbeiter;
+    }
+
+    private void zeigeMitarbeiterImRessort(Ressort ressort) {
+        List<Mitarbeiter> zugeordneteMitarbeiter = holeMitarbeiterImRessort(ressort);
+        StringBuilder text = new StringBuilder();
+
+        if (zugeordneteMitarbeiter.isEmpty()) {
+            text.append("Diesem Ressort sind keine Mitarbeiter zugeordnet.");
+        } else {
+            for (Mitarbeiter mitarbeiter : zugeordneteMitarbeiter) {
+                text.append(mitarbeiter.getPersNr())
+                        .append(" - ")
+                        .append(mitarbeiter.getVorname())
+                        .append(" ")
+                        .append(mitarbeiter.getNachname())
+                        .append("\n");
+            }
+        }
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Zugeordnete Mitarbeiter");
+        alert.setHeaderText(ressort.getBezeichnung());
+        alert.setContentText(text.toString());
+        alert.showAndWait();
     }
 }
