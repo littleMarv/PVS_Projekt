@@ -156,8 +156,8 @@ public class ProjektViewController implements Initializable {
 
         if (alert.showAndWait().orElse(abbrechenButton) == bestaetigenButton) {
             projekt.getMitarbeiterListetoDel().add(ausgewaehlterMitarbeiter);
+            pmitarbeiters.remove(ausgewaehlterMitarbeiter);
         }
-        pmitarbeiters.remove(ausgewaehlterMitarbeiter);
     }
 
     public Projekt getProjekt() {

@@ -65,12 +65,12 @@ public class ProjektDao {
         String sql = "UPDATE projekte SET beginn = ?, abschluss = ?, bezeichnung =? WHERE id = ?";
         int ergebnis = SqlMacher.mach(sql, projekt.getBeginn(),projekt.getAbschluss(),projekt.getBezeichnung(),projektId);
         for (ProjektMitarbeiter a: projekt.getMitarbeiterListetoDel()){ //gelöschte raus
-            sql="DELETE FROM mitarbeiter_projekte WHERE id = ?";
-            ergebnis = SqlMacher.mach(sql,a.getMitarbeiterId());
+            sql="DELETE FROM mitarbeiter_projekte WHERE id_mitarbeiter = ? AND id_projekt = ? AND von_datum <=> ? AND bis_datum <=> ? AND rolle_im_projekt <=> ?";
+            ergebnis += Math.max(0, SqlMacher.mach(sql,a.getMitarbeiterId(),projektId,a.getVonDatum(),a.getBisDatum(),a.getRolle()));
         }
         for (ProjektMitarbeiter a: projekt.getMitarbeiterListetoAdd()){ //neue rein
             sql= "INSERT INTO mitarbeiter_projekte(id_projekt,id_mitarbeiter,von_datum,bis_datum,rolle_im_projekt) VALUES (?,?,?,?,?)";
-            ergebnis = SqlMacher.mach(sql,projekt.getProjektId(),a.getMitarbeiterId(),a.getVonDatum(),a.getBisDatum(),a.getRolle());
+            ergebnis += Math.max(0,SqlMacher.mach(sql,projekt.getProjektId(),a.getMitarbeiterId(),a.getVonDatum(),a.getBisDatum(),a.getRolle()));
         }
         return ergebnis > 0;
     }
