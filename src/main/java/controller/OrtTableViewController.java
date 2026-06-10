@@ -1,7 +1,10 @@
 package controller;
 
+import db_zeug.MitarbeiterDao;
 import db_zeug.OrtDao;
+import fachklassen.Mitarbeiter;
 import fachklassen.Ort;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -44,12 +47,18 @@ public class OrtTableViewController implements Initializable {
     @FXML
     private TableColumn<Ort, String> ortsnameColumn;
 
+    @FXML
+    private TableColumn<Ort, Integer> ortMitarbeiterAnzahlColumn;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Verbindet die Spalten mit den Getter-Methoden aus der Ort-Klasse
         ortIdColumn.setCellValueFactory(new PropertyValueFactory<>("ortId"));
         plzColumn.setCellValueFactory(new PropertyValueFactory<>("plz"));
         ortsnameColumn.setCellValueFactory(new PropertyValueFactory<>("ortsname"));
+        ortMitarbeiterAnzahlColumn.setCellValueFactory(cellData ->
+                new ReadOnlyObjectWrapper<>(zaehleMitarbeiterAmOrt(cellData.getValue()))
+        );
 
         // Lädt die Orte aus der Datenbank in die Tabelle
         ladeOrte();
@@ -148,5 +157,17 @@ public class OrtTableViewController implements Initializable {
             platzhalter.setContentText("DB fehlt.");
             platzhalter.showAndWait();
         }
+    }
+
+    private int zaehleMitarbeiterAmOrt(Ort ort) {
+        int anzahl = 0;
+
+        for (Mitarbeiter mitarbeiter : new MitarbeiterDao().readAll()) {
+            if (mitarbeiter.getOrt() != null && mitarbeiter.getOrt().getOrtId() == ort.getOrtId()) {
+                anzahl++;
+            }
+        }
+
+        return anzahl;
     }
 }

@@ -113,7 +113,7 @@ public class User {
                 }
                 hexString.append(hex);
             }
-            return hexString.toString(); // Das ist dein fertiger Hash für die DB
+            return hexString.toString(); // Hashwert für die Datenbank
 
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException("SHA-256 Algorithmus nicht gefunden!", e);

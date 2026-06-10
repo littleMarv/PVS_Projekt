@@ -1,11 +1,9 @@
 package controller;
 
-import db_zeug.MitarbeiterDao;
-import db_zeug.ProjektDao;
 import db_zeug.UserDao;
-import fachklassen.Mitarbeiter;
-import fachklassen.Ressort;
 import fachklassen.User;
+import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
@@ -21,20 +19,21 @@ import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class BenutzerTableViewController implements Initializable {
-    ObservableList<User> masterData;
+    ObservableList<User> masterData = FXCollections.observableArrayList();
     FilteredList<User> filteredData;
 
     @FXML
-    private TableColumn<?, ?> aktivColumn;
+    private TableColumn<User, Boolean> aktivColumn;
 
     @FXML
     private Button benutzerBearbeitenButton;
 
     @FXML
-    private TableColumn<?, ?> benutzerIdColumn;
+    private TableColumn<User, Integer> benutzerIdColumn;
 
     @FXML
     private Button benutzerLoeschenButton;
@@ -86,19 +85,19 @@ public class BenutzerTableViewController implements Initializable {
 
     @FXML
     void editUserButton() {
-        // Holt das Ressort, das in der Tabelle ausgewählt wurde
-        User ausgewaehltesRessort = benutzerTableView.getSelectionModel().getSelectedItem();
+        // Holt den Benutzer, der in der Tabelle ausgewählt wurde.
+        User ausgewaehlterUser = benutzerTableView.getSelectionModel().getSelectedItem();
 
-        if (ausgewaehltesRessort == null) {
+        if (ausgewaehlterUser == null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Kein Ressort ausgewählt");
+            alert.setTitle("Kein Benutzer ausgewählt");
             alert.setHeaderText(null);
-            alert.setContentText("Bitte zuerst ein Ressort aus der Tabelle auswählen.");
+            alert.setContentText("Bitte zuerst einen Benutzer aus der Tabelle auswählen.");
             alert.showAndWait();
             return;
         }
 
-        ladeUserZumBearbeiten(ausgewaehltesRessort);
+        ladeUserZumBearbeiten(ausgewaehlterUser);
     }
 
 
@@ -132,7 +131,10 @@ public class BenutzerTableViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        masterData.setAll(new UserDao().readAll());
+        List<User> benutzer = new UserDao().readAll();
+        if (benutzer != null) {
+            masterData.setAll(benutzer);
+        }
         filteredData = new FilteredList<>(masterData, p -> true);
         benutzerSucheTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(user -> {
@@ -152,10 +154,17 @@ public class BenutzerTableViewController implements Initializable {
             });
         });
 
-        benutzerIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        benutzernameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
-        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+        benutzerIdColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
+        benutzernameColumn.setCellValueFactory(new PropertyValueFactory<>("userName"));
+        emailColumn.setCellValueFactory(new PropertyValueFactory<>("eMail"));
         mitarbeiterColumn.setCellValueFactory(new PropertyValueFactory<>("mitarbeiterString"));
+        rolleColumn.setCellValueFactory(cellData -> {
+            if (cellData.getValue().getRolle() == null) {
+                return new ReadOnlyStringWrapper("-");
+            }
+            return new ReadOnlyStringWrapper(cellData.getValue().getRolle().getBezeichnung());
+        });
+        aktivColumn.setCellValueFactory(new PropertyValueFactory<>("isActive"));
 
 
         benutzerTableView.setItems(filteredData);

@@ -1,7 +1,10 @@
 package controller;
 
+import db_zeug.MitarbeiterDao;
 import db_zeug.RessortDao;
+import fachklassen.Mitarbeiter;
 import fachklassen.Ressort;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -41,11 +44,17 @@ public class RessortTableViewController implements Initializable {
     @FXML
     private TableColumn<Ressort, String> ressortBezeichnungColumn;
 
+    @FXML
+    private TableColumn<Ressort, Integer> ressortMitarbeiterAnzahlColumn;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Verbindet die Spalten mit den Getter-Methoden aus der Ressort-Klasse
         ressortIdColumn.setCellValueFactory(new PropertyValueFactory<>("ressortId"));
         ressortBezeichnungColumn.setCellValueFactory(new PropertyValueFactory<>("bezeichnung"));
+        ressortMitarbeiterAnzahlColumn.setCellValueFactory(cellData ->
+                new ReadOnlyObjectWrapper<>(zaehleMitarbeiterImRessort(cellData.getValue()))
+        );
 
         // Lädt die Ressorts aus der Datenbank in die Tabelle
         ladeRessorts();
@@ -138,5 +147,17 @@ public class RessortTableViewController implements Initializable {
             AnchorPane.setBottomAnchor(view, 0.0);
             AnchorPane.setLeftAnchor(view, 0.0);
         }
+    }
+
+    private int zaehleMitarbeiterImRessort(Ressort ressort) {
+        int anzahl = 0;
+
+        for (Mitarbeiter mitarbeiter : new MitarbeiterDao().readAll()) {
+            if (mitarbeiter.getRessort() != null && mitarbeiter.getRessort().getRessortId() == ressort.getRessortId()) {
+                anzahl++;
+            }
+        }
+
+        return anzahl;
     }
 }

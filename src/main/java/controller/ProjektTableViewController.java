@@ -3,6 +3,8 @@ package controller;
 import db_zeug.ProjektDao;
 import fachklassen.Mitarbeiter;
 import fachklassen.Projekt;
+import fachklassen.ProjektMitarbeiter;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -15,6 +17,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ProjektTableViewController implements Initializable {
@@ -52,6 +55,9 @@ public class ProjektTableViewController implements Initializable {
     private TableColumn<Projekt, String> projektleitungColumn;
 
     @FXML
+    private TableColumn<Projekt, Integer> projektMitarbeiterAnzahlColumn;
+
+    @FXML
     void deleteProjektButton(ActionEvent event) {
 
     }
@@ -82,13 +88,8 @@ public class ProjektTableViewController implements Initializable {
             // 2. Das ausgewählte Objekt direkt aus der Tabelle abfragen
             Projekt ausgewaehltesProjekt = projektTableView.getSelectionModel().getSelectedItem();
 
-            // 3. Sicherheitscheck: Wurde wirklich eine Zeile getroffen?
-            // (Falls der Nutzer in den leeren Bereich unter den Zeilen doppelt klickt, ist es null)
-            AnchorPane hauptContentPane = (AnchorPane) projektTableView.getScene().lookup("#contentPane");
-
-            if (hauptContentPane != null) {
-                // Jetzt rufen wir den ViewLoader auf und übergeben die gefundene Pane!
-                new ViewLoader().ladeProjektDetails(ausgewaehltesProjekt, hauptContentPane);
+            if (ausgewaehltesProjekt != null) {
+                zeigeMitarbeiterDesProjekts(ausgewaehltesProjekt);
             }
         }
     }
@@ -139,6 +140,9 @@ public class ProjektTableViewController implements Initializable {
         beginnColumn.setCellValueFactory(new PropertyValueFactory<>("beginn"));
         abschlussColumn.setCellValueFactory(new PropertyValueFactory<>("abschluss"));
         projektleitungColumn.setCellValueFactory(new PropertyValueFactory<>("projektleitung"));
+        projektMitarbeiterAnzahlColumn.setCellValueFactory(cellData ->
+                new ReadOnlyObjectWrapper<>(zaehleProjektMitarbeiter(cellData.getValue()))
+        );
 
 
         projektTableView.setItems(filteredData);
@@ -152,6 +156,38 @@ public class ProjektTableViewController implements Initializable {
         alert.showAndWait();
     }
 
+    private int zaehleProjektMitarbeiter(Projekt projekt) {
+        if (projekt.getMitarbeiterListe() == null) {
+            return 0;
+        }
+
+        return projekt.getMitarbeiterListe().size();
+    }
+
+    private void zeigeMitarbeiterDesProjekts(Projekt projekt) {
+        List<ProjektMitarbeiter> projektMitarbeiter = projekt.getMitarbeiterListe();
+        StringBuilder text = new StringBuilder();
+
+        if (projektMitarbeiter == null || projektMitarbeiter.isEmpty()) {
+            text.append("Diesem Projekt sind keine Mitarbeiter zugeordnet.");
+        } else {
+            for (ProjektMitarbeiter mitarbeiter : projektMitarbeiter) {
+                text.append(mitarbeiter.getAuswahlString());
+
+                if (mitarbeiter.getRolle() != null && !mitarbeiter.getRolle().isBlank()) {
+                    text.append(" (").append(mitarbeiter.getRolle()).append(")");
+                }
+
+                text.append("\n");
+            }
+        }
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Projektmitarbeiter");
+        alert.setHeaderText(projekt.getBezeichnung());
+        alert.setContentText(text.toString());
+        alert.showAndWait();
+    }
 
 
 }

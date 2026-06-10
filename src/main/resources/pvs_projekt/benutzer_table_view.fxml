@@ -16,29 +16,29 @@
   <children>
     <!-- Überschrift der Tabellenansicht -->
     <Label layoutX="30.0" layoutY="25.0" styleClass="view-title" text="Benutzerliste" />
-    <!-- Suchfeld für eine e Suche nach Benutzern -->
+    <!-- Suchfeld für die Suche nach Benutzern -->
     <TextField fx:id="benutzerSucheTextField" layoutX="30.0" layoutY="75.0" onAction="#userSearchField" onKeyTyped="#searchTyped" prefHeight="28.0" prefWidth="220.0" promptText="Benutzer suchen" styleClass="input-field" />
     <!-- Öffnet die Einzelansicht für einen neuen Benutzer -->
     <Button fx:id="benutzerNeuButton" layoutX="272.0" layoutY="75.0" onAction="#newUserButton" prefHeight="28.0" prefWidth="95.0" styleClass="primary-button" text="Neu" />
-    <!-- Bearbeitet des aktuell ausgewählten Benutzers -->
+    <!-- Bearbeitet den aktuell ausgewählten Benutzer -->
     <Button fx:id="benutzerBearbeitenButton" layoutX="377.0" layoutY="75.0" onAction="#editUserButton" prefHeight="28.0" prefWidth="105.0" styleClass="secondary-button" text="Bearbeiten" />
-    <!-- Löscht des aktuell ausgewählten Benutzers -->
+    <!-- Löscht den aktuell ausgewählten Benutzer -->
     <Button fx:id="benutzerLoeschenButton" layoutX="492.0" layoutY="75.0" onAction="#delUlerButton" prefHeight="28.0" prefWidth="90.0" styleClass="danger-button" text="Löschen" />
     <!-- Tabelle für alle Benutzer -->
     <TableView fx:id="benutzerTableView" layoutX="30.0" layoutY="120.0" onMouseClicked="#userTableClick" onSort="#userTable" prefHeight="380.0" prefWidth="750.0" styleClass="data-table" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="120.0">
       <columns>
         <!-- Benutzer-ID aus benutzer.id -->
-        <TableColumn fx:id="benutzerIdColumn" prefWidth="50.0" text="ID" />
+        <TableColumn fx:id="benutzerIdColumn" prefWidth="60.0" text="ID" />
         <!-- Benutzername aus benutzer.username -->
-        <TableColumn fx:id="benutzernameColumn" prefWidth="120.0" text="Benutzername" />
+        <TableColumn fx:id="benutzernameColumn" prefWidth="140.0" text="Benutzername" />
         <!-- E-Mail-Adresse aus benutzer.email -->
-        <TableColumn fx:id="emailColumn" prefWidth="145.0" text="E-Mail" />
+        <TableColumn fx:id="emailColumn" prefWidth="180.0" text="E-Mail" />
         <!-- Benutzerrolle über benutzer.rollen_id -->
-        <TableColumn fx:id="rolleColumn" prefWidth="85.0" text="Rolle" />
+        <TableColumn fx:id="rolleColumn" prefWidth="110.0" text="Rolle" />
         <!-- Zugeordneter Mitarbeiter über benutzer.mitarbeiter_id -->
-        <TableColumn fx:id="mitarbeiterColumn" prefWidth="95.0" text="Mitarbeiter" />
+        <TableColumn fx:id="mitarbeiterColumn" prefWidth="170.0" text="Mitarbeiter" />
         <!-- Aktiv-Status aus benutzer.is_active -->
-        <TableColumn fx:id="aktivColumn" prefWidth="55.0" text="Aktiv" />
+        <TableColumn fx:id="aktivColumn" prefWidth="70.0" text="Aktiv" />
       </columns>
     </TableView>
   </children>

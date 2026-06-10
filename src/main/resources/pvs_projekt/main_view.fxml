@@ -45,6 +45,8 @@
         <Button fx:id="ressorts" onAction="#ressortsAnzeigen" prefWidth="150.0" text="Ressorts" styleClass="nav-button" />
         <!-- Öffnet die Liste der Vertragstypen -->
         <Button fx:id="vertragstypen" onAction="#vertragstypenAnzeigen" prefWidth="150.0" text="Vertragstypen" styleClass="nav-button" />
+        <!-- Öffnet die Benutzerliste -->
+        <Button fx:id="benutzer" onAction="#benutzerAnzeigen" prefWidth="150.0" text="Benutzer" styleClass="nav-button" />
         <!-- Leerer Platzhalter, damit der Beenden-Button unten sitzt -->
         <AnchorPane VBox.vgrow="ALWAYS" />
         <!-- Beendet die Anwendung -->

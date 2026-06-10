@@ -13,23 +13,25 @@
   <children>
     <!-- Überschrift der Tabellenansicht -->
     <Label layoutX="30.0" layoutY="25.0" text="Ortsliste" styleClass="view-title" />
-    <!-- Suchfeld für eine e Suche nach Orten -->
+    <!-- Suchfeld für die Suche nach Orten -->
     <TextField fx:id="ortSucheTextField" layoutX="30.0" layoutY="75.0" onKeyReleased="#ortSuche" prefHeight="28.0" prefWidth="220.0" promptText="Ort suchen" styleClass="input-field" />
     <!-- Öffnet die Einzelansicht für einen neuen Ort -->
     <Button fx:id="ortNeuButton" layoutX="272.0" layoutY="75.0" onAction="#ortNeuOeffnen" prefHeight="28.0" prefWidth="95.0" text="Neu" styleClass="primary-button" />
-    <!-- Bearbeitet des aktuell ausgewählten Ortes -->
+    <!-- Bearbeitet den aktuell ausgewählten Ort -->
     <Button fx:id="ortBearbeitenButton" layoutX="377.0" layoutY="75.0" onAction="#ortBearbeitenOeffnen" prefHeight="28.0" prefWidth="105.0" text="Bearbeiten" styleClass="secondary-button" />
-    <!-- Löscht des aktuell ausgewählten Ortes -->
+    <!-- Löscht den aktuell ausgewählten Ort -->
     <Button fx:id="ortLoeschenButton" layoutX="492.0" layoutY="75.0" onAction="#ortLoeschen" prefHeight="28.0" prefWidth="90.0" text="Löschen" styleClass="danger-button" />
     <!-- Tabelle für alle Orte -->
     <TableView fx:id="ortTableView" layoutX="30.0" layoutY="120.0" prefHeight="380.0" prefWidth="750.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="120.0" AnchorPane.bottomAnchor="30.0" styleClass="data-table">
       <columns>
         <!-- Ort-ID aus orte.id -->
-        <TableColumn fx:id="ortIdColumn" prefWidth="80.0" text="ID" />
+        <TableColumn fx:id="ortIdColumn" prefWidth="70.0" text="ID" />
         <!-- Postleitzahl aus orte.plz -->
-        <TableColumn fx:id="plzColumn" prefWidth="160.0" text="PLZ" />
+        <TableColumn fx:id="plzColumn" prefWidth="130.0" text="PLZ" />
         <!-- Ortsname aus orte.ortsname -->
-        <TableColumn fx:id="ortsnameColumn" prefWidth="310.0" text="Ortsname" />
+        <TableColumn fx:id="ortsnameColumn" prefWidth="300.0" text="Ortsname" />
+        <!-- Anzahl der Mitarbeiter, die diesem Ort zugeordnet sind -->
+        <TableColumn fx:id="ortMitarbeiterAnzahlColumn" prefWidth="140.0" text="Mitarbeiter" />
       </columns>
     </TableView>
   </children>

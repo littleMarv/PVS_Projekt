@@ -18,9 +18,12 @@ public class UserDao {
         if (daten.isEmpty()) {
             return null;
         }
-        Mitarbeiter mitarbeiter = new MitarbeiterDao().readOneById((Integer)daten.getFirst().get("mitabeiterId"));
+        Mitarbeiter mitarbeiter = null;
+        if (daten.getFirst().get("mitarbeiter_id") != null) {
+            mitarbeiter = new MitarbeiterDao().readOneById((Integer) daten.getFirst().get("mitarbeiter_id"));
+        }
         UserRolle rolle = new UserRollenDao().readOneById((Integer)daten.getFirst().get("rollen_id"));
-        return new User((Integer)daten.getFirst().get("Id"),(String) daten.getFirst().get("email"),(String)daten.getFirst().get("username"),mitarbeiter,rolle, (Boolean) daten.getFirst().get("is_active"));
+        return new User((Integer)daten.getFirst().get("id"),(String) daten.getFirst().get("email"),(String)daten.getFirst().get("username"),mitarbeiter,rolle, istAktiv(daten.getFirst().get("is_active")));
     }
 
     public User readOneById(int id){
@@ -32,7 +35,7 @@ public class UserDao {
 
     public int readIdByRest(User user){
         String sql ="SELECT id from benutzer WHERE username=? AND email=? AND mitarbeiter_id = ?";
-        return (int) SqlMacher.such(sql,user.getUserName(),user.geteMail(),user.getMitarbeiter().getMitarbeiterId()).getFirst().get("id)");
+        return (int) SqlMacher.such(sql,user.getUserName(),user.geteMail(),user.getMitarbeiter().getMitarbeiterId()).getFirst().get("id");
     }
 
     public List<User> readAll(){
@@ -47,9 +50,13 @@ public class UserDao {
     }
 
     public User create(User user){
+        return create(user, "");
+    }
+
+    public User create(User user, String passwortHash){
         String sql = "INSERT INTO benutzer (username, email, password_hash, is_active, mitarbeiter_id, rollen_id) VALUES (?,?,?,?,?,?)";
-        int ergebnis = (int)SqlMacher.machUndHolId(sql,user.getUserName(),user.geteMail(),user.getIsActive(),user.getMitarbeiter().getMitarbeiterId(),user.getRolle().getId());
-        return readOneById(ergebnis);
+        long neueId = SqlMacher.machUndHolId(sql,user.getUserName(),user.geteMail(),passwortHash,user.getIsActive(),user.getMitarbeiter().getMitarbeiterId(),user.getRolle().getId());
+        return readOneById((int) neueId);
     }
 
     public boolean deleteById(int id){
@@ -60,14 +67,14 @@ public class UserDao {
 
     public User update(User user){
         String sql = "UPDATE benutzer SET username = ?, email = ?, rollen_id= ?, mitarbeiter_id =?, is_active= ? WHERE id = ?";
-        int ergebnis = (int)SqlMacher.machUndHolId(sql,user.getUserName(),user.geteMail(),user.getRolle().getId(),user.getMitarbeiter().getMitarbeiterId(),user.getIsActive(),user.getUserId());
-        return readOneById(ergebnis);
+        SqlMacher.mach(sql,user.getUserName(),user.geteMail(),user.getRolle().getId(),user.getMitarbeiter().getMitarbeiterId(),user.getIsActive(),user.getUserId());
+        return readOneById(user.getUserId());
     }
 
     public User updatePw(int id, String pwh){
-        String sql = "UPDATE benutzer SET pwh = ? WHERE id = ?";
-        int ergebnis = SqlMacher.mach(sql,pwh,id);
-        return readOneById(ergebnis);
+        String sql = "UPDATE benutzer SET password_hash = ? WHERE id = ?";
+        SqlMacher.mach(sql,pwh,id);
+        return readOneById(id);
     }
 
     public User save(User user){
@@ -90,8 +97,23 @@ public class UserDao {
         if (zeile.isEmpty()) {
             return null;
         }
-        Mitarbeiter mitarbeiter = new MitarbeiterDao().readOneById((Integer)zeile.get("mitabeiterId"));
+        Mitarbeiter mitarbeiter = null;
+        if (zeile.get("mitarbeiter_id") != null) {
+            mitarbeiter = new MitarbeiterDao().readOneById((Integer) zeile.get("mitarbeiter_id"));
+        }
         UserRolle rolle = new UserRollenDao().readOneById((Integer)zeile.get("rollen_id"));
-        return new User((Integer)zeile.get("Id"),(String) zeile.get("email"),(String)zeile.get("username"),mitarbeiter,rolle, (Boolean) zeile.get("is_active"));
+        return new User((Integer)zeile.get("id"),(String) zeile.get("email"),(String)zeile.get("username"),mitarbeiter,rolle, istAktiv(zeile.get("is_active")));
+    }
+
+    private boolean istAktiv(Object wert) {
+        if (wert instanceof Boolean) {
+            return (Boolean) wert;
+        }
+
+        if (wert instanceof Number) {
+            return ((Number) wert).intValue() == 1;
+        }
+
+        return false;
     }
 }

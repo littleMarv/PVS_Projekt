@@ -16,27 +16,29 @@
   <children>
     <!-- Überschrift der Tabellenansicht -->
     <Label layoutX="30.0" layoutY="25.0" styleClass="view-title" text="Projektliste" />
-    <!-- Suchfeld für eine e Suche nach Projekten -->
+    <!-- Suchfeld für die Suche nach Projekten -->
     <TextField fx:id="projektSucheTextField" layoutX="30.0" layoutY="75.0" onKeyTyped="#projektSuche" prefHeight="28.0" prefWidth="220.0" promptText="Projekt suchen" styleClass="input-field" />
     <!-- Öffnet die Einzelansicht für ein neues Projekt -->
     <Button fx:id="projektNeuButton" layoutX="272.0" layoutY="75.0" onAction="#neuProjektButton" prefHeight="28.0" prefWidth="95.0" styleClass="primary-button" text="Neu" />
-    <!-- Bearbeitet des aktuell ausgewählten Projekts -->
+    <!-- Bearbeitet das aktuell ausgewählte Projekt -->
     <Button fx:id="projektBearbeitenButton" layoutX="377.0" layoutY="75.0" onAction="#editProjektButton" prefHeight="28.0" prefWidth="105.0" styleClass="secondary-button" text="Bearbeiten" />
-    <!-- Löscht des aktuell ausgewählten Projekts -->
+    <!-- Löscht das aktuell ausgewählte Projekt -->
     <Button fx:id="projektLoeschenButton" layoutX="492.0" layoutY="75.0" onAction="#deleteProjektButton" prefHeight="28.0" prefWidth="90.0" styleClass="danger-button" text="Löschen" />
     <!-- Tabelle für alle Projekte -->
     <TableView fx:id="projektTableView" layoutX="30.0" layoutY="120.0" onMouseClicked="#tabellenClick" prefHeight="380.0" prefWidth="750.0" styleClass="data-table" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="120.0">
       <columns>
         <!-- Projekt-ID aus der Datenbank -->
-        <TableColumn fx:id="projektIdColumn" prefWidth="55.0" text="ID" />
+        <TableColumn fx:id="projektIdColumn" prefWidth="50.0" text="ID" />
         <!-- Bezeichnung oder Name des Projekts -->
-        <TableColumn fx:id="bezeichnungColumn" prefWidth="205.0" text="Bezeichnung" />
+        <TableColumn fx:id="bezeichnungColumn" prefWidth="190.0" text="Bezeichnung" />
         <!-- Startdatum des Projekts -->
-        <TableColumn fx:id="beginnColumn" prefWidth="95.0" text="Beginn" />
+        <TableColumn fx:id="beginnColumn" prefWidth="90.0" text="Beginn" />
         <!-- Abschlussdatum des Projekts -->
-        <TableColumn fx:id="abschlussColumn" prefWidth="95.0" text="Abschluss" />
+        <TableColumn fx:id="abschlussColumn" prefWidth="90.0" text="Abschluss" />
         <!-- Aktuelle Leitung wird aus der Projektbesetzung mit Rolle Projektleitung gelesen -->
-        <TableColumn fx:id="projektleitungColumn" prefWidth="100.0" text="Leitung" />
+        <TableColumn fx:id="projektleitungColumn" prefWidth="130.0" text="Leitung" />
+        <!-- Anzahl der Mitarbeiter, die dem Projekt zugeordnet sind -->
+        <TableColumn fx:id="projektMitarbeiterAnzahlColumn" prefWidth="120.0" text="Mitarbeiter" />
       </columns>
     </TableView>
   </children>

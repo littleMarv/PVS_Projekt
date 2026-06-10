@@ -27,6 +27,8 @@ public class MainViewController {
     private Button ressorts;
     @FXML
     private Button vertragstypen;
+    @FXML
+    private Button benutzer;
 
     // Lädt direkt beim Start die Dashboard-View in die Mitte.
     @FXML
@@ -83,6 +85,13 @@ public class MainViewController {
         ladeViewInDieMitte("vertragstyp_table_view");
     }
 
+    // Zeigt die Benutzerliste an.
+    @FXML
+    public void benutzerAnzeigen() {
+        markiereAktivenButton(benutzer);
+        ladeViewInDieMitte("benutzer_table_view");
+    }
+
     // Schließt die Anwendung.
     @FXML
     public void beenden() {
@@ -91,7 +100,7 @@ public class MainViewController {
 
     // Setzt alle Navigationsbuttons zurück und markiert danach den aktiven Button grün.
     private void markiereAktivenButton(Button aktiverButton) {
-        Button[] navigationsButtons = {dashboard, mitarbeiter, projekte, tickets, orte, ressorts, vertragstypen};
+        Button[] navigationsButtons = {dashboard, mitarbeiter, projekte, tickets, orte, ressorts, vertragstypen, benutzer};
 
         for (Button button : navigationsButtons) {
             button.getStyleClass().remove("nav-button-active");

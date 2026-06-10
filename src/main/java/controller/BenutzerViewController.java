@@ -9,8 +9,10 @@ import fachklassen.UserRolle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -25,6 +27,9 @@ import java.util.ResourceBundle;
 public class BenutzerViewController implements Initializable {
 
     private User angezeigterUser;
+
+    @FXML
+    private Label benutzerTitelLabel;
 
     @FXML
     private CheckBox aktivCheckBox;
@@ -95,21 +100,66 @@ public class BenutzerViewController implements Initializable {
 
     @FXML
     void speichernButton() {
-        User user = new User(benutzernameTextField.getText(),emailTextField.getText(),mitarbeiterComboBox.getValue(),rolleComboBox.getValue(),aktivCheckBox.isSelected());
-        UserDao dao =new UserDao();
-        angezeigterUser = dao.save(user);
-        if (overridePwCheckbox.isSelected()){
-            dao.updatePw(angezeigterUser.getUserId(),User.hashPassword(passwortField.getText()));
+        String email = emailTextField.getText();
+        String benutzername = benutzernameTextField.getText();
+
+        if (email == null || email.isBlank() || benutzername == null || benutzername.isBlank() ||
+                rolleComboBox.getValue() == null || mitarbeiterComboBox.getValue() == null) {
+            zeigeHinweis("Bitte Benutzername, E-Mail, Rolle und Mitarbeiter ausfüllen.");
+            return;
         }
+
+        if ((angezeigterUser == null || angezeigterUser.getUserId() == 0) && passwortField.getText().isBlank()) {
+            zeigeHinweis("Bitte ein Passwort für den neuen Benutzer eingeben.");
+            return;
+        }
+
+        User user = new User(email, benutzername, mitarbeiterComboBox.getValue(), rolleComboBox.getValue(), aktivCheckBox.isSelected());
+        UserDao dao = new UserDao();
+
+        if (angezeigterUser == null || angezeigterUser.getUserId() == 0) {
+            // Neue Benutzer brauchen direkt beim Anlegen ein Passwort.
+            angezeigterUser = dao.create(user, User.hashPassword(passwortField.getText()));
+        } else {
+            angezeigterUser.seteMail(user.geteMail());
+            angezeigterUser.setUserName(user.getUserName());
+            angezeigterUser.setMitarbeiter(user.getMitarbeiter());
+            angezeigterUser.setRolle(user.getRolle());
+            angezeigterUser.setIsActive(user.getIsActive());
+            dao.update(angezeigterUser);
+
+            if (overridePwCheckbox.isSelected()) {
+                dao.updatePw(angezeigterUser.getUserId(), User.hashPassword(passwortField.getText()));
+            }
+        }
+
         abbrechenButton();
     }
 
     public void setAktuellerUser(User user) {
         this.angezeigterUser=user;
 
+        if (angezeigterUser.getUserId() == 0) {
+            benutzerTitelLabel.setText("Benutzer anlegen");
+            passwortField.clear();
+            overridePwCheckbox.setSelected(true);
+        } else {
+            benutzerTitelLabel.setText("Benutzer bearbeiten");
+            overridePwCheckbox.setSelected(false);
+        }
+
         emailTextField.setText(angezeigterUser.geteMail());
         benutzernameTextField.setText(angezeigterUser.getUserName());
         mitarbeiterComboBox.setValue(angezeigterUser.getMitarbeiter());
         rolleComboBox.setValue(angezeigterUser.getRolle());
+        aktivCheckBox.setSelected(angezeigterUser.getIsActive());
+    }
+
+    private void zeigeHinweis(String text) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Hinweis");
+        alert.setHeaderText(null);
+        alert.setContentText(text);
+        alert.showAndWait();
     }
 }
