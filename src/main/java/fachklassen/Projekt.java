@@ -126,6 +126,14 @@ public class Projekt {
                     }
             }
         }
+        if (Objects.equals(pm.getRolle(), "Projektleitung")) {
+            for (ProjektMitarbeiter tmp : mitarbeiterListetoAdd) {
+                if (Objects.equals(tmp.getRolle(), "Projektleitung"))
+                    if(tmp.getVonDatum().after(pm.getVonDatum())&&tmp.getBisDatum().before(pm.getBisDatum())||tmp.getVonDatum().before(pm.getVonDatum())&&tmp.getBisDatum().after(pm.getBisDatum())||tmp.getVonDatum().before(pm.getBisDatum())&&tmp.getBisDatum().after(pm.getBisDatum())){
+                        check = false;
+                    }
+            }
+        }
         if (check) {
             mitarbeiterListetoAdd.add(pm);
         }

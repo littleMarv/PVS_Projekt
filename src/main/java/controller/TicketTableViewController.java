@@ -79,7 +79,7 @@ public class TicketTableViewController implements Initializable {
     }
 
     @FXML
-    void ticketSuche(KeyEvent event) {
+    void ticketSuche() {
         // Filtert in der bereits geladenen Liste, damit kein eigener DAO-Suchbefehl nötig ist
         String suche = ticketSucheTextField.getText().toLowerCase();
         angezeigteTickets.clear();
@@ -151,6 +151,7 @@ public class TicketTableViewController implements Initializable {
             new TicketDao().delete(tucket.getTicketId());
         }
         alleTickets.setAll(new TicketDao().readAll());
+        ticketSuche();
     }
 
     private String mitarbeiterText(Mitarbeiter mitarbeiter) {
