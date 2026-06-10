@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -6,60 +7,65 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+
 <!--
  Hauptlayout der Anwendung.
  BorderPane teilt das Fenster in feste Bereiche:
  oben = Kopfbereich, links = Navigation, mitte = Inhalt.
 -->
-<BorderPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainViewController" stylesheets="@css/pvs_style.css" styleClass="app-root">
+
+<?import javafx.scene.layout.Region?>
+<BorderPane prefHeight="600.0" prefWidth="1000.0" styleClass="app-root" stylesheets="@css/pvs_style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainViewController">
   <!-- Oberer Bereich: Titel der Anwendung -->
   <top>
-    <HBox alignment="CENTER_LEFT" prefHeight="70.0" BorderPane.alignment="CENTER" styleClass="app-header">
+    <HBox alignment="CENTER_LEFT" prefHeight="70.0" styleClass="app-header" BorderPane.alignment="CENTER">
       <padding>
         <Insets left="25.0" right="25.0" />
       </padding>
       <children>
         <!-- Sichtbarer Fenstertitel innerhalb der App -->
-        <Label text="PVS Projektverwaltung" styleClass="app-title" />
+        <Label styleClass="app-title" text="PVS Projektverwaltung" />
+        <Region HBox.hgrow="ALWAYS" />
+            <Label fx:id="eingelogterUserLabel" styleClass="app-title" />
       </children>
     </HBox>
   </top>
   <!-- Linker Bereich: Hauptnavigation zwischen den Modulen -->
   <left>
-    <VBox alignment="TOP_CENTER" prefWidth="190.0" spacing="10.0" BorderPane.alignment="CENTER" styleClass="side-nav">
+    <VBox alignment="TOP_CENTER" prefWidth="190.0" spacing="10.0" styleClass="side-nav" BorderPane.alignment="CENTER">
       <padding>
         <Insets bottom="20.0" left="15.0" right="15.0" top="65.0" />
       </padding>
       <children>
         <!-- Öffnet die Startübersicht im Inhaltsbereich -->
-        <Button fx:id="dashboard" onAction="#dashboardAnzeigen" prefWidth="150.0" text="Dashboard" styleClass="nav-button-active" />
+        <Button fx:id="dashboard" onAction="#dashboardAnzeigen" prefWidth="150.0" styleClass="nav-button-active" text="Dashboard" />
         <!-- Öffnet die Mitarbeiterliste -->
-        <Button fx:id="mitarbeiter" onAction="#mitarbeiterAnzeigen" prefWidth="150.0" text="Mitarbeiter" styleClass="nav-button" />
+        <Button fx:id="mitarbeiter" onAction="#mitarbeiterAnzeigen" prefWidth="150.0" styleClass="nav-button" text="Mitarbeiter" />
         <!-- Öffnet die Projektliste -->
-        <Button fx:id="projekte" onAction="#projekteAnzeigen" prefWidth="150.0" text="Projekte" styleClass="nav-button" />
+        <Button fx:id="projekte" onAction="#projekteAnzeigen" prefWidth="150.0" styleClass="nav-button" text="Projekte" />
         <!-- Öffnet die Ticketliste -->
-        <Button fx:id="tickets" onAction="#ticketsAnzeigen" prefWidth="150.0" text="Tickets" styleClass="nav-button" />
+        <Button fx:id="tickets" onAction="#ticketsAnzeigen" prefWidth="150.0" styleClass="nav-button" text="Tickets" />
         <!-- Öffnet die Ortsliste -->
-        <Button fx:id="orte" onAction="#orteAnzeigen" prefWidth="150.0" text="Orte" styleClass="nav-button" />
+        <Button fx:id="orte" onAction="#orteAnzeigen" prefWidth="150.0" styleClass="nav-button" text="Orte" />
         <!-- Öffnet die Ressortliste -->
-        <Button fx:id="ressorts" onAction="#ressortsAnzeigen" prefWidth="150.0" text="Ressorts" styleClass="nav-button" />
+        <Button fx:id="ressorts" onAction="#ressortsAnzeigen" prefWidth="150.0" styleClass="nav-button" text="Ressorts" />
         <!-- Öffnet die Liste der Vertragstypen -->
-        <Button fx:id="vertragstypen" onAction="#vertragstypenAnzeigen" prefWidth="150.0" text="Vertragstypen" styleClass="nav-button" />
+        <Button fx:id="vertragstypen" onAction="#vertragstypenAnzeigen" prefWidth="150.0" styleClass="nav-button" text="Vertragstypen" />
         <!-- Öffnet die Benutzerliste -->
-        <Button fx:id="benutzer" onAction="#benutzerAnzeigen" prefWidth="150.0" text="Benutzer" styleClass="nav-button" />
+        <Button fx:id="benutzer" onAction="#benutzerAnzeigen" prefWidth="150.0" styleClass="nav-button" text="Benutzer" />
         <!-- Leerer Platzhalter, damit der Beenden-Button unten sitzt -->
         <AnchorPane VBox.vgrow="ALWAYS" />
         <!-- Beendet die Anwendung -->
-        <Button fx:id="beendenButton" onAction="#beenden" prefWidth="150.0" text="Beenden" styleClass="exit-button" />
+        <Button fx:id="beendenButton" onAction="#beenden" prefWidth="150.0" styleClass="exit-button" text="Beenden" />
       </children>
     </VBox>
   </left>
   <!-- Mittlerer Bereich: Hier werden Tabellen und Formulare angezeigt -->
   <center>
-    <AnchorPane fx:id="contentPane" prefHeight="530.0" prefWidth="810.0" BorderPane.alignment="CENTER" styleClass="content-pane">
+    <AnchorPane fx:id="contentPane" prefHeight="530.0" prefWidth="810.0" styleClass="content-pane" BorderPane.alignment="CENTER">
       <children>
         <!-- Startinhalt im Center-Bereich -->
-        <Label layoutX="30.0" layoutY="25.0" text="Dashboard" styleClass="view-title" />
+        <Label layoutX="30.0" layoutY="25.0" styleClass="view-title" text="Dashboard" />
       </children>
     </AnchorPane>
   </center>

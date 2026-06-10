@@ -131,7 +131,7 @@ public class Mitarbeiter {
     }
 
     public String getAuswahlString(){
-        return this.persNr +"-"+ this.nachname +"-"+ this.vorname;
+        return this.persNr +"-"+ this.vorname +" "+ this.nachname;
     }
 
     @Override

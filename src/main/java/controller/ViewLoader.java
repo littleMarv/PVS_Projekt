@@ -4,10 +4,14 @@ import fachklassen.Mitarbeiter;
 import fachklassen.Projekt;
 import fachklassen.Ticket;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import launcher.HelloApplication;
 
+import java.io.IOException;
 import java.net.URL;
 
 public class ViewLoader {
@@ -81,16 +85,24 @@ public class ViewLoader {
         }
     }
 
-    public void loadMain() {
+    public void loadMain(Stage stage) {
+
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(
-                    HelloApplication.class.getResource("/pvs_projekt/main_view.fxml")
-            );
-            fxmlLoader.load();
-        }
-        catch (Exception e) {
+            // 1. Die neue main_view.fxml laden
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/pvs_projekt/main_view.fxml"));
+            Parent mainViewRoot = loader.load();
+            // 3. Einfach die Root der vorhandenen Scene austauschen
+            stage.getScene().setRoot(mainViewRoot);
+
+            // Optional: Fenstergröße anpassen oder zentrieren, falls die main_view größer ist
+            stage.sizeToScene();
+            stage.centerOnScreen();
+
+        } catch (IOException e) {
             e.printStackTrace();
+            // Hier evtl. eine Fehlermeldung für den User anzeigen
         }
+
     }
 
     public void ladeTicketDetails(Ticket ticket, AnchorPane targetContentPane) {

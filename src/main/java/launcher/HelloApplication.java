@@ -14,7 +14,7 @@ public class HelloApplication extends Application {
 
         // Lädt die FXML-Datei der Benutzeroberfläche
         FXMLLoader fxmlLoader = new FXMLLoader(
-                HelloApplication.class.getResource("/pvs_projekt/main_view.fxml")
+                HelloApplication.class.getResource("/pvs_projekt/login_view.fxml")
         );
 
         // Erstellt die Szene mit Breite und Höhe

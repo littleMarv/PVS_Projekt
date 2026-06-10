@@ -1,8 +1,10 @@
 package controller;
 
+import fachklassen.UserSession;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
@@ -30,9 +32,15 @@ public class MainViewController {
     @FXML
     private Button benutzer;
 
+    @FXML
+    private Label eingelogterUserLabel;
+
     // Lädt direkt beim Start die Dashboard-View in die Mitte.
     @FXML
     public void initialize() {
+        if (UserSession.getInstance()!=null&&UserSession.getInstance().getUser()!= null){
+            eingelogterUserLabel.setText(UserSession.getInstance().getUser().getMitarbeiterString());
+        }
         dashboardAnzeigen();
     }
 
