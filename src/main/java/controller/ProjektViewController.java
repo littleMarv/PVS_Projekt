@@ -24,6 +24,7 @@ import java.net.URL;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class ProjektViewController implements Initializable {
@@ -139,7 +140,7 @@ public class ProjektViewController implements Initializable {
             zeigeHinweis("Bitte zuerst einen Mitarbeiter in der Tabelle auswählen.");
             return;
         }
-        if (ausgewaehlterMitarbeiter.getRolle() == "Projektleitung") {
+        if (Objects.equals(ausgewaehlterMitarbeiter.getRolle(), "Projektleitung")) {
             zeigeHinweis("Projektleitung darf nicht gelöscht werden");
             return;
         }
