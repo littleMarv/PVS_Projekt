@@ -71,8 +71,11 @@ public class UserDao {
     }
 
     public User save(User user){
+        if (user == null){
+            return null;
+        }
         User vser = readOneById(user.getUserId());
-        if (vser != user){
+        if (!user.equals(vser)){
             if(vser == null){
                 return create(user);
             }
