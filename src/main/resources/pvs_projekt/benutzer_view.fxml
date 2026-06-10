@@ -13,7 +13,7 @@
  Maske zum Anlegen und Bearbeiten eines Login-Benutzers.
 -->
 
-<AnchorPane prefHeight="430.0" prefWidth="600.0" styleClass="view-root" stylesheets="@css/pvs_style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BenutzerView">
+<AnchorPane prefHeight="430.0" prefWidth="600.0" styleClass="view-root" stylesheets="@css/pvs_style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BenutzerViewController">
   <children>
     <!-- Überschrift der Maske -->
     <Label layoutX="40.0" layoutY="28.0" styleClass="view-title" text="Benutzer bearbeiten" />

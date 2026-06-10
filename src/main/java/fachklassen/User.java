@@ -30,6 +30,10 @@ public class User {
         this.isActive=isActive;
     }
 
+    public User() {
+
+    }
+
 
     public int getUserId() {
         return userId;
@@ -73,6 +77,11 @@ public class User {
 
     public void setIsActive(boolean active) {
         isActive = active;
+    }
+
+    public String getMitarbeiterString(){
+        if (mitarbeiter == null) {return "---";}
+        return mitarbeiter.getAuswahlString();
     }
 
     @Override

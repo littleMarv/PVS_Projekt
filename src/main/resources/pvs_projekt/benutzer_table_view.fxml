@@ -12,7 +12,7 @@
  Liste der Login-Benutzer.
 -->
 
-<AnchorPane prefHeight="530.0" prefWidth="810.0" styleClass="view-root" stylesheets="@css/pvs_style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BenutzerTableView">
+<AnchorPane prefHeight="530.0" prefWidth="810.0" styleClass="view-root" stylesheets="@css/pvs_style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BenutzerTableViewController">
   <children>
     <!-- Überschrift der Tabellenansicht -->
     <Label layoutX="30.0" layoutY="25.0" styleClass="view-title" text="Benutzerliste" />

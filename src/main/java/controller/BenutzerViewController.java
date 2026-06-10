@@ -15,13 +15,14 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.util.StringConverter;
 import org.controlsfx.control.SearchableComboBox;
 
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class BenutzerView implements Initializable {
+public class BenutzerViewController implements Initializable {
 
     private User angezeigterUser;
 
@@ -58,6 +59,15 @@ public class BenutzerView implements Initializable {
         mitarbeiterComboBox.getItems().setAll(alleMitarbeiter);
         List<UserRolle> alleRollen = new UserRollenDao().readAll();
         rolleComboBox.getItems().setAll(alleRollen);
+
+        mitarbeiterComboBox.setConverter(new StringConverter<Mitarbeiter>() {
+            @Override public String toString(Mitarbeiter m) { return m != null ? m.getAuswahlString() : ""; }
+            @Override public Mitarbeiter fromString(String s) { return null; }
+        });
+        rolleComboBox.setConverter(new StringConverter<UserRolle>() {
+            @Override public String toString(UserRolle r) { return r != null ? r.getBezeichnung() : ""; }
+            @Override public UserRolle fromString(String s) { return null; }
+        });
     }
 
     @FXML
@@ -92,5 +102,14 @@ public class BenutzerView implements Initializable {
             dao.updatePw(angezeigterUser.getUserId(),User.hashPassword(passwortField.getText()));
         }
         abbrechenButton();
+    }
+
+    public void setAktuellerUser(User user) {
+        this.angezeigterUser=user;
+
+        emailTextField.setText(angezeigterUser.geteMail());
+        benutzernameTextField.setText(angezeigterUser.getUserName());
+        mitarbeiterComboBox.setValue(angezeigterUser.getMitarbeiter());
+        rolleComboBox.setValue(angezeigterUser.getRolle());
     }
 }

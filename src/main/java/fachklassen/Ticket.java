@@ -27,6 +27,10 @@ public class Ticket {
         this.zeitpunkt = zeitpunkt;
     }
 
+    public Ticket() {
+
+    }
+
     public int getTicketId() {
         return ticketId;
     }

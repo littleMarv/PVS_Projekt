@@ -2,6 +2,7 @@ package controller;
 
 import db_zeug.RessortDao;
 import fachklassen.Ressort;
+import fachklassen.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -61,4 +62,6 @@ public class RessortViewController {
             AnchorPane.setLeftAnchor(ressortTabelle, 0.0);
         }
     }
+
+
 }

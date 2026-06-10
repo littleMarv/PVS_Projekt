@@ -1,37 +1,40 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import org.controlsfx.control.SearchableComboBox?>
+
 <!--
  Einzelansicht für ein Ticket.
  Die Daten landen in ticket und ticket_aussteller.
 -->
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@css/pvs_style.css" styleClass="view-root">
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="600.0" styleClass="view-root" stylesheets="@css/pvs_style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TicketViewController">
   <children>
     <!-- Überschrift der Maske -->
-    <Label layoutX="40.0" layoutY="28.0" text="Ticket bearbeiten" styleClass="view-title" />
+    <Label layoutX="40.0" layoutY="28.0" styleClass="view-title" text="Ticket bearbeiten" />
     <!-- Betroffene Person; entspricht ticket.verursacher_id -->
-    <Label layoutX="82.0" layoutY="91.0" text="Betroffen" styleClass="field-label" />
+    <Label layoutX="82.0" layoutY="91.0" styleClass="field-label" text="Betroffen" />
     <SearchableComboBox fx:id="betroffenComboBox" layoutX="213.0" layoutY="86.0" prefWidth="220.0" promptText="Person auswählen" styleClass="input-field" />
     <!-- Grund des Tickets; entspricht ticket.grund -->
-    <Label layoutX="82.0" layoutY="132.0" text="Grund" styleClass="field-label" />
+    <Label layoutX="82.0" layoutY="132.0" styleClass="field-label" text="Grund" />
     <TextField fx:id="grundTextField" layoutX="213.0" layoutY="127.0" prefHeight="25.0" prefWidth="220.0" promptText="Grund eingeben" styleClass="input-field" />
     <!-- Erster Aussteller; wird in ticket_aussteller gespeichert -->
-    <Label layoutX="82.0" layoutY="174.0" text="Aussteller 1" styleClass="field-label" />
+    <Label layoutX="82.0" layoutY="174.0" styleClass="field-label" text="Aussteller 1" />
     <SearchableComboBox fx:id="ausstellerEinsComboBox" layoutX="213.0" layoutY="169.0" prefWidth="220.0" promptText="Mitarbeiter auswählen" styleClass="input-field" />
     <!-- Zweiter Aussteller, weil laut Aufgabe genau zwei Mitarbeiter das Ticket ausstellen -->
-    <Label layoutX="82.0" layoutY="216.0" text="Aussteller 2" styleClass="field-label" />
+    <Label layoutX="82.0" layoutY="216.0" styleClass="field-label" text="Aussteller 2" />
     <SearchableComboBox fx:id="ausstellerZweiComboBox" layoutX="213.0" layoutY="211.0" prefWidth="220.0" promptText="Mitarbeiter auswählen" styleClass="input-field" />
     <!-- Datum des Tickets; wird mit der Uhrzeit zu ticket.zeitpunkt zusammengeführt -->
-    <Label layoutX="82.0" layoutY="258.0" text="Datum" styleClass="field-label" />
+    <Label layoutX="82.0" layoutY="258.0" styleClass="field-label" text="Datum" />
     <DatePicker fx:id="datumDatePicker" layoutX="213.0" layoutY="253.0" prefWidth="220.0" styleClass="input-field" />
     <!-- Uhrzeit des Tickets; wird mit dem Datum zu ticket.zeitpunkt zusammengeführt -->
-    <Label layoutX="82.0" layoutY="299.0" text="Uhrzeit" styleClass="field-label" />
+    <Label layoutX="82.0" layoutY="299.0" styleClass="field-label" text="Uhrzeit" />
     <SearchableComboBox fx:id="uhrzeitComboBox" layoutX="213.0" layoutY="294.0" prefWidth="220.0" promptText="Uhrzeit auswählen" styleClass="input-field" />
     <!-- Speichert das Ticket -->
-    <Button fx:id="ticketSpeichernButton" layoutX="213.0" layoutY="355.0" mnemonicParsing="false" prefWidth="220.0" text="Ticket speichern" styleClass="primary-button" />
+    <Button fx:id="ticketSpeichernButton" layoutX="213.0" layoutY="355.0" mnemonicParsing="false" onAction="#ticketSpeichern" prefWidth="220.0" styleClass="primary-button" text="Ticket speichern" />
   </children>
 </AnchorPane>
