@@ -80,16 +80,20 @@
       <x>720</x>
       <y>760</y>
       <w>224</w>
-      <h>80</h>
+      <h>168</h>
     </coordinates>
-    <panel_attributes>MitarbeiterProjekt
+    <panel_attributes>ProjektMitarbeiter
 --
-- rolle String
-- vonDatum Date
-- bisDatum Date
+- vonDatum : Date
+- bisDatum : Date
+- rolle : String
 --
-+ getter/setter
-+</panel_attributes>
++ getVonDatum() : Date
++ setVonDatum(vonDatum : Date) : void
++ getBisDatum() : Date
++ setBisDatum(bisDatum : Date) : void
++ getRolle() : String
++ setRolle(rolle : String) : void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
