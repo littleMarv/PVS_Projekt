@@ -71,14 +71,9 @@ public class ProjektTableViewController implements Initializable {
             zeigeHinweis("Bitte zuerst einen Mitarbeiter in der Tabelle auswählen.");
             return;
         }
+        editProjekt(ausgewaehltesProjekt);
 
-        AnchorPane hauptContentPane = (AnchorPane) projektTableView.getScene().lookup("#contentPane");
 
-        if (hauptContentPane != null) {
-            // Jetzt rufen wir den ViewLoader auf und übergeben die gefundene Pane!
-            new ViewLoader().ladeProjektDetails(ausgewaehltesProjekt, hauptContentPane);
-
-        }
     }
     @FXML
     public void tabellenClick(javafx.scene.input.MouseEvent event) {
@@ -89,19 +84,24 @@ public class ProjektTableViewController implements Initializable {
             Projekt ausgewaehltesProjekt = projektTableView.getSelectionModel().getSelectedItem();
 
             if (ausgewaehltesProjekt != null) {
-                zeigeMitarbeiterDesProjekts(ausgewaehltesProjekt);
+                editProjekt(ausgewaehltesProjekt);
             }
+        }
+    }
+
+    private void editProjekt(Projekt p){
+        AnchorPane hauptContentPane = (AnchorPane) projektTableView.getScene().lookup("#contentPane");
+
+        if (hauptContentPane != null) {
+            // Jetzt rufen wir den ViewLoader auf und übergeben die gefundene Pane!
+            new ViewLoader().ladeProjektDetails(p, hauptContentPane);
+
         }
     }
 
     @FXML
     void neuProjektButton(ActionEvent event) {
-        AnchorPane hauptContentPane = (AnchorPane) projektTableView.getScene().lookup("#contentPane");
-
-        if (hauptContentPane != null) {
-            // Jetzt rufen wir den ViewLoader auf und übergeben die gefundene Pane!
-            new ViewLoader().ladeProjektDetails(new Projekt(), hauptContentPane);
-        }
+        editProjekt(new Projekt());
     }
 
     @FXML

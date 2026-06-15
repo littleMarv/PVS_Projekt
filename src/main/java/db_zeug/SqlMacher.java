@@ -34,7 +34,7 @@ public class SqlMacher {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DatabaseConnectionException("Verbindung zur Datenbank fehlgeschlagen.", e);
         }
         return ergebnisListe;
     }

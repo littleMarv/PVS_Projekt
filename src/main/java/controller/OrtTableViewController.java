@@ -103,7 +103,7 @@ public class OrtTableViewController implements Initializable {
 
         if (hauptContentPane != null) {
             // Lädt die vorhandene Einzelmaske zum Anlegen eines Ortes
-            Pane ortView = new ViewLoader().loadView("ort_view");
+            Pane ortView = new ViewLoader().loadView("ort_view", hauptContentPane);
             hauptContentPane.getChildren().setAll(ortView);
 
             AnchorPane.setTopAnchor(ortView, 0.0);

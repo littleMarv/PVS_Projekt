@@ -32,7 +32,7 @@ public class RessortTableViewController implements Initializable {
 
     // Liste, die JavaFX in der Tabelle anzeigen kann
     private ObservableList<Ressort> ressortListe = FXCollections.observableArrayList();
-
+    private AnchorPane hauptcontenpane;
     // Suchfeld aus der FXML-Datei
     @FXML
     private TextField ressortSucheTextField;
@@ -70,7 +70,7 @@ public class RessortTableViewController implements Initializable {
             });
             return row;
         });
-
+        hauptcontenpane = (AnchorPane) ressortTableView.getScene().lookup("#contentPane");
         // Lädt die Ressorts aus der Datenbank in die Tabelle
         ladeRessorts();
     }
@@ -95,7 +95,7 @@ public class RessortTableViewController implements Initializable {
     @FXML
     void ressortNeuOeffnen() {
         // Öffnet die vorhandene Einzelmaske zum Anlegen eines Ressorts
-        Pane ressortView = new ViewLoader().loadView("ressort_view");
+        Pane ressortView = new ViewLoader().loadView("ressort_view", hauptcontenpane);
         setzeViewInDieMitte(ressortView);
     }
 

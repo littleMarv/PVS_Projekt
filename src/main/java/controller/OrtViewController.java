@@ -58,7 +58,7 @@ public class OrtViewController {
         AnchorPane hauptContentPane = (AnchorPane) plzTextField.getScene().lookup("#contentPane");
 
         if (hauptContentPane != null) {
-            Pane ortTabelle = new ViewLoader().loadView("ort_table_view");
+            Pane ortTabelle = new ViewLoader().loadView("ort_table_view", hauptContentPane);
             hauptContentPane.getChildren().setAll(ortTabelle);
 
             AnchorPane.setTopAnchor(ortTabelle, 0.0);

@@ -53,7 +53,7 @@ public class RessortViewController {
         AnchorPane hauptContentPane = (AnchorPane) ressortBezeichnungTextField.getScene().lookup("#contentPane");
 
         if (hauptContentPane != null) {
-            Pane ressortTabelle = new ViewLoader().loadView("ressort_table_view");
+            Pane ressortTabelle = new ViewLoader().loadView("ressort_table_view",hauptContentPane);
             hauptContentPane.getChildren().setAll(ressortTabelle);
 
             AnchorPane.setTopAnchor(ressortTabelle, 0.0);

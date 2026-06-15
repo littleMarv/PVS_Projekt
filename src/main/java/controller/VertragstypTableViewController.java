@@ -95,7 +95,8 @@ public class VertragstypTableViewController implements Initializable {
     @FXML
     void vertragstypNeuOeffnen() {
         // Öffnet die vorhandene Einzelmaske zum Anlegen eines Vertragstyps
-        Pane vertragstypView = new ViewLoader().loadView("vertragstyp_view");
+        AnchorPane hauptContentPane = (AnchorPane) vertragstypTableView.getScene().lookup("#contentPane");
+        Pane vertragstypView = new ViewLoader().loadView("vertragstyp_view", hauptContentPane);
         setzeViewInDieMitte(vertragstypView);
     }
 

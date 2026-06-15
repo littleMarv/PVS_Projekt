@@ -67,7 +67,6 @@ public class MitarbeiterTableViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Tabelle füllen
-        Mitarbeiter[] a = new MitarbeiterDao().readAll();
         mitarbeiterliste.setAll(new MitarbeiterDao().readAll());
         //System.out.println("Mitarbeiterdaten gelesen");
         //System.out.println(mitarbeiterliste);

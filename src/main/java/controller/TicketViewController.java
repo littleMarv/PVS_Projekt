@@ -112,13 +112,7 @@ public class TicketViewController implements Initializable {
         AnchorPane hauptContentPane = (AnchorPane) betroffenComboBox.getScene().lookup("#contentPane");
 
         if (hauptContentPane != null) {
-            Pane ortTabelle = new ViewLoader().loadView("ticket_table_view");
-            hauptContentPane.getChildren().setAll(ortTabelle);
-
-            AnchorPane.setTopAnchor(ortTabelle, 0.0);
-            AnchorPane.setRightAnchor(ortTabelle, 0.0);
-            AnchorPane.setBottomAnchor(ortTabelle, 0.0);
-            AnchorPane.setLeftAnchor(ortTabelle, 0.0);
+            Pane ortTabelle = new ViewLoader().loadView("ticket_table_view",hauptContentPane);
         }
     }
 

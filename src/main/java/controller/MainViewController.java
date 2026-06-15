@@ -124,21 +124,11 @@ public class MainViewController {
     }
     // Diese Hilfsmethode lädt eine FXML-Datei und setzt sie in den Center-Bereich.
     private void ladeViewInDieMitte(String dateiname) {
-        ViewLoader loader = new ViewLoader();
-        Pane view = loader.loadView(dateiname);
+        ViewLoader loader = ViewLoader.getViewLoader();
+        Pane view = loader.loadView(dateiname,contentPane);
 
         if (view == null) {
             return;
         }
-        view.setMaxWidth(Double.MAX_VALUE);
-        view.setMaxHeight(Double.MAX_VALUE);
-
-        contentPane.getChildren().setAll(view);
-
-        // Die geladene View soll den ganzen verfügbaren Bereich in der Mitte nutzen.
-        AnchorPane.setTopAnchor(view, 0.0);
-        AnchorPane.setRightAnchor(view, 0.0);
-        AnchorPane.setBottomAnchor(view, 0.0);
-        AnchorPane.setLeftAnchor(view, 0.0);
     }
 }

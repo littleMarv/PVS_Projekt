@@ -52,7 +52,7 @@ public class VertragstypViewController {
         AnchorPane hauptContentPane = (AnchorPane) vertragstypBezeichnungTextField.getScene().lookup("#contentPane");
 
         if (hauptContentPane != null) {
-            Pane vertragstypTabelle = new ViewLoader().loadView("vertragstyp_table_view");
+            Pane vertragstypTabelle = new ViewLoader().loadView("vertragstyp_table_view",hauptContentPane);
             hauptContentPane.getChildren().setAll(vertragstypTabelle);
 
             AnchorPane.setTopAnchor(vertragstypTabelle, 0.0);

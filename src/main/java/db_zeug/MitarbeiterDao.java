@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class MitarbeiterDao {
 
-    public Mitarbeiter[] readAll() {
+    public List<Mitarbeiter> readAll() {
         String sql = "SELECT m.*, o.plz, o.ortsname, r.bezeichnung as ressortbezeichnung, v.bezeichnung as vertragbezeichnung " +
                 "FROM mitarbeiter m " +
                 "LEFT JOIN orte o ON m.ort_id = o.id " +
@@ -25,7 +25,7 @@ public class MitarbeiterDao {
         for (Map<String, Object> zeile : daten) {
             rueckgabe.add(mapToMitarbeiter(zeile));
         }
-        return rueckgabe.toArray(new Mitarbeiter[0]);
+        return rueckgabe;
     }
 
     public Mitarbeiter readOne(String persnr) {
@@ -56,7 +56,7 @@ public class MitarbeiterDao {
         return mapToMitarbeiter(daten.getFirst());
     }
 
-    public Mitarbeiter[] fuzzyRead(String fuzz) {
+    public List<Mitarbeiter> fuzzyRead(String fuzz) {
         String f = "%" + fuzz + "%";
         String sql = "SELECT m.*, o.plz, o.ortsname, r.bezeichnung as ressortbezeichnung, v.bezeichnung as vertragbezeichnung " +
                 "FROM mitarbeiter m " +
@@ -80,7 +80,7 @@ public class MitarbeiterDao {
         for (Map<String, Object> zeile : daten) {
             rueckgabe.add(mapToMitarbeiter(zeile));
         }
-        return rueckgabe.toArray(new Mitarbeiter[0]);
+        return rueckgabe;
     }
 
     public boolean deleteOne(int id) {

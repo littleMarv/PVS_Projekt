@@ -15,9 +15,20 @@ import java.io.IOException;
 import java.net.URL;
 
 public class ViewLoader {
+    static private ViewLoader vl;
+
+
+    public ViewLoader(){}
+
+    public static ViewLoader getViewLoader(){
+        if (vl ==null){
+            vl = new ViewLoader();
+        }
+        return vl;
+    }
 
     // Lädt eine FXML-Datei aus dem Ressourcenordner pvs_projekt.
-    public Pane loadView(String fileName) {
+    public Pane loadView(String fileName, AnchorPane targetContentPane) {
         try {
             URL fileUrl = MainViewController.class.getResource("/pvs_projekt/" + fileName + ".fxml");
 
@@ -26,7 +37,19 @@ public class ViewLoader {
             }
 
             FXMLLoader loader = new FXMLLoader(fileUrl);
-            return loader.load();
+            Pane view = loader.load();
+
+            // Wichtig für das Layout (Wachstum erlauben)
+            view.setMaxWidth(Double.MAX_VALUE);
+            view.setMaxHeight(Double.MAX_VALUE);
+
+            // In die übergebene Pane setzen und verankern
+            targetContentPane.getChildren().setAll(view);
+            AnchorPane.setTopAnchor(view, 0.0);
+            AnchorPane.setRightAnchor(view, 0.0);
+            AnchorPane.setBottomAnchor(view, 0.0);
+            AnchorPane.setLeftAnchor(view, 0.0);
+            return view;
 
         } catch (Exception e) {
             System.out.println("View konnte nicht geladen werden: " + fileName);
