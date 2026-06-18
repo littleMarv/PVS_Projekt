@@ -95,7 +95,7 @@ public class RessortTableViewController implements Initializable {
     @FXML
     void ressortNeuOeffnen() {
         // Öffnet die vorhandene Einzelmaske zum Anlegen eines Ressorts
-        Pane ressortView = new ViewLoader().loadView("ressort_view", hauptcontenpane);
+        Pane ressortView = ViewLoader.getViewLoader().loadView("ressort_view", hauptcontenpane);
         setzeViewInDieMitte(ressortView);
     }
 

@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import model.ModelService;
 
 public class VertragstypViewController {
 
@@ -48,17 +49,11 @@ public class VertragstypViewController {
 
     @FXML
     void vertragstypAbbrechen() {
-        // Bricht die Eingabe ab und lädt wieder die Vertragstypenliste.
-        AnchorPane hauptContentPane = (AnchorPane) vertragstypBezeichnungTextField.getScene().lookup("#contentPane");
-
-        if (hauptContentPane != null) {
-            Pane vertragstypTabelle = new ViewLoader().loadView("vertragstyp_table_view",hauptContentPane);
-            hauptContentPane.getChildren().setAll(vertragstypTabelle);
-
-            AnchorPane.setTopAnchor(vertragstypTabelle, 0.0);
-            AnchorPane.setRightAnchor(vertragstypTabelle, 0.0);
-            AnchorPane.setBottomAnchor(vertragstypTabelle, 0.0);
-            AnchorPane.setLeftAnchor(vertragstypTabelle, 0.0);
+        try {
+            ModelService.getInstance().getVerlauf().removeLast();
+            ViewLoader.getViewLoader().loadView(ModelService.getInstance().getVerlauf().getLast());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

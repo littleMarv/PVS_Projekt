@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.util.StringConverter;
+import model.ModelService;
 import org.controlsfx.control.SearchableComboBox;
 
 import java.net.URL;
@@ -26,7 +27,7 @@ import java.util.ResourceBundle;
 
 public class TicketViewController implements Initializable {
 
-    Ticket ticket;
+    Ticket ticket = (Ticket) ModelService.getInstance().getFocusObject();;
     @FXML
     private SearchableComboBox<Mitarbeiter> ausstellerEinsComboBox;
 
@@ -50,7 +51,7 @@ public class TicketViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        List<Mitarbeiter> alleMitarbeiter = List.of(new MitarbeiterDao().readAll());
+        List<Mitarbeiter> alleMitarbeiter = new MitarbeiterDao().readAll();
         List<Mitarbeiter> ordnungsamt = alleMitarbeiter.stream()
                 .filter(mitarbeiter -> mitarbeiter.getRessort() != null && "Ordnungsamt".equals(mitarbeiter.getRessort().getBezeichnung()))
                 .toList();
@@ -112,7 +113,7 @@ public class TicketViewController implements Initializable {
         AnchorPane hauptContentPane = (AnchorPane) betroffenComboBox.getScene().lookup("#contentPane");
 
         if (hauptContentPane != null) {
-            Pane ortTabelle = new ViewLoader().loadView("ticket_table_view",hauptContentPane);
+            Pane ortTabelle = ViewLoader.getViewLoader().loadView("ticket_table_view",hauptContentPane);
         }
     }
 

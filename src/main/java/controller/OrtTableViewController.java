@@ -5,8 +5,7 @@ import db_zeug.OrtDao;
 import fachklassen.Mitarbeiter;
 import fachklassen.Ort;
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -21,6 +20,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import model.ModelService;
 
 import java.io.IOException;
 import java.net.URL;
@@ -31,7 +31,7 @@ import java.util.ResourceBundle;
 public class OrtTableViewController implements Initializable {
 
     // Liste, die JavaFX in der Tabelle anzeigen kann
-    private ObservableList<Ort> ortListe = FXCollections.observableArrayList();
+    private FilteredList<Ort> filteredData;
 
     // Suchfeld aus der FXML-Datei
     @FXML
@@ -81,20 +81,27 @@ public class OrtTableViewController implements Initializable {
 
     private void ladeOrte() {
         // Holt alle Orte über den DAO aus der Datenbank
-        ortListe.setAll(new OrtDao().readAll());
+        filteredData = new FilteredList<>(ModelService.getInstance().getAlleOrte(), p -> true);
+        ortSucheTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(ort -> {
+                // Wenn das Suchfeld leer ist, alle anzeigen
+                if (newValue == null || newValue.trim().isEmpty()) {
+                    return true;
+                }
 
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                String ortname = ort.getOrtsname() != null ? ort.getOrtsname().toLowerCase() : "";
+                String plz = ort.getPlz() != null ? ort.getPlz().toLowerCase() : "";
+
+                // Filter-Logik (Vorname ODER Nachname)
+                return ortname.contains(lowerCaseFilter) || plz.contains(lowerCaseFilter);
+            });
+        });
         // Übergibt die geladene Liste an die Tabelle
-        ortTableView.setItems(ortListe);
+        ortTableView.setItems(filteredData);
     }
 
-    @FXML
-    void ortSuche(KeyEvent event) {
-        // Text aus dem Suchfeld lesen
-        String typed = ortSucheTextField.getText();
-
-        // Tabelle mit den passenden Suchergebnissen neu füllen
-        ortListe.setAll(new OrtDao().fuzzyRead(typed));
-    }
 
     @FXML
     void ortNeuOeffnen() {
@@ -103,7 +110,7 @@ public class OrtTableViewController implements Initializable {
 
         if (hauptContentPane != null) {
             // Lädt die vorhandene Einzelmaske zum Anlegen eines Ortes
-            Pane ortView = new ViewLoader().loadView("ort_view", hauptContentPane);
+            Pane ortView = ViewLoader.getViewLoader().loadView("ort_view", hauptContentPane);
             hauptContentPane.getChildren().setAll(ortView);
 
             AnchorPane.setTopAnchor(ortView, 0.0);

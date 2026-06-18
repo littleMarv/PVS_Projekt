@@ -7,6 +7,7 @@ import fachklassen.Vertrag;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -29,7 +30,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class VertragstypTableViewController implements Initializable {
-
+    private FilteredList<Vertrag> filteredData;
     // Liste, die JavaFX in der Tabelle anzeigen kann
     private ObservableList<Vertrag> vertragstypListe = FXCollections.observableArrayList();
 
@@ -95,9 +96,7 @@ public class VertragstypTableViewController implements Initializable {
     @FXML
     void vertragstypNeuOeffnen() {
         // Öffnet die vorhandene Einzelmaske zum Anlegen eines Vertragstyps
-        AnchorPane hauptContentPane = (AnchorPane) vertragstypTableView.getScene().lookup("#contentPane");
-        Pane vertragstypView = new ViewLoader().loadView("vertragstyp_view", hauptContentPane);
-        setzeViewInDieMitte(vertragstypView);
+        ViewLoader.getViewLoader().loadView("vertragstyp_view",new Vertrag());
     }
 
     @FXML
@@ -113,8 +112,7 @@ public class VertragstypTableViewController implements Initializable {
             alert.showAndWait();
             return;
         }
-
-        ladeVertragstypZumBearbeiten(ausgewaehlterVertragstyp);
+        ViewLoader.getViewLoader().loadView("vertragstyp_view",ausgewaehlterVertragstyp);
     }
 
     private void ladeVertragstypZumBearbeiten(Vertrag vertragstyp) {

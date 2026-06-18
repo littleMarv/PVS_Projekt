@@ -12,8 +12,9 @@ public class HelloApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        ModelService.getInstance();
-        // Lädt die FXML-Datei der Benutzeroberfläche
+        // Lädt die Instanz und befüllt das Model (zeitaufwändig)
+        Thread loadThread = new Thread(ModelService::getInstance);
+        loadThread.start();
         FXMLLoader fxmlLoader = new FXMLLoader(
                 HelloApplication.class.getResource("/pvs_projekt/login_view.fxml")
         );

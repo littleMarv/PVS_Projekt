@@ -15,6 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import model.ModelService;
 
 import java.net.URL;
 import java.util.List;
@@ -22,7 +23,6 @@ import java.util.ResourceBundle;
 
 public class ProjektTableViewController implements Initializable {
 
-    private ObservableList<Projekt> masterData = FXCollections.observableArrayList();
     private FilteredList<Projekt> filteredData;
     @FXML
     private TableColumn<Projekt, String> abschlussColumn;
@@ -94,7 +94,7 @@ public class ProjektTableViewController implements Initializable {
 
         if (hauptContentPane != null) {
             // Jetzt rufen wir den ViewLoader auf und übergeben die gefundene Pane!
-            new ViewLoader().ladeProjektDetails(p, hauptContentPane);
+            ViewLoader.getViewLoader().loadView("projekt_view",p);
 
         }
     }
@@ -111,8 +111,7 @@ public class ProjektTableViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        masterData.setAll(new ProjektDao().readAll());
-        filteredData = new FilteredList<>(masterData, p -> true);
+        filteredData = new FilteredList<>(ModelService.getInstance().getAlleProjekte(), p -> true);
         projektSucheTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(projekt -> {
                 // Wenn das Suchfeld leer ist, alle anzeigen

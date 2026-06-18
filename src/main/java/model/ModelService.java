@@ -2,7 +2,10 @@ package model;
 
 import db_zeug.*;
 import fachklassen.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ModelService {
@@ -17,101 +20,131 @@ public class ModelService {
     private final UserRollenDao userRollenDao = new UserRollenDao();
     private final VertragDao vertragDao = new VertragDao();
 
-    private final List<Mitarbeiter> alleMitarbeiter;
-    private final List<Ort> alleOrte;
-    private final List<Ressort> alleRessorts;
-    private final List<Vertrag> alleVertraege;
-    private final List<User> alleUser;
-    private final List<UserRolle> alleUserRollen;
-    private final List<Projekt> alleProjekte;
-    private final List<Ticket> alleTickets;
+    private final ObservableList<Mitarbeiter> alleMitarbeiter = FXCollections.observableArrayList();
+    private final ObservableList<Ort> alleOrte = FXCollections.observableArrayList();
+    private final ObservableList<Ressort> alleRessorts = FXCollections.observableArrayList();
+    private final ObservableList<Vertrag> alleVertraege = FXCollections.observableArrayList();
+    private final ObservableList<User> alleUser = FXCollections.observableArrayList();
+    private final ObservableList<UserRolle> alleUserRollen = FXCollections.observableArrayList();
+    private final ObservableList<Projekt> alleProjekte = FXCollections.observableArrayList();
+    private final ObservableList<Ticket> alleTickets = FXCollections.observableArrayList();
 
-
+    private Object focusTab;
     private Object focusObject;
 
+    private final List<String> verlauf = new ArrayList<>();
+
     private ModelService() {
-        alleMitarbeiter = mitarbeiterDao.readAll();
-        alleOrte = ortDao.readAll();
-        alleRessorts = ressortDao.readAll();
-        alleVertraege = vertragDao.readAll();
-        alleUser = userDao.readAll();
-        alleUserRollen = userRollenDao.readAll();
-        alleProjekte = projektDao.readAll();
-        alleTickets = ticketDao.readAll();
+        updateModel();
     }
 
     public boolean updateModel() {
-        try {
-            updateMitarbeiter();
-
-            alleRessorts.clear();
-            alleRessorts.addAll(ressortDao.readAll());
-            alleVertraege.clear();
-            alleVertraege.addAll(vertragDao.readAll());
-            alleUser.clear();
-            alleUser.addAll(userDao.readAll());
-            alleUserRollen.clear();
-            alleUserRollen.addAll(userRollenDao.readAll());
-            alleProjekte.clear();
-            alleProjekte.addAll(projektDao.readAll());
-            alleTickets.clear();
-            alleTickets.addAll(ticketDao.readAll());
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
+       return updateMitarbeiter()&
+        updateOrte()&
+        updateRessorts()&
+        updateVertraege()&
+        updateUser()&
+        updateUserRollen()&
+        updateProjekte()&
+        updateTickets();
     }
 
     public boolean updateMitarbeiter() {
-        try{
-            List<Mitarbeiter> tmp = mitarbeiterDao.readAll();
-            alleMitarbeiter.clear();
-            alleMitarbeiter.addAll(tmp);
+        List<Mitarbeiter> tmp;
+        try {
+            tmp = mitarbeiterDao.readAll();
+        } catch (DatabaseConnectionException e) {
+            e.printStackTrace();
+            return false;
         }
-        catch (){return false;}
-
-        alleMitarbeiter.addAll(mitarbeiterDao.readAll());
+        alleMitarbeiter.setAll(tmp);
         return true;
     }
 
     public boolean updateOrte() {
-        alleOrte.clear();
-        alleOrte.addAll(ortDao.readAll());
-        return true
+        List<Ort> tmp;
+        try {
+            tmp = ortDao.readAll();
+        } catch (DatabaseConnectionException e) {
+            e.printStackTrace();
+            return false;
+        }
+        alleOrte.setAll(tmp);
+        return true;
     }
 
     public boolean updateRessorts() {
-        alleRessorts.clear();
-        alleRessorts.addAll(ressortDao.readAll());
+        List<Ressort> tmp;
+        try {
+            tmp = ressortDao.readAll();
+        } catch (DatabaseConnectionException e) {
+            e.printStackTrace();
+            return false;
+        }
+        alleRessorts.setAll(tmp);
         return true;
     }
 
     public boolean updateVertraege() {
-        alleVertraege.clear();
-        alleVertraege.addAll(vertragDao.readAll());
+        List<Vertrag> tmp;
+        try {
+            tmp = vertragDao.readAll();
+        } catch (DatabaseConnectionException e) {
+            e.printStackTrace();
+            return false;
+        }
+        alleVertraege.setAll(tmp);
         return true;
     }
 
     public boolean updateUser() {
-        alleUser.clear();
-        alleUser.addAll(userDao.readAll());
+        List<User> tmp;
+        try {
+            tmp = userDao.readAll();
+        } catch (DatabaseConnectionException e) {
+            e.printStackTrace();
+            return false;
+        }
+        alleUser.setAll(tmp);
         return true;
     }
 
     public boolean updateUserRollen() {
-        alleUserRollen.clear();
-        alleUserRollen.addAll(userRollenDao.readAll());
+        List<UserRolle> tmp; // Typ ggf. anpassen, falls Ihre Klasse anders heißt
+        try {
+            tmp = userRollenDao.readAll();
+        } catch (DatabaseConnectionException e) {
+            e.printStackTrace();
+            return false;
+        }
+        alleUserRollen.setAll(tmp);
+        return true;
     }
 
     public boolean updateProjekte() {
-        alleProjekte.clear();
-        alleProjekte.addAll(projektDao.readAll());
+        List<Projekt> tmp;
+        try {
+            tmp = projektDao.readAll();
+        } catch (DatabaseConnectionException e) {
+            e.printStackTrace();
+            return false;
+        }
+        alleProjekte.setAll(tmp);
+        return true;
     }
 
     public boolean updateTickets() {
-        alleTickets.clear();
-        alleTickets.addAll(ticketDao.readAll());
+        List<Ticket> tmp;
+        try {
+            tmp = ticketDao.readAll();
+        } catch (DatabaseConnectionException e) {
+            e.printStackTrace();
+            return false;
+        }
+        alleTickets.setAll(tmp);
+        return true;
     }
+
 
     public static ModelService getInstance() {
         if (instance == null) {
@@ -128,39 +161,41 @@ public class ModelService {
         this.focusObject = focusObject;
     }
 
-    public List<Mitarbeiter> getAlleMitarbeiter() {
+    public ObservableList<Mitarbeiter> getAlleMitarbeiter() {
         return alleMitarbeiter;
     }
 
-    public List<Ort> getAlleOrte() {
+    public ObservableList<Ort> getAlleOrte() {
         return alleOrte;
     }
 
-    public List<Ressort> getAlleRessorts() {
+    public ObservableList<Ressort> getAlleRessorts() {
         return alleRessorts;
     }
 
-    public List<Vertrag> getAlleVertraege() {
+    public ObservableList<Vertrag> getAlleVertraege() {
         return alleVertraege;
     }
 
-    public List<User> getAlleUser() {
+    public ObservableList<User> getAlleUser() {
         return alleUser;
     }
 
-    public List<UserRolle> getAlleUserRollen() {
+    public ObservableList<UserRolle> getAlleUserRollen() {
         return alleUserRollen;
     }
 
-    public List<Projekt> getAlleProjekte() {
+    public ObservableList<Projekt> getAlleProjekte() {
         return alleProjekte;
     }
 
-    public List<Ticket> getAlleTickets() {
+    public ObservableList<Ticket> getAlleTickets() {
         return alleTickets;
     }
 
-
+    public List<String> getVerlauf() {
+        return verlauf;
+    }
 }
 
 

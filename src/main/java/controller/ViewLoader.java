@@ -6,19 +6,21 @@ import fachklassen.Ticket;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import launcher.HelloApplication;
+import model.ModelService;
 
 import java.io.IOException;
 import java.net.URL;
 
 public class ViewLoader {
     static private ViewLoader vl;
-
-
-    public ViewLoader(){}
+    private MainViewController mvc;
+    private AnchorPane targetContentPane;
+    private ViewLoader(){}
 
     public static ViewLoader getViewLoader(){
         if (vl ==null){
@@ -26,16 +28,21 @@ public class ViewLoader {
         }
         return vl;
     }
-
+    public Pane loadView(String fileName, Object o){
+        ModelService.getInstance().setFocusObject(o);
+        return loadView(fileName);
+    }
     // Lädt eine FXML-Datei aus dem Ressourcenordner pvs_projekt.
-    public Pane loadView(String fileName, AnchorPane targetContentPane) {
+    public Pane loadView(String fileName) {
         try {
             URL fileUrl = MainViewController.class.getResource("/pvs_projekt/" + fileName + ".fxml");
 
             if (fileUrl == null) {
                 throw new java.io.FileNotFoundException("FXML-Datei konnte nicht gefunden werden: " + fileName);
             }
-
+            if (this.mvc != null) {
+                this.mvc.markCat(fileName);
+            }
             FXMLLoader loader = new FXMLLoader(fileUrl);
             Pane view = loader.load();
 
@@ -49,6 +56,8 @@ public class ViewLoader {
             AnchorPane.setRightAnchor(view, 0.0);
             AnchorPane.setBottomAnchor(view, 0.0);
             AnchorPane.setLeftAnchor(view, 0.0);
+
+            ModelService.getInstance().getVerlauf().add(fileName);
             return view;
 
         } catch (Exception e) {
@@ -58,7 +67,33 @@ public class ViewLoader {
         }
     }
 
-    public void ladeMitarbeiterDetails(Mitarbeiter mitarbeiter, AnchorPane targetContentPane) {
+    public void loadMain(Stage stage) {
+
+        try {
+            // 1. Die neue main_view.fxml laden
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/pvs_projekt/main_view.fxml"));
+            Parent mainViewRoot = loader.load();
+            this.mvc = loader.getController();
+            this.targetContentPane = this.mvc.getContentPane();
+            this.mvc.dashboardAnzeigen();
+            // 3. Einfach die Root der vorhandenen Scene austauschen
+            stage.getScene().setRoot(mainViewRoot);
+
+            // Optional: Fenstergröße anpassen oder zentrieren, falls die main_view größer ist
+            stage.sizeToScene();
+            stage.centerOnScreen();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Hier evtl. eine Fehlermeldung für den User anzeigen
+        }
+
+    }
+
+
+    // TODO: ab hier alte methoden die ersetzt werden sollen.
+
+/*    public void ladeMitarbeiterDetails(Mitarbeiter mitarbeiter, AnchorPane targetContentPane) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/pvs_projekt/mitarbeiter_view.fxml"));
             Pane detailView = loader.load();
@@ -108,25 +143,7 @@ public class ViewLoader {
         }
     }
 
-    public void loadMain(Stage stage) {
 
-        try {
-            // 1. Die neue main_view.fxml laden
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/pvs_projekt/main_view.fxml"));
-            Parent mainViewRoot = loader.load();
-            // 3. Einfach die Root der vorhandenen Scene austauschen
-            stage.getScene().setRoot(mainViewRoot);
-
-            // Optional: Fenstergröße anpassen oder zentrieren, falls die main_view größer ist
-            stage.sizeToScene();
-            stage.centerOnScreen();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            // Hier evtl. eine Fehlermeldung für den User anzeigen
-        }
-
-    }
 
     public void ladeTicketDetails(Ticket ticket, AnchorPane targetContentPane) {
         try {
@@ -151,5 +168,5 @@ public class ViewLoader {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    }*/
 }

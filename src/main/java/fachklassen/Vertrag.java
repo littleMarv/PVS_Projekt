@@ -6,6 +6,7 @@ public class Vertrag {
     private int vertragId;
     private String bezeichnung;
 
+    public Vertrag(){}
     public Vertrag(String bezeichnung) {
         this.bezeichnung = bezeichnung;
     }

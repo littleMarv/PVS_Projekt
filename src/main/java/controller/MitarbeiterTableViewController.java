@@ -3,25 +3,23 @@ import db_zeug.MitarbeiterDao;
 import fachklassen.Mitarbeiter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
+import model.ModelService;
+import model.SuchHelper;
 
-import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 
 public class MitarbeiterTableViewController implements Initializable {
 
-    ObservableList<Mitarbeiter> mitarbeiterliste = FXCollections.observableArrayList();
-
+    FilteredList<Mitarbeiter> filteredData;
     @FXML
     private Button mitarbeiterBearbeitenButton;
 
@@ -66,11 +64,6 @@ public class MitarbeiterTableViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Tabelle füllen
-        mitarbeiterliste.setAll(new MitarbeiterDao().readAll());
-        //System.out.println("Mitarbeiterdaten gelesen");
-        //System.out.println(mitarbeiterliste);
-
         personalnummerColumn.setCellValueFactory(new PropertyValueFactory<>("persNr"));
         nachnameColumn.setCellValueFactory(new PropertyValueFactory<>("nachname"));
         vornameColumn.setCellValueFactory(new PropertyValueFactory<>("vorname"));
@@ -80,48 +73,38 @@ public class MitarbeiterTableViewController implements Initializable {
         plzColumn.setCellValueFactory(new PropertyValueFactory<>("plz"));
         ortColumn.setCellValueFactory(new PropertyValueFactory<>("ortsname"));
         vertragstypColumn.setCellValueFactory(new PropertyValueFactory<>("vertragbz"));
-
-
-        mitarbeiterTable.setItems(mitarbeiterliste);
+        SuchHelper.verknuepfe(mitarbeiterSucheTextField,mitarbeiterTable,ModelService.getInstance().getAlleMitarbeiter());
     }
 
     @FXML
     void mitarbeiterSuche(KeyEvent event) {
-        String typed = mitarbeiterSucheTextField.getText();
-        System.out.println(typed);
-        mitarbeiterliste.setAll(new MitarbeiterDao().fuzzyRead(typed));
+    //    String typed = mitarbeiterSucheTextField.getText();
+    //    System.out.println(typed);
+    //    filteredData.setAll(new MitarbeiterDao().fuzzyRead(typed));
     }
 
-    @FXML
-    public void tabellenClick(javafx.scene.input.MouseEvent event) {
-        // 1. Prüfen, ob es ein Doppelklick (2 Klicks) war
-        if (event.getClickCount() == 2) {
 
-            // 2. Das ausgewählte Objekt direkt aus der Tabelle abfragen
-            Mitarbeiter gewaehlterMitarbeiter = mitarbeiterTable.getSelectionModel().getSelectedItem();
-
-            // 3. Sicherheitscheck: Wurde wirklich eine Zeile getroffen?
-            // (Falls der Nutzer in den leeren Bereich unter den Zeilen doppelt klickt, ist es null)
-            AnchorPane hauptContentPane = (AnchorPane) mitarbeiterTable.getScene().lookup("#contentPane");
-
-            if (hauptContentPane != null) {
-                // Jetzt rufen wir den ViewLoader auf und übergeben die gefundene Pane!
-                new ViewLoader().ladeMitarbeiterDetails(gewaehlterMitarbeiter, hauptContentPane);
-            }
-        }
-    }
 
     // Öffnet die Eingabemaske für einen neuen Mitarbeiter.
     @FXML
     void mitarbeiterNeuOeffnen() {
+    //TODO: neues Laden:    ViewLoader.getViewLoader().loadView("mitarbeiter_view", ausgewaehlterMitarbeiter);
         AnchorPane hauptContentPane = (AnchorPane) mitarbeiterTable.getScene().lookup("#contentPane");
         if (hauptContentPane != null) {
             // Jetzt rufen wir den ViewLoader auf und übergeben die gefundene Pane!
-            new ViewLoader().ladeMitarbeiterDetails(new Mitarbeiter(), hauptContentPane);
+            ViewLoader.getViewLoader().loadView("mitarbeiter_view", new Mitarbeiter());
         }
     }
 
     // Öffnet die Eingabemaske für den ausgewählten Mitarbeiter.
+    @FXML
+    public void tabellenClick(javafx.scene.input.MouseEvent event) {
+        // 1. Prüfen, ob es ein Doppelklick (2 Klicks) war
+        if (event.getClickCount() == 2) {
+            mitarbeiterBearbeitenOeffnen();
+        }
+    }
+
     @FXML
     void mitarbeiterBearbeitenOeffnen() {
         Mitarbeiter ausgewaehlterMitarbeiter = mitarbeiterTable.getSelectionModel().getSelectedItem();
@@ -130,12 +113,13 @@ public class MitarbeiterTableViewController implements Initializable {
             zeigeHinweis("Bitte zuerst einen Mitarbeiter in der Tabelle auswählen.");
             return;
         }
+        //TODO: neues Laden:    ViewLoader.getViewLoader().loadView("mitarbeiter_view", ausgewaehlterMitarbeiter);
 
         AnchorPane hauptContentPane = (AnchorPane) mitarbeiterTable.getScene().lookup("#contentPane");
 
         if (hauptContentPane != null) {
             // Jetzt rufen wir den ViewLoader auf und übergeben die gefundene Pane!
-            new ViewLoader().ladeMitarbeiterDetails(ausgewaehlterMitarbeiter, hauptContentPane);
+            ViewLoader.getViewLoader().loadView("mitarbeiter_view",ausgewaehlterMitarbeiter);
         }
     }
 
@@ -161,7 +145,7 @@ public class MitarbeiterTableViewController implements Initializable {
         if (alert.showAndWait().orElse(abbrechenButton) == bestaetigenButton) {
             new MitarbeiterDao().deleteOne(ausgewaehlterMitarbeiter.getMitarbeiterId());
         }
-        mitarbeiterliste.setAll(new MitarbeiterDao().readAll());
+        filteredData.setAll(new MitarbeiterDao().readAll());
     }
 
 

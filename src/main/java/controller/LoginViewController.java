@@ -41,7 +41,7 @@ public class LoginViewController {
         }
         else {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            new ViewLoader().loadMain(stage);
+            ViewLoader.getViewLoader().loadMain(stage);
         }
     }
 

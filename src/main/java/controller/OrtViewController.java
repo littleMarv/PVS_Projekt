@@ -7,11 +7,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import model.ModelService;
 
 public class OrtViewController {
 
     // Dieser Ort ist null beim Anlegen und gefüllt beim Bearbeiten.
-    private Ort aktuellerOrt;
+    private Ort aktuellerOrt = (Ort) ModelService.getInstance().getFocusObject();
 
     // Überschrift der Maske, damit Neu und Bearbeiten unterscheidbar sind
     @FXML
@@ -54,17 +55,11 @@ public class OrtViewController {
 
     @FXML
     void ortAbbrechen() {
-        // Bricht die Eingabe ab und lädt wieder die Ortsliste.
-        AnchorPane hauptContentPane = (AnchorPane) plzTextField.getScene().lookup("#contentPane");
-
-        if (hauptContentPane != null) {
-            Pane ortTabelle = new ViewLoader().loadView("ort_table_view", hauptContentPane);
-            hauptContentPane.getChildren().setAll(ortTabelle);
-
-            AnchorPane.setTopAnchor(ortTabelle, 0.0);
-            AnchorPane.setRightAnchor(ortTabelle, 0.0);
-            AnchorPane.setBottomAnchor(ortTabelle, 0.0);
-            AnchorPane.setLeftAnchor(ortTabelle, 0.0);
+        try {
+            ModelService.getInstance().getVerlauf().removeLast();
+            ViewLoader.getViewLoader().loadView(ModelService.getInstance().getVerlauf().getLast());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

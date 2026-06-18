@@ -8,11 +8,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import model.ModelService;
 
 public class RessortViewController {
 
     // Dieses Ressort ist null beim Anlegen und gefüllt beim Bearbeiten.
-    private Ressort aktuellesRessort;
+    private Ressort aktuellesRessort = (Ressort) ModelService.getInstance().getFocusObject();;
 
     // Überschrift der Maske, damit Neu und Bearbeiten unterscheidbar sind
     @FXML
@@ -49,17 +50,11 @@ public class RessortViewController {
 
     @FXML
     void ressortAbbrechen() {
-        // Bricht die Eingabe ab und lädt wieder die Ressortliste.
-        AnchorPane hauptContentPane = (AnchorPane) ressortBezeichnungTextField.getScene().lookup("#contentPane");
-
-        if (hauptContentPane != null) {
-            Pane ressortTabelle = new ViewLoader().loadView("ressort_table_view",hauptContentPane);
-            hauptContentPane.getChildren().setAll(ressortTabelle);
-
-            AnchorPane.setTopAnchor(ressortTabelle, 0.0);
-            AnchorPane.setRightAnchor(ressortTabelle, 0.0);
-            AnchorPane.setBottomAnchor(ressortTabelle, 0.0);
-            AnchorPane.setLeftAnchor(ressortTabelle, 0.0);
+        try {
+            ModelService.getInstance().getVerlauf().removeLast();
+            ViewLoader.getViewLoader().loadView(ModelService.getInstance().getVerlauf().getLast());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

@@ -18,6 +18,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.util.StringConverter;
+import model.ModelService;
 import org.controlsfx.control.SearchableComboBox;
 
 import java.net.URL;
@@ -30,7 +31,7 @@ import java.util.ResourceBundle;
 public class ProjektViewController implements Initializable {
 
     ObservableList<ProjektMitarbeiter> pmitarbeiters = FXCollections.observableArrayList();
-    private Projekt projekt;
+    private Projekt projekt = (Projekt) ModelService.getInstance().getFocusObject();;
 
     @FXML
     private DatePicker abschlussDatePicker;
@@ -89,21 +90,8 @@ public class ProjektViewController implements Initializable {
     @FXML
     void abbrechenProjekt() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/pvs_projekt/projekt_table_view.fxml"));
-            Pane detailView = loader.load();
-
-
-            // Wichtig für das Layout (Wachstum erlauben)
-            detailView.setMaxWidth(Double.MAX_VALUE);
-            detailView.setMaxHeight(Double.MAX_VALUE);
-            AnchorPane pane = (AnchorPane) projektAbbrechenButton.getScene().lookup("#contentPane");
-            // In die übergebene Pane setzen und verankern
-            pane.getChildren().setAll(detailView);
-            AnchorPane.setTopAnchor(detailView, 0.0);
-            AnchorPane.setRightAnchor(detailView, 0.0);
-            AnchorPane.setBottomAnchor(detailView, 0.0);
-            AnchorPane.setLeftAnchor(detailView, 0.0);
-
+            ModelService.getInstance().getVerlauf().removeLast();
+            ViewLoader.getViewLoader().loadView(ModelService.getInstance().getVerlauf().getLast());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -178,7 +166,7 @@ public class ProjektViewController implements Initializable {
         projektBesetzungTableView.setItems(pmitarbeiters);
         bezeichnungTextField.setText(projekt.getBezeichnung());
 
-        List<Mitarbeiter> alleMitarbeiter = List.of(new MitarbeiterDao().readAll());
+        List<Mitarbeiter> alleMitarbeiter = new MitarbeiterDao().readAll();
         besetzungMitarbeiterComboBox.getItems().setAll(alleMitarbeiter);
         if (projekt != null) {
             aktuelleLeitungLabel.setText(projekt.getProjektleitung()!=null?projekt.getProjektleitung().getAuswahlString():"---");

@@ -18,6 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.util.StringConverter;
+import model.ModelService;
 import org.controlsfx.control.SearchableComboBox;
 
 import java.net.URL;
@@ -60,42 +61,43 @@ public class BenutzerViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        List<Mitarbeiter> alleMitarbeiter = List.of(new MitarbeiterDao().readAll());
+        List<Mitarbeiter> alleMitarbeiter = new MitarbeiterDao().readAll();
         mitarbeiterComboBox.getItems().setAll(alleMitarbeiter);
         List<UserRolle> alleRollen = new UserRollenDao().readAll();
         rolleComboBox.getItems().setAll(alleRollen);
 
         mitarbeiterComboBox.setConverter(new StringConverter<Mitarbeiter>() {
-            @Override public String toString(Mitarbeiter m) { return m != null ? m.getAuswahlString() : ""; }
-            @Override public Mitarbeiter fromString(String s) { return null; }
+            @Override
+            public String toString(Mitarbeiter m) {
+                return m != null ? m.getAuswahlString() : "";
+            }
+
+            @Override
+            public Mitarbeiter fromString(String s) {
+                return null;
+            }
         });
         rolleComboBox.setConverter(new StringConverter<UserRolle>() {
-            @Override public String toString(UserRolle r) { return r != null ? r.getBezeichnung() : ""; }
-            @Override public UserRolle fromString(String s) { return null; }
+            @Override
+            public String toString(UserRolle r) {
+                return r != null ? r.getBezeichnung() : "";
+            }
+
+            @Override
+            public UserRolle fromString(String s) {
+                return null;
+            }
         });
     }
 
     @FXML
     void abbrechenButton() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/pvs_projekt/benutzer_table_view.fxml"));
-            Pane detailView = loader.load();
-
-
-            // Wichtig für das Layout (Wachstum erlauben)
-            detailView.setMaxWidth(Double.MAX_VALUE);
-            detailView.setMaxHeight(Double.MAX_VALUE);
-            AnchorPane pane = (AnchorPane) benutzerAbbrechenButton.getScene().lookup("#contentPane");
-            // In die übergebene Pane setzen und verankern
-            pane.getChildren().setAll(detailView);
-            AnchorPane.setTopAnchor(detailView, 0.0);
-            AnchorPane.setRightAnchor(detailView, 0.0);
-            AnchorPane.setBottomAnchor(detailView, 0.0);
-            AnchorPane.setLeftAnchor(detailView, 0.0);
-
+            ViewLoader.getViewLoader().loadView(ModelService.getInstance().getVerlauf().removeLast());
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
     @FXML
@@ -137,7 +139,7 @@ public class BenutzerViewController implements Initializable {
     }
 
     public void setAktuellerUser(User user) {
-        this.angezeigterUser=user;
+        this.angezeigterUser = user;
 
         if (angezeigterUser.getUserId() == 0) {
             benutzerTitelLabel.setText("Benutzer anlegen");

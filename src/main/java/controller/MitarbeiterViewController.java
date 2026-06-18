@@ -16,6 +16,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import model.ModelService;
 import org.controlsfx.control.SearchableComboBox;
 
 import java.net.URL;
@@ -76,14 +77,13 @@ public class MitarbeiterViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        List<Ressort> alleRessorts = new RessortDao().readAll(); // Lädt die Ressorts für die Auswahl
-        List<Vertrag> alleVertraege = new VertragDao().readAll();
-        List<Ort> alleOrte = new OrtDao().readAll();
         List<String> geschlechter = List.of(new String[]{"Frau", "Divers", "Mann"});
-        ressortComboBox.getItems().setAll(alleRessorts);
-        vertragstypComboBox.getItems().setAll(alleVertraege);
-        ortComboBox.getItems().setAll(alleOrte);
+        ressortComboBox.getItems().setAll(ModelService.getInstance().getAlleRessorts());
+        vertragstypComboBox.getItems().setAll(ModelService.getInstance().getAlleVertraege());
+        ortComboBox.getItems().setAll(ModelService.getInstance().getAlleOrte());
         geschlechtComboBox.getItems().setAll(geschlechter);
+        aktuellerMitarbeiter = (Mitarbeiter) ModelService.getInstance().getFocusObject();
+        ladeMitarbeiter();
     }
 
     @FXML
@@ -118,7 +118,11 @@ public class MitarbeiterViewController implements Initializable {
         aktuellerMitarbeiter.setStrasse(strasseTextField.getText());
         aktuellerMitarbeiter.setHausNr(hausnummerTextField.getText());
         aktuellerMitarbeiter.setOrt(ortComboBox.getValue());
-        aktuellerMitarbeiter.setGebDatum(java.sql.Date.valueOf(geburtsdatumDatePicker.getValue()));
+        if (geburtsdatumDatePicker.getValue() != null) {
+            aktuellerMitarbeiter.setGebDatum(java.sql.Date.valueOf(geburtsdatumDatePicker.getValue()));
+        } else {
+            aktuellerMitarbeiter.setGebDatum(null);
+        }
         aktuellerMitarbeiter.setGeschlecht(geschlechtComboBox.getValue());
         aktuellerMitarbeiter.setRessort(ressortComboBox.getValue());
         aktuellerMitarbeiter.setVertrag(vertragstypComboBox.getValue());
@@ -127,23 +131,11 @@ public class MitarbeiterViewController implements Initializable {
     }
 
     @FXML
-    public void abrechenButtonClick(){
+    public void abrechenButtonClick() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/pvs_projekt/mitarbeiter_table_view.fxml"));
-            Pane detailView = loader.load();
-
-
-            // Wichtig für das Layout (Wachstum erlauben)
-            detailView.setMaxWidth(Double.MAX_VALUE);
-            detailView.setMaxHeight(Double.MAX_VALUE);
-            AnchorPane pane = (AnchorPane) mitarbeiterAbbrechenButton.getScene().lookup("#contentPane");
-            // In die übergebene Pane setzen und verankern
-            pane.getChildren().setAll(detailView);
-            AnchorPane.setTopAnchor(detailView, 0.0);
-            AnchorPane.setRightAnchor(detailView, 0.0);
-            AnchorPane.setBottomAnchor(detailView, 0.0);
-            AnchorPane.setLeftAnchor(detailView, 0.0);
-
+            ModelService.getInstance().getVerlauf().removeLast();
+            ViewLoader.getViewLoader().loadView(ModelService.getInstance().getVerlauf().getLast());
+            System.out.println();
         } catch (Exception e) {
             e.printStackTrace();
         }

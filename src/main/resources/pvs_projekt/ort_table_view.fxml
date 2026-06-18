@@ -14,7 +14,7 @@
     <!-- Überschrift der Tabellenansicht -->
     <Label layoutX="30.0" layoutY="25.0" text="Ortsliste" styleClass="view-title" />
     <!-- Suchfeld für die Suche nach Orten -->
-    <TextField fx:id="ortSucheTextField" layoutX="30.0" layoutY="75.0" onKeyReleased="#ortSuche" prefHeight="28.0" prefWidth="220.0" promptText="Ort suchen" styleClass="input-field" />
+    <TextField fx:id="ortSucheTextField" layoutX="30.0" layoutY="75.0" prefHeight="28.0" prefWidth="220.0" promptText="Ort suchen" styleClass="input-field" />
     <!-- Öffnet die Einzelansicht für einen neuen Ort -->
     <Button fx:id="ortNeuButton" layoutX="272.0" layoutY="75.0" onAction="#ortNeuOeffnen" prefHeight="28.0" prefWidth="95.0" text="Neu" styleClass="primary-button" />
     <!-- Bearbeitet den aktuell ausgewählten Ort -->
